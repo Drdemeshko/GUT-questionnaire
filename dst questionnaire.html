@@ -3,84 +3,95 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Анкета ДСТ · Dr. Demeshko</title>
+<title>Анкета «ДСТ» · Dr. Demeshko</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f4f0; color: #1a1a1a; min-height: 100vh; }
-.container { max-width: 640px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
-.brand { font-size: 11px; letter-spacing: 0.12em; color: #888; text-transform: uppercase; text-align: center; margin-bottom: 0.5rem; }
-h1 { font-size: 24px; font-weight: 500; text-align: center; margin-bottom: 0.5rem; }
-.subtitle { font-size: 15px; color: #666; text-align: center; line-height: 1.6; margin-bottom: 1.5rem; }
-.card { background: #fff; border-radius: 16px; padding: 1.5rem; margin-bottom: 1rem; border: 1px solid #e8e6e0; }
+.container { max-width: 640px; margin: 0 auto; padding: 0 0 3rem; }
+.hero { width: 100%; height: 160px; display: block; }
+.header { text-align: center; padding: 1.5rem 1rem 1rem; }
+.brand { font-size: 11px; letter-spacing: 0.12em; color: #888; margin-bottom: 0.5rem; text-transform: uppercase; }
+h1 { font-size: 26px; font-weight: 500; margin-bottom: 0.5rem; }
+.header p { font-size: 15px; color: #666; line-height: 1.6; }
+.card { background: #fff; border-radius: 16px; padding: 1.5rem; margin: 0 1rem 1rem; border: 1px solid #e8e6e0; }
 .info-box { background: #f0ede8; border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1rem; font-size: 14px; color: #555; line-height: 1.6; }
 .info-box strong { color: #1a1a1a; }
-label { font-size: 14px; color: #666; display: block; margin-bottom: 6px; }
-input[type="text"] { width: 100%; padding: 12px 16px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; outline: none; background: #fafafa; }
-input[type="text"]:focus { border-color: #333; background: #fff; }
-select { width: 100%; padding: 12px 16px; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; outline: none; background: #fafafa; appearance: none; }
-.btn-primary { width: 100%; padding: 16px; background: #1a1a1a; color: #fff; border: none; border-radius: 12px; font-size: 16px; cursor: pointer; margin-top: 1rem; font-weight: 500; transition: opacity 0.15s; }
-.btn-primary:hover { opacity: 0.85; }
-.progress-wrap { margin-bottom: 1.5rem; }
+.meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 1rem 0; font-size: 14px; }
+input[type="text"] { width: 100%; padding: 12px 16px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; margin-top: 6px; outline: none; background: #fafafa; }
+input[type="text"]:focus { border-color: #2d5a27; background: #fff; }
+select { width: 100%; padding: 12px 16px; border: 1px solid #ddd; border-radius: 10px; font-size: 15px; outline: none; background: #fafafa; appearance: none; margin-top: 6px; }
+.btn-primary { width: 100%; padding: 16px; background: #2d5a27; color: #fff; border: none; border-radius: 12px; font-size: 16px; cursor: pointer; margin-top: 1rem; font-weight: 500; }
+.progress-wrap { margin: 1rem 1rem 1.5rem; }
 .progress-top { display: flex; justify-content: space-between; font-size: 12px; color: #888; margin-bottom: 6px; }
 .progress-bar-bg { height: 3px; background: #e8e6e0; border-radius: 2px; }
-.progress-bar-fill { height: 3px; background: #1a1a1a; border-radius: 2px; transition: width 0.3s; }
-.section-header { background: #1a1a1a; color: #fff; border-radius: 12px; padding: 12px 16px; margin-bottom: 1rem; font-size: 15px; font-weight: 500; }
-.section-header .sec-num { font-size: 11px; opacity: 0.6; display: block; margin-bottom: 2px; }
-.q-card { background: #fff; border-radius: 16px; padding: 1.5rem; border: 1px solid #e8e6e0; margin-bottom: 1rem; }
+.progress-bar-fill { height: 3px; background: #2d5a27; border-radius: 2px; transition: width 0.3s; }
+.q-card { background: #fff; border-radius: 16px; padding: 1.5rem; border: 1px solid #e8e6e0; margin: 0 1rem 1rem; }
 .q-num { font-size: 12px; color: #aaa; margin-bottom: 0.5rem; }
 .q-text { font-size: 17px; font-weight: 500; line-height: 1.5; margin-bottom: 0.5rem; }
 .q-hint { font-size: 13px; color: #888; margin-bottom: 1.25rem; line-height: 1.5; }
 .opts { display: flex; flex-direction: column; gap: 8px; }
-.opt { background: #fafafa; border: 1px solid #e0deda; border-radius: 10px; padding: 13px 16px; cursor: pointer; font-size: 15px; text-align: left; transition: all 0.15s; color: #1a1a1a; display: flex; align-items: flex-start; gap: 10px; }
-.opt:hover { background: #f0ede8; border-color: #ccc; }
-.opt.selected { background: #f0ede8; border-color: #1a1a1a; font-weight: 500; }
-.opt input[type="checkbox"] { margin-top: 2px; flex-shrink: 0; width: 18px; height: 18px; cursor: pointer; }
-.nav-btns { display: flex; gap: 8px; }
+.opt { background: #fafafa; border: 1px solid #e0deda; border-radius: 10px; padding: 13px 16px; cursor: pointer; font-size: 15px; text-align: left; color: #1a1a1a; transition: all 0.15s; }
+.opt:hover { background: #f0ede8; }
+.opt.selected { background: #eaf3de; border-color: #2d5a27; font-weight: 500; }
+.nav-btns { display: flex; gap: 8px; margin: 0 1rem; }
 .btn-back { flex: 1; padding: 13px; background: #fff; border: 1px solid #e0deda; border-radius: 12px; font-size: 15px; cursor: pointer; color: #666; }
 .btn-back:disabled { opacity: 0.3; cursor: default; }
-.btn-next { flex: 2; padding: 13px; background: #1a1a1a; color: #fff; border: none; border-radius: 12px; font-size: 15px; cursor: pointer; font-weight: 500; }
-.result-section { margin-bottom: 1rem; }
-.result-main { background: #fff; border-radius: 16px; padding: 1.5rem; border: 1px solid #e8e6e0; margin-bottom: 1rem; text-align: center; }
+.btn-next { flex: 2; padding: 13px; background: #2d5a27; color: #fff; border: none; border-radius: 12px; font-size: 15px; cursor: pointer; font-weight: 500; }
+.result-main { background: #fff; border-radius: 16px; padding: 1.5rem; margin: 0 1rem 1rem; text-align: center; border: 1px solid #e8e6e0; }
 .result-degree { font-size: 22px; font-weight: 500; margin-bottom: 0.25rem; }
 .result-score { font-size: 14px; color: #888; }
-.sys-row { border-radius: 12px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.sys-row { border-radius: 12px; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; margin: 0 1rem 8px; }
 .sys-row .sys-name { font-size: 14px; font-weight: 500; }
 .sys-row .sys-level { font-size: 12px; opacity: 0.8; margin-top: 2px; }
 .sys-row .sys-score { font-size: 20px; font-weight: 500; }
 .level-high { background: #FCEBEB; color: #A32D2D; border: 1px solid #F09595; }
 .level-mid { background: #FAEEDA; color: #854F0B; border: 1px solid #EF9F27; }
 .level-low { background: #EAF3DE; color: #3B6D11; border: 1px solid #97C459; }
-.tip-box { background: #f5f4f0; border-radius: 12px; padding: 1rem 1.25rem; font-size: 13px; color: #666; line-height: 1.6; margin-top: 1rem; }
+.tip-box { background: #f5f4f0; border-radius: 12px; padding: 1rem 1.25rem; margin: 1rem; font-size: 13px; color: #666; line-height: 1.6; }
 .tip-box strong { color: #1a1a1a; }
+.sec-label-bar { background: #1a1a1a; color: #fff; border-radius: 10px; padding: 8px 14px; margin: 0 1rem 1rem; font-size: 13px; font-weight: 500; }
 .screen { display: none; }
 .screen.active { display: block; }
-.beighton-demo { background: #f8f7f4; border-radius: 10px; padding: 12px; margin-bottom: 1rem; font-size: 13px; color: #555; line-height: 1.7; }
+label { font-size: 14px; color: #666; display: block; margin-top: 1rem; }
 </style>
 </head>
 <body>
 <div class="container">
 
-<!-- INTRO -->
 <div id="screen-intro" class="screen active">
-  <div style="text-align:center;padding:2rem 0 1rem;">
+  <svg class="hero" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 160" preserveAspectRatio="xMidYMid slice">
+    <rect width="800" height="160" fill="#2d5a27"/>
+    <g fill="#3a7a32" opacity="0.7"><circle cx="80" cy="80" r="45"/><circle cx="125" cy="80" r="45"/><circle cx="102" cy="48" r="45"/><circle cx="102" cy="112" r="45"/></g>
+    <g fill="#4a9a42" opacity="0.5"><circle cx="280" cy="65" r="38"/><circle cx="318" cy="65" r="38"/><circle cx="299" cy="38" r="38"/><circle cx="299" cy="92" r="38"/></g>
+    <g fill="#5ab050" opacity="0.4"><circle cx="480" cy="90" r="42"/><circle cx="522" cy="90" r="42"/><circle cx="501" cy="58" r="42"/><circle cx="501" cy="122" r="42"/></g>
+    <g fill="#3a7a32" opacity="0.35"><circle cx="660" cy="55" r="35"/><circle cx="695" cy="55" r="35"/><circle cx="677" cy="30" r="35"/><circle cx="677" cy="80" r="35"/></g>
+    <g fill="#7acc70" opacity="0.2"><circle cx="760" cy="120" r="28"/><circle cx="788" cy="120" r="28"/><circle cx="774" cy="96" r="28"/><circle cx="774" cy="144" r="28"/></g>
+  </svg>
+  <div class="header">
     <div class="brand">Dr. Diana Demeshko</div>
-    <h1>Анкета ДСТ</h1>
-    <p class="subtitle">Дисплазия соединительной ткани — оценка степени и профиля поражения</p>
-  </div>
-  <div class="info-box">
-    <strong>Что это такое?</strong><br>
-    Соединительная ткань — это «каркас» тела. Она есть в суставах, коже, сосудах, кишечнике, связках. Если она от природы более рыхлая или растяжимая — это называется дисплазией соединительной ткани (ДСТ). Это не болезнь, а особенность, которую важно учитывать при работе со здоровьем.
-  </div>
-  <div class="info-box">
-    <strong>Как заполнять?</strong><br>
-    Отвечай честно — как есть сейчас или как было в принципе. Некоторые вопросы просят проверить что-то прямо сейчас — сделай это. Времени нужно около 10–15 минут.
+    <h1>Анкета «ДСТ»</h1>
+    <p>Дисплазия соединительной ткани — оценка степени и профиля поражения</p>
   </div>
   <div class="card">
-    <label>Твоё имя</label>
+    <div class="info-box">
+      <strong>Что это такое?</strong><br>
+      Соединительная ткань — это «каркас» тела. Она есть в суставах, коже, сосудах, кишечнике и связках. Если она от природы более рыхлая или растяжимая — это называется дисплазией соединительной ткани (ДСТ). Это не болезнь, а особенность строения, которую важно учитывать.
+    </div>
+    <div class="info-box">
+      <strong>Как заполнять?</strong><br>
+      Отвечай честно — как есть сейчас или как было в принципе. Некоторые вопросы просят проверить что-то прямо сейчас — сделай это. Времени нужно около 10–15 минут.
+    </div>
+    <div class="meta-grid">
+      <div><span style="color:#888">Разделов: </span><strong>7</strong></div>
+      <div><span style="color:#888">Вопросов: </span><strong>~60</strong></div>
+      <div><span style="color:#888">Время: </span><strong>10–15 мин</strong></div>
+      <div><span style="color:#888">Результат: </span><strong>сразу</strong></div>
+    </div>
+    <label>Твоё имя и фамилия</label>
     <input type="text" id="user-name" placeholder="Имя Фамилия">
-    <label style="margin-top:1rem;">Возраст</label>
+    <label>Возраст</label>
     <input type="text" id="user-age" placeholder="Например: 30">
-    <label style="margin-top:1rem;">Биологический пол</label>
+    <label>Биологический пол</label>
     <select id="user-sex">
       <option value="">Выбери...</option>
       <option value="f">Женский</option>
@@ -90,403 +101,160 @@ select { width: 100%; padding: 12px 16px; border: 1px solid #ddd; border-radius:
   </div>
 </div>
 
-<!-- QUESTION -->
 <div id="screen-question" class="screen">
+  <div style="height:1rem"></div>
   <div class="progress-wrap">
-    <div class="progress-top">
-      <span id="sec-label"></span>
-      <span id="prog-label"></span>
-    </div>
-    <div class="progress-bar-bg">
-      <div class="progress-bar-fill" id="prog-fill" style="width:0%"></div>
-    </div>
+    <div class="progress-top"><span id="sec-label"></span><span id="prog-label"></span></div>
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="prog-fill" style="width:0%"></div></div>
   </div>
-  <div id="q-container"></div>
-  <div class="nav-btns" style="margin-top:1rem;">
+  <div class="q-card">
+    <div class="q-num" id="q-num"></div>
+    <div class="q-text" id="q-text"></div>
+    <div class="q-hint" id="q-hint"></div>
+    <div class="opts" id="q-opts"></div>
+  </div>
+  <div class="nav-btns">
     <button class="btn-back" id="btn-back" onclick="prevQ()">← Назад</button>
     <button class="btn-next" onclick="nextQ()">Далее →</button>
   </div>
 </div>
 
-<!-- RESULT -->
 <div id="screen-result" class="screen">
-  <div style="text-align:center;padding:1.5rem 0 1rem;">
+  <div style="text-align:center;padding:1.5rem 1rem 1rem;">
     <div class="brand">Dr. Diana Demeshko</div>
-    <h1 style="font-size:22px;">Результаты анкеты ДСТ</h1>
-    <p id="res-meta" style="font-size:14px;color:#888;margin-top:4px;"></p>
+    <h1 style="font-size:22px;font-weight:500;margin:0.5rem 0 0.25rem">Результаты анкеты «ДСТ»</h1>
+    <p id="res-meta" style="font-size:14px;color:#888"></p>
   </div>
   <div id="res-main"></div>
-  <div class="tip-box">
-    <strong>Как передать результат доктору:</strong><br>
-    Сделай скриншот этой страницы и отправь Dr. Demeshko перед консультацией.
-  </div>
+  <div id="res-systems"></div>
+  <div class="tip-box"><strong>Как передать результат доктору:</strong><br>Сделай скриншот этой страницы и отправь Dr. Demeshko перед консультацией.</div>
 </div>
 
 </div>
-
 <script>
-// ============================================================
-// ДАННЫЕ АНКЕТЫ
-// ============================================================
-
-const SECTIONS = [
-  {
-    id: 'beighton',
-    name: 'Суставы и гипермобильность',
-    num: '1',
-    intro: 'Тест Beighton — международный стандарт оценки гипермобильности суставов. Проверь каждый пункт прямо сейчас.',
-    maxScore: 30,
-    questions: [
-      { id: 'b1', text: 'Мизинец правой руки', hint: 'Попробуй отогнуть мизинец назад. Угол больше 90°?', type: 'yn', score: 1 },
-      { id: 'b2', text: 'Мизинец левой руки', hint: 'То же самое с левой рукой.', type: 'yn', score: 1 },
-      { id: 'b3', text: 'Большой палец правой руки', hint: 'Попробуй прижать большой палец к предплечью.', type: 'yn', score: 1 },
-      { id: 'b4', text: 'Большой палец левой руки', hint: 'То же с левой рукой.', type: 'yn', score: 1 },
-      { id: 'b5', text: 'Правый локоть', hint: 'Вытяни руку. Локоть переразгибается больше чем на 10°?', type: 'yn', score: 1 },
-      { id: 'b6', text: 'Левый локоть', hint: 'То же с левым локтем.', type: 'yn', score: 1 },
-      { id: 'b7', text: 'Правое колено', hint: 'Встань прямо. Колено уходит назад больше чем на 10°?', type: 'yn', score: 1 },
-      { id: 'b8', text: 'Левое колено', hint: 'То же с левым коленом.', type: 'yn', score: 1 },
-      { id: 'b9', text: 'Наклон вперёд', hint: 'Наклонись с прямыми ногами. Ладони полностью ложатся на пол?', type: 'yn', score: 1 },
-      { id: 'b10', text: 'Привычные вывихи или подвывихи', hint: 'Бывали ли вывихи суставов без серьёзной травмы?', type: 'yn', score: 2 },
-      { id: 'b11', text: 'Частые растяжения связок', hint: 'Регулярно подворачиваешь ногу, растягиваешь связки?', type: 'yn', score: 1 },
-      { id: 'b12', text: 'Признак запястья', hint: 'Обхвати одно запястье пальцами другой руки. Большой палец и мизинец заходят друг на друга?', type: 'yn', score: 2 },
-      { id: 'b13', text: 'Боль в суставах без видимой причины', hint: 'Суставы болят или ноют без травмы или воспаления?', type: 'freq', scores: [0,1,2,3] },
-      { id: 'b14', text: 'Хруст в суставах', hint: 'Суставы хрустят при движении?', type: 'freq', scores: [0,1,2,3] },
-      { id: 'b15', text: 'Ощущение нестабильности суставов', hint: 'Чувствуешь что суставы «ходят» или нестабильны?', type: 'freq', scores: [0,1,2,3] },
-    ]
-  },
-  {
-    id: 'skin',
-    name: 'Кожа и соединительная ткань',
-    num: '2',
-    intro: 'Признаки слабости соединительной ткани на коже.',
-    maxScore: 25,
-    questions: [
-      { id: 's1', text: 'Стрии (растяжки)', hint: 'Есть растяжки на теле без связи с беременностью или резким набором веса?', type: 'yn', score: 3 },
-      { id: 's2', text: 'Гиперэластичная кожа', hint: 'Попробуй оттянуть кожу на тыльной стороне ладони. Она легко тянется на 2+ см?', type: 'yn', score: 3 },
-      { id: 's3', text: 'Тонкая прозрачная кожа', hint: 'На руках или груди хорошо видны вены и сосуды через кожу?', type: 'yn', score: 2 },
-      { id: 's4', text: 'Лёгкое образование синяков', hint: 'Синяки появляются от лёгкого удара или давления?', type: 'yn', score: 2 },
-      { id: 's5', text: 'Медленное заживление ран', hint: 'Царапины и порезы заживают дольше обычного?', type: 'yn', score: 2 },
-      { id: 's6', text: 'Атрофические рубцы', hint: 'Рубцы после порезов выглядят как тонкая «папиросная бумага», запавшие или блестящие?', type: 'yn', score: 3 },
-      { id: 's7', text: 'Мягкая бархатистая кожа', hint: 'Кожа очень мягкая и бархатистая на ощупь, как у маленького ребёнка?', type: 'yn', score: 1 },
-      { id: 's8', text: 'Сухость и шелушение кожи', hint: 'Кожа регулярно сухая, шелушится без видимой причины?', type: 'freq', scores: [0,1,2,3] },
-      { id: 's9', text: 'Акне или высыпания у взрослых', hint: 'Есть регулярные высыпания или акне во взрослом возрасте?', type: 'freq', scores: [0,1,2,3] },
-      { id: 's10', text: 'Ломкость ногтей', hint: 'Ногти ломаются, расслаиваются, плохо растут?', type: 'freq', scores: [0,1,2,3] },
-    ]
-  },
-  {
-    id: 'cardio',
-    name: 'Сердечно-сосудистая система',
-    num: '3',
-    intro: 'Соединительная ткань — основа сосудов и клапанов сердца. Эти признаки важны.',
-    maxScore: 25,
-    questions: [
-      { id: 'c1', text: 'Пролапс митрального клапана', hint: 'Был ли подтверждён диагноз по УЗИ сердца?', type: 'yn', score: 5 },
-      { id: 'c2', text: 'Варикозное расширение вен', hint: 'Есть варикоз на ногах — видимые расширенные вены?', type: 'yn', score: 3 },
-      { id: 'c3', text: 'Геморрой', hint: 'Есть геморроидальные узлы?', type: 'yn', score: 2 },
-      { id: 'c4', text: 'Сердцебиение без нагрузки', hint: 'Бывает ли ощущение частого или неровного сердцебиения в покое?', type: 'freq', scores: [0,1,2,3] },
-      { id: 'c5', text: 'Низкое давление', hint: 'Давление регулярно ниже 100/60? Головокружение при резком вставании?', type: 'freq', scores: [0,1,2,3] },
-      { id: 'c6', text: 'Обмороки или предобморочные состояния', hint: 'Бывают ли обмороки или ощущение что вот-вот потеряешь сознание?', type: 'freq', scores: [0,1,2,3] },
-      { id: 'c7', text: 'Сосудистые звёздочки на ногах', hint: 'Есть телеангиэктазии — мелкие красные или синие сосудистые сеточки?', type: 'yn', score: 2 },
-      { id: 'c8', text: 'Холодные руки и ноги', hint: 'Конечности постоянно холодные даже в тепле?', type: 'freq', scores: [0,1,2,3] },
-      { id: 'c9', text: 'Аневризма сосудов в анамнезе', hint: 'Был ли поставлен диагноз аневризмы (расширения сосуда)?', type: 'yn', score: 5 },
-    ]
-  },
-  {
-    id: 'gut',
-    name: 'ЖКТ и внутренние органы',
-    num: '4',
-    intro: 'Соединительная ткань удерживает внутренние органы. При ДСТ они могут опускаться или работать иначе.',
-    maxScore: 25,
-    questions: [
-      { id: 'g1', text: 'Изжога или ГЭРБ', hint: 'Регулярная изжога, кислота в горле, особенно после еды или лёжа?', type: 'freq', scores: [0,1,2,3] },
-      { id: 'g2', text: 'Вздутие и газообразование', hint: 'Живот регулярно вздут, много газов?', type: 'freq', scores: [0,1,2,3] },
-      { id: 'g3', text: 'Запоры', hint: 'Стул реже 1 раза в день или с трудом?', type: 'freq', scores: [0,1,2,3] },
-      { id: 'g4', text: 'Синдром раздражённого кишечника', hint: 'Чередование запора и диареи, спазмы, связь с едой или стрессом?', type: 'freq', scores: [0,1,2,3] },
-      { id: 'g5', text: 'Птоз органов', hint: 'Был ли поставлен диагноз опущения желудка, почек или матки?', type: 'yn', score: 4 },
-      { id: 'g6', text: 'Грыжи', hint: 'Есть или были грыжи — пищеводного отверстия, паховые, пупочные?', type: 'yn', score: 3 },
-      { id: 'g7', text: 'Тошнота без видимой причины', hint: 'Бывает тошнота не связанная с едой или болезнью?', type: 'freq', scores: [0,1,2,3] },
-      { id: 'g8', text: 'Боли в животе без диагноза', hint: 'Регулярные боли в животе, причину которых не нашли?', type: 'freq', scores: [0,1,2,3] },
-    ]
-  },
-  {
-    id: 'musculo',
-    name: 'Кости и мышцы',
-    num: '5',
-    intro: 'Признаки со стороны опорно-двигательного аппарата.',
-    maxScore: 25,
-    questions: [
-      { id: 'm1', text: 'Сколиоз или кифоз', hint: 'Есть искривление позвоночника — подтверждённое или заметное визуально?', type: 'yn', score: 3 },
-      { id: 'm2', text: 'Плоскостопие', hint: 'Есть продольное или поперечное плоскостопие?', type: 'yn', score: 2 },
-      { id: 'm3', text: 'Деформация грудной клетки', hint: 'Грудная клетка воронкообразная (вдавленная) или килевидная (выступающая)?', type: 'yn', score: 3 },
-      { id: 'm4', text: 'Вальгусные стопы («косточки»)', hint: 'Есть выпирающие «косточки» у большого пальца?', type: 'yn', score: 2 },
-      { id: 'm5', text: 'Боли в спине', hint: 'Боли в спине или пояснице регулярно?', type: 'freq', scores: [0,1,2,3] },
-      { id: 'm6', text: 'Межпозвоночные грыжи', hint: 'Есть подтверждённые грыжи дисков?', type: 'yn', score: 3 },
-      { id: 'm7', text: 'Мышечная слабость', hint: 'Общая слабость мышц, быстрое утомление при физической нагрузке?', type: 'freq', scores: [0,1,2,3] },
-      { id: 'm8', text: 'Судороги в мышцах', hint: 'Регулярные судороги — особенно ночные, в икрах?', type: 'freq', scores: [0,1,2,3] },
-      { id: 'm9', text: 'Астеническое телосложение', hint: 'Худощавое телосложение, тонкие кости, сложно набрать мышечную массу?', type: 'yn', score: 1 },
-    ]
-  },
-  {
-    id: 'neuro',
-    name: 'Нервная система и вегетатика',
-    num: '6',
-    intro: 'При ДСТ часто страдает вегетативная нервная система — регуляция давления, температуры, сна.',
-    maxScore: 25,
-    questions: [
-      { id: 'n1', text: 'Вегетативные кризы (ВСД)', hint: 'Бывают приступы сердцебиения, потливости, страха, дрожи — без видимой причины?', type: 'freq', scores: [0,1,2,3] },
-      { id: 'n2', text: 'Головные боли и мигрени', hint: 'Регулярные головные боли или мигрени?', type: 'freq', scores: [0,1,2,3] },
-      { id: 'n3', text: 'Тревожность и паническиe атаки', hint: 'Повышенная тревожность, панические атаки?', type: 'freq', scores: [0,1,2,3] },
-      { id: 'n4', text: 'Нарушения сна', hint: 'Трудно засыпаешь, просыпаешься ночью, сон поверхностный?', type: 'freq', scores: [0,1,2,3] },
-      { id: 'n5', text: 'Синдром беспокойных ног', hint: 'Неприятные ощущения в ногах вечером или ночью, желание двигать ногами?', type: 'freq', scores: [0,1,2,3] },
-      { id: 'n6', text: 'Онемение или покалывание конечностей', hint: 'Руки или ноги немеют, покалывают без видимой причины?', type: 'freq', scores: [0,1,2,3] },
-      { id: 'n7', text: 'Хроническая усталость', hint: 'Усталость которая не проходит после отдыха и сна?', type: 'freq', scores: [0,1,2,3] },
-      { id: 'n8', text: 'POTS — учащение пульса при вставании', hint: 'Пульс резко учащается когда встаёшь с кровати или стула? Головокружение при вставании?', type: 'freq', scores: [0,1,2,3] },
-    ]
-  },
-  {
-    id: 'gyn',
-    name: 'Гинекология',
-    num: '7',
-    intro: 'Только для женщин. Если ты мужчина — нажми «Далее» и пропусти этот раздел.',
-    maxScore: 20,
-    femaleOnly: true,
-    questions: [
-      { id: 'gy1', text: 'Болезненные менструации', hint: 'Выраженная боль во время менструации?', type: 'freq', scores: [0,1,2,3] },
-      { id: 'gy2', text: 'Обильные менструации', hint: 'Очень обильные выделения, смена прокладки/тампона чаще чем раз в 2 часа?', type: 'freq', scores: [0,1,2,3] },
-      { id: 'gy3', text: 'Эндометриоз', hint: 'Был ли поставлен диагноз эндометриоз?', type: 'yn', score: 3 },
-      { id: 'gy4', text: 'Пролапс органов малого таза', hint: 'Было ли опущение матки, мочевого пузыря или прямой кишки?', type: 'yn', score: 4 },
-      { id: 'gy5', text: 'Недержание мочи', hint: 'Бывает непроизвольное мочеиспускание при кашле, смехе, физической нагрузке?', type: 'freq', scores: [0,1,2,3] },
-      { id: 'gy6', text: 'Выкидыши или преждевременные роды', hint: 'Были ли выкидыши или преждевременные роды в анамнезе?', type: 'yn', score: 3 },
-      { id: 'gy7', text: 'ПМС с выраженными симптомами', hint: 'Предменструальный синдром сильно влияет на самочувствие и настроение?', type: 'freq', scores: [0,1,2,3] },
-    ]
-  }
+const SECTIONS=[
+  {id:'beighton',name:'1. Суставы и гипермобильность',maxScore:30,
+   qs:[
+     {id:'b1',text:'Мизинец правой руки',hint:'Попробуй отогнуть мизинец назад — угол больше 90°?',type:'yn',score:1},
+     {id:'b2',text:'Мизинец левой руки',hint:'То же самое с левой рукой.',type:'yn',score:1},
+     {id:'b3',text:'Большой палец правой руки',hint:'Попробуй прижать большой палец к предплечью.',type:'yn',score:1},
+     {id:'b4',text:'Большой палец левой руки',hint:'То же с левой рукой.',type:'yn',score:1},
+     {id:'b5',text:'Правый локоть',hint:'Вытяни руку — локоть переразгибается больше чем на 10°?',type:'yn',score:1},
+     {id:'b6',text:'Левый локоть',hint:'То же с левым локтем.',type:'yn',score:1},
+     {id:'b7',text:'Правое колено',hint:'Встань прямо — колено уходит назад больше чем на 10°?',type:'yn',score:1},
+     {id:'b8',text:'Левое колено',hint:'То же с левым коленом.',type:'yn',score:1},
+     {id:'b9',text:'Наклон вперёд с прямыми ногами',hint:'Ладони полностью ложатся на пол?',type:'yn',score:1},
+     {id:'b10',text:'Привычные вывихи или подвывихи суставов',hint:'Бывали вывихи без серьёзной травмы?',type:'yn',score:2},
+     {id:'b11',text:'Частые растяжения связок',hint:'Регулярно подворачиваешь ногу или растягиваешь связки?',type:'yn',score:1},
+     {id:'b12',text:'Признак запястья',hint:'Обхвати запястье пальцами другой руки — большой палец и мизинец заходят друг на друга?',type:'yn',score:2},
+     {id:'b13',text:'Боль в суставах без видимой причины',hint:'Суставы болят или ноют без травмы или воспаления?',type:'freq',scores:[0,1,2,3]},
+     {id:'b14',text:'Хруст в суставах при движении',hint:'',type:'freq',scores:[0,1,2,3]},
+     {id:'b15',text:'Ощущение нестабильности или «разболтанности» суставов',hint:'',type:'freq',scores:[0,1,2,3]}
+   ]},
+  {id:'skin',name:'2. Кожа и соединительная ткань',maxScore:25,
+   qs:[
+     {id:'s1',text:'Растяжки (стрии) на теле',hint:'Не связанные с беременностью или резким набором веса?',type:'yn',score:3},
+     {id:'s2',text:'Кожа очень легко тянется',hint:'Попробуй оттянуть кожу на тыльной стороне ладони — она легко тянется на 2+ см?',type:'yn',score:3},
+     {id:'s3',text:'Тонкая, почти прозрачная кожа',hint:'На руках или груди хорошо видны вены и сосуды?',type:'yn',score:2},
+     {id:'s4',text:'Синяки появляются от лёгкого касания или давления',hint:'',type:'yn',score:2},
+     {id:'s5',text:'Царапины и порезы заживают медленно',hint:'',type:'yn',score:2},
+     {id:'s6',text:'Рубцы выглядят как тонкая бумага — запавшие или блестящие',hint:'Атрофические рубцы после порезов или операций.',type:'yn',score:3},
+     {id:'s7',text:'Кожа очень мягкая и бархатистая на ощупь',hint:'',type:'yn',score:1},
+     {id:'s8',text:'Сухость и шелушение кожи',hint:'',type:'freq',scores:[0,1,2,3]},
+     {id:'s9',text:'Акне или высыпания во взрослом возрасте',hint:'',type:'freq',scores:[0,1,2,3]},
+     {id:'s10',text:'Ломкость или расслоение ногтей',hint:'',type:'freq',scores:[0,1,2,3]}
+   ]},
+  {id:'cardio',name:'3. Сердце и сосуды',maxScore:25,
+   qs:[
+     {id:'c1',text:'Пролапс митрального клапана',hint:'Подтверждён по УЗИ сердца?',type:'yn',score:5},
+     {id:'c2',text:'Варикозное расширение вен на ногах',hint:'Видимые расширенные или узловатые вены?',type:'yn',score:3},
+     {id:'c3',text:'Геморрой',hint:'',type:'yn',score:2},
+     {id:'c4',text:'Сердцебиение в покое — без физической нагрузки',hint:'Ощущение частого или неровного сердцебиения когда ничего не делаешь?',type:'freq',scores:[0,1,2,3]},
+     {id:'c5',text:'Низкое давление или головокружение при вставании',hint:'Давление ниже 100/60 или темнеет в глазах когда резко встаёшь?',type:'freq',scores:[0,1,2,3]},
+     {id:'c6',text:'Обмороки или ощущение что вот-вот потеряешь сознание',hint:'',type:'freq',scores:[0,1,2,3]},
+     {id:'c7',text:'Сосудистые звёздочки или сеточки на ногах',hint:'Мелкие красные или синие сосудистые рисунки под кожей.',type:'yn',score:2},
+     {id:'c8',text:'Постоянно холодные руки и ноги',hint:'Даже в тепле или при нормальной температуре тела?',type:'freq',scores:[0,1,2,3]},
+     {id:'c9',text:'Аневризма сосудов',hint:'Поставлен диагноз расширения сосуда?',type:'yn',score:5}
+   ]},
+  {id:'gut',name:'4. ЖКТ и внутренние органы',maxScore:25,
+   qs:[
+     {id:'g1',text:'Изжога или кислый заброс в горло',hint:'Особенно после еды или в положении лёжа?',type:'freq',scores:[0,1,2,3]},
+     {id:'g2',text:'Вздутие живота и повышенное газообразование',hint:'',type:'freq',scores:[0,1,2,3]},
+     {id:'g3',text:'Запоры — стул реже 1 раза в день или с трудом',hint:'',type:'freq',scores:[0,1,2,3]},
+     {id:'g4',text:'Чередование запора и диареи, спазмы, связь с едой или стрессом',hint:'Похоже на синдром раздражённого кишечника?',type:'freq',scores:[0,1,2,3]},
+     {id:'g5',text:'Опущение органов — желудка, почек или матки',hint:'Поставлен такой диагноз?',type:'yn',score:4},
+     {id:'g6',text:'Грыжи — пищеводного отверстия, паховые, пупочные',hint:'Есть или были?',type:'yn',score:3},
+     {id:'g7',text:'Тошнота без видимой причины',hint:'Не связанная с едой, беременностью или болезнью?',type:'freq',scores:[0,1,2,3]},
+     {id:'g8',text:'Боли в животе без установленного диагноза',hint:'Регулярные боли, причину которых не нашли?',type:'freq',scores:[0,1,2,3]}
+   ]},
+  {id:'musculo',name:'5. Кости и мышцы',maxScore:25,
+   qs:[
+     {id:'m1',text:'Сколиоз или кифоз — искривление позвоночника',hint:'Подтверждённое или заметное визуально?',type:'yn',score:3},
+     {id:'m2',text:'Плоскостопие',hint:'Продольное или поперечное?',type:'yn',score:2},
+     {id:'m3',text:'Деформация грудной клетки',hint:'Вдавленная («воронкообразная») или выступающая («килевидная»)?',type:'yn',score:3},
+     {id:'m4',text:'«Косточки» у большого пальца стопы',hint:'Вальгусная деформация первого пальца?',type:'yn',score:2},
+     {id:'m5',text:'Боли в спине или пояснице',hint:'',type:'freq',scores:[0,1,2,3]},
+     {id:'m6',text:'Межпозвоночные грыжи',hint:'Подтверждённые на МРТ или КТ?',type:'yn',score:3},
+     {id:'m7',text:'Мышечная слабость — быстро устаю при физической нагрузке',hint:'',type:'freq',scores:[0,1,2,3]},
+     {id:'m8',text:'Судороги в мышцах — особенно ночные, в икрах',hint:'',type:'freq',scores:[0,1,2,3]},
+     {id:'m9',text:'Астеническое телосложение — худощавость, тонкие кости',hint:'Сложно набрать мышечную массу даже при регулярных тренировках?',type:'yn',score:1}
+   ]},
+  {id:'neuro',name:'6. Нервная система и вегетатика',maxScore:25,
+   qs:[
+     {id:'n1',text:'Вегетативные кризы — приступы сердцебиения, потливости, страха без причины',hint:'',type:'freq',scores:[0,1,2,3]},
+     {id:'n2',text:'Головные боли или мигрени',hint:'',type:'freq',scores:[0,1,2,3]},
+     {id:'n3',text:'Повышенная тревожность или панические атаки',hint:'',type:'freq',scores:[0,1,2,3]},
+     {id:'n4',text:'Нарушения сна — трудно засыпаешь, просыпаешься ночью',hint:'',type:'freq',scores:[0,1,2,3]},
+     {id:'n5',text:'Синдром беспокойных ног',hint:'Неприятные ощущения в ногах вечером или ночью, хочется двигать ногами?',type:'freq',scores:[0,1,2,3]},
+     {id:'n6',text:'Онемение или покалывание в руках и ногах',hint:'Без видимой причины?',type:'freq',scores:[0,1,2,3]},
+     {id:'n7',text:'Хроническая усталость, которая не проходит после сна',hint:'',type:'freq',scores:[0,1,2,3]},
+     {id:'n8',text:'Пульс резко учащается когда встаёшь с кровати или стула',hint:'Головокружение при вставании, «темнеет в глазах»?',type:'freq',scores:[0,1,2,3]}
+   ]},
+  {id:'gyn',name:'7. Гинекология',maxScore:20,femaleOnly:true,
+   qs:[
+     {id:'gy1',text:'Болезненные менструации',hint:'Выраженная боль во время месячных?',type:'freq',scores:[0,1,2,3]},
+     {id:'gy2',text:'Обильные менструации',hint:'Смена прокладки или тампона чаще раза в 2 часа?',type:'freq',scores:[0,1,2,3]},
+     {id:'gy3',text:'Эндометриоз',hint:'Поставлен диагноз?',type:'yn',score:3},
+     {id:'gy4',text:'Опущение органов малого таза',hint:'Матки, мочевого пузыря или прямой кишки?',type:'yn',score:4},
+     {id:'gy5',text:'Непроизвольное мочеиспускание при кашле, смехе или нагрузке',hint:'',type:'freq',scores:[0,1,2,3]},
+     {id:'gy6',text:'Выкидыши или преждевременные роды в анамнезе',hint:'',type:'yn',score:3},
+     {id:'gy7',text:'Выраженный ПМС — сильно влияет на самочувствие и настроение',hint:'',type:'freq',scores:[0,1,2,3]}
+   ]}
 ];
 
-const FREQ_OPTS = [
-  { label: 'Нет / никогда', v: 0 },
-  { label: 'Иногда — несколько раз в год', v: 1 },
-  { label: 'Регулярно — несколько раз в месяц', v: 2 },
-  { label: 'Постоянно — почти каждую неделю', v: 3 }
-];
+const FREQ_OPTS=[{v:0,l:'Никогда'},{v:1,l:'Иногда — несколько раз в месяц'},{v:2,l:'Регулярно — несколько раз в неделю'},{v:3,l:'Постоянно — почти каждый день'}];
+const YN_OPTS=[{v:0,l:'Нет'},{v:1,l:'Да'}];
 
-const YN_OPTS = [
-  { label: 'Нет', v: 0 },
-  { label: 'Да', v: 1 }
-];
+let allQ=[],answers={},curIdx=0,userName='',userAge='',userSex='';
 
-// Build flat question list
-let allQ = [];
-let answers = {};
-let curIdx = 0;
-let userName = '', userAge = '', userSex = '';
+function buildQ(){allQ=[];SECTIONS.forEach(sec=>{if(sec.femaleOnly&&userSex==='m')return;sec.qs.forEach((q,qi)=>{allQ.push({...q,secId:sec.id,secName:sec.name,qIdx:qi});});});}
 
-function buildQ() {
-  allQ = [];
-  SECTIONS.forEach(sec => {
-    sec.questions.forEach((q, qi) => {
-      if (sec.femaleOnly && userSex === 'm') return;
-      allQ.push({ ...q, secId: sec.id, secName: sec.name, secNum: sec.num, qIdx: qi });
-    });
-  });
-}
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
 
-function show(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
+function startQ(){userName=document.getElementById('user-name').value.trim()||'Клиент';userAge=document.getElementById('user-age').value.trim();userSex=document.getElementById('user-sex').value;buildQ();curIdx=0;answers={};show('screen-question');renderQ();}
 
-function startQ() {
-  userName = document.getElementById('user-name').value.trim() || 'Клиент';
-  userAge = document.getElementById('user-age').value.trim();
-  userSex = document.getElementById('user-sex').value;
-  buildQ();
-  curIdx = 0;
-  answers = {};
-  show('screen-question');
-  renderQ();
-}
+function getOpts(q){return q.type==='yn'?YN_OPTS:FREQ_OPTS;}
 
-function getOpts(q) {
-  if (q.type === 'yn') return YN_OPTS;
-  if (q.type === 'freq') return FREQ_OPTS;
-  return [];
-}
+function getScore(q,val){if(q.type==='yn')return val===1?(q.score||1):0;return q.scores?q.scores[val]:val;}
 
-function getScore(q, val) {
-  if (q.type === 'yn') return val === 1 ? (q.score || 1) : 0;
-  if (q.type === 'freq') return q.scores ? q.scores[val] : val;
-  return 0;
-}
+function renderQ(){const q=allQ[curIdx];const total=allQ.length;const pct=Math.round((curIdx/total)*100);document.getElementById('prog-fill').style.width=pct+'%';document.getElementById('prog-label').textContent=(curIdx+1)+' / '+total;document.getElementById('sec-label').textContent=q.secName;document.getElementById('q-num').textContent='Вопрос '+(curIdx+1);document.getElementById('q-text').textContent=q.text;const hintEl=document.getElementById('q-hint');hintEl.textContent=q.hint||'';hintEl.style.display=q.hint?'block':'none';const key=q.secId+'_'+q.id;const optsEl=document.getElementById('q-opts');optsEl.innerHTML='';getOpts(q).forEach(opt=>{const btn=document.createElement('button');btn.className='opt'+(answers[key]===opt.v?' selected':'');btn.textContent=opt.l;btn.onclick=()=>{answers[key]=opt.v;document.querySelectorAll('.opt').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');};optsEl.appendChild(btn);});document.getElementById('btn-back').disabled=curIdx===0;}
 
-function renderQ() {
-  const q = allQ[curIdx];
-  const total = allQ.length;
-  const pct = Math.round((curIdx / total) * 100);
-  document.getElementById('prog-fill').style.width = pct + '%';
-  document.getElementById('prog-label').textContent = (curIdx + 1) + ' / ' + total;
-  document.getElementById('sec-label').textContent = q.secNum + '. ' + q.secName;
+function nextQ(){const q=allQ[curIdx];const key=q.secId+'_'+q.id;if(answers[key]===undefined)answers[key]=0;if(curIdx<allQ.length-1){curIdx++;renderQ();}else showResult();}
 
-  const key = q.secId + '_' + q.id;
-  const opts = getOpts(q);
+function prevQ(){if(curIdx>0){curIdx--;renderQ();}}
 
-  let html = `<div class="q-card">
-    <div class="q-num">Вопрос ${curIdx + 1}</div>
-    <div class="q-text">${q.text}</div>
-    ${q.hint ? `<div class="q-hint">${q.hint}</div>` : ''}
-    <div class="opts" id="opts-wrap">`;
+function calcResults(){const res={};SECTIONS.forEach(sec=>{if(sec.femaleOnly&&userSex==='m')return;let sum=0;sec.qs.forEach(q=>{const val=answers[sec.id+'_'+q.id]||0;sum+=getScore(q,val);});res[sec.id]={score:sum,max:sec.maxScore,name:sec.name};});return res;}
 
-  opts.forEach(opt => {
-    const sel = answers[key] === opt.v ? ' selected' : '';
-    html += `<button class="opt${sel}" onclick="selectOpt('${key}', ${opt.v}, this)">${opt.label}</button>`;
-  });
+function getBeighton(){let s=0;['b1','b2','b3','b4','b5','b6','b7','b8','b9'].forEach(id=>{if(answers['beighton_'+id]===1)s++;});return s;}
 
-  html += `</div></div>`;
-  document.getElementById('q-container').innerHTML = html;
-  document.getElementById('btn-back').disabled = curIdx === 0;
-}
+function getDegree(res){const total=Object.values(res).reduce((a,b)=>a+b.score,0);const b=getBeighton();let major=0,minor=0;if(b>=5)major++;if(res.skin&&res.skin.score>=8)major++;if(res.cardio&&res.cardio.score>=8)minor++;if(res.gut&&res.gut.score>=8)minor++;if(res.musculo&&res.musculo.score>=8)minor++;if(res.neuro&&res.neuro.score>=8)minor++;if(b>=3)minor++;if(major>=2||(major>=1&&minor>=2)||total>=40)return{text:'Выраженная ДСТ',color:'#A32D2D',bg:'#FCEBEB',border:'#F09595',emoji:'🔴',beighton:b,total};if(major>=1||minor>=2||total>=20)return{text:'Умеренная ДСТ',color:'#854F0B',bg:'#FAEEDA',border:'#EF9F27',emoji:'🟡',beighton:b,total};if(total>=8)return{text:'Лёгкая ДСТ',color:'#3B6D11',bg:'#EAF3DE',border:'#97C459',emoji:'🟢',beighton:b,total};return{text:'Признаки ДСТ минимальны',color:'#3B6D11',bg:'#EAF3DE',border:'#97C459',emoji:'🟢',beighton:b,total};}
 
-function selectOpt(key, val, btn) {
-  answers[key] = val;
-  document.querySelectorAll('.opt').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
-}
+function sysLevel(score,max){const p=score/max;if(p>=0.5)return'high';if(p>=0.25)return'mid';return'low';}
+function sysLabel(l){if(l==='high')return'Высокая нагрузка';if(l==='mid')return'Средняя нагрузка';return'Низкая нагрузка';}
 
-function nextQ() {
-  const q = allQ[curIdx];
-  const key = q.secId + '_' + q.id;
-  if (answers[key] === undefined) answers[key] = 0;
-  if (curIdx < allQ.length - 1) { curIdx++; renderQ(); }
-  else showResult();
-}
-
-function prevQ() {
-  if (curIdx > 0) { curIdx--; renderQ(); }
-}
-
-function calcResults() {
-  const secScores = {};
-  const secMax = {};
-
-  SECTIONS.forEach(sec => {
-    if (sec.femaleOnly && userSex === 'm') return;
-    let sum = 0;
-    sec.questions.forEach(q => {
-      const key = sec.id + '_' + q.id;
-      const val = answers[key] || 0;
-      sum += getScore(q, val);
-    });
-    secScores[sec.id] = sum;
-    secMax[sec.id] = sec.maxScore;
-  });
-
-  return { secScores, secMax };
-}
-
-function getBeightonScore() {
-  const beightonIds = ['b1','b2','b3','b4','b5','b6','b7','b8','b9'];
-  let score = 0;
-  beightonIds.forEach(id => {
-    const key = 'beighton_' + id;
-    if (answers[key] === 1) score++;
-  });
-  return score;
-}
-
-function getDSTDegree(secScores) {
-  const totalRaw = Object.values(secScores).reduce((a,b) => a+b, 0);
-  const beighton = getBeightonScore();
-  
-  // Brighton criteria simplified
-  let majorCriteria = 0;
-  let minorCriteria = 0;
-  
-  if (beighton >= 5) majorCriteria++;
-  if (secScores['skin'] >= 8) majorCriteria++;
-  if (secScores['cardio'] >= 8) minorCriteria++;
-  if (secScores['gut'] >= 8) minorCriteria++;
-  if (secScores['musculo'] >= 8) minorCriteria++;
-  if (secScores['neuro'] >= 8) minorCriteria++;
-  if (beighton >= 3) minorCriteria++;
-
-  let degree, color, emoji;
-  
-  if (majorCriteria >= 2 || (majorCriteria >= 1 && minorCriteria >= 2) || totalRaw >= 40) {
-    degree = 'Выраженная ДСТ'; color = '#A32D2D'; emoji = '🔴';
-  } else if (majorCriteria >= 1 || minorCriteria >= 2 || totalRaw >= 20) {
-    degree = 'Умеренная ДСТ'; color = '#854F0B'; emoji = '🟡';
-  } else if (totalRaw >= 8) {
-    degree = 'Лёгкая ДСТ'; color = '#3B6D11'; emoji = '🟢';
-  } else {
-    degree = 'Признаки ДСТ минимальны'; color = '#3B6D11'; emoji = '🟢';
-  }
-
-  return { degree, color, emoji, totalRaw, beighton };
-}
-
-function getSysLevel(score, max) {
-  const pct = score / max;
-  if (pct >= 0.5) return 'high';
-  if (pct >= 0.25) return 'mid';
-  return 'low';
-}
-
-function levelLabel(lvl) {
-  if (lvl === 'high') return 'Высокая нагрузка';
-  if (lvl === 'mid') return 'Средняя нагрузка';
-  return 'Низкая нагрузка';
-}
-
-function showResult() {
-  show('screen-result');
-  const { secScores, secMax } = calcResults();
-  const { degree, color, emoji, totalRaw, beighton } = getDSTDegree(secScores);
-
-  document.getElementById('res-meta').textContent =
-    userName + (userAge ? ', ' + userAge + ' лет' : '') + ' · ' + new Date().toLocaleDateString('ru-RU');
-
-  let html = '';
-
-  // Main result
-  html += `<div class="result-main" style="border: 2px solid ${color};">
-    <div style="font-size:32px;margin-bottom:8px;">${emoji}</div>
-    <div class="result-degree" style="color:${color};">${degree}</div>
-    <div class="result-score">Beighton: ${beighton}/9 · Общий балл: ${totalRaw}</div>
-  </div>`;
-
-  // Systems
-  html += `<div style="margin-bottom:1rem;">
-    <div style="font-size:13px;color:#888;margin-bottom:8px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;">Профиль поражения по системам</div>`;
-
-  // Sort by score descending
-  const sorted = SECTIONS
-    .filter(s => !(s.femaleOnly && userSex === 'm'))
-    .map(s => ({ name: s.name, score: secScores[s.id] || 0, max: s.maxScore }))
-    .sort((a, b) => (b.score/b.max) - (a.score/a.max));
-
-  sorted.forEach(s => {
-    const lvl = getSysLevel(s.score, s.max);
-    html += `<div class="sys-row level-${lvl}">
-      <div>
-        <div class="sys-name">${s.name}</div>
-        <div class="sys-level">${levelLabel(lvl)}</div>
-      </div>
-      <div class="sys-score">${s.score}</div>
-    </div>`;
-  });
-
-  html += '</div>';
-
-  // Top system note
-  const top = sorted[0];
-  if (top && getSysLevel(top.score, top.max) !== 'low') {
-    html += `<div class="info-box" style="background:#FAEEDA;border:1px solid #EF9F27;">
-      <strong>На что обратить внимание в первую очередь:</strong><br>
-      Наибольшая нагрузка выявлена в системе <strong>«${top.name}»</strong>. Это ключевая зона для работы.
-    </div>`;
-  }
-
-  document.getElementById('res-main').innerHTML = html;
-}
+function showResult(){show('screen-result');const res=calcResults();const deg=getDegree(res);document.getElementById('res-meta').textContent=userName+(userAge?', '+userAge+' лет':'')+' · '+new Date().toLocaleDateString('ru-RU');
+document.getElementById('res-main').innerHTML=`<div class="result-main" style="border:2px solid ${deg.border};"><div style="font-size:32px;margin-bottom:8px">${deg.emoji}</div><div class="result-degree" style="color:${deg.color}">${deg.text}</div><div class="result-score">Beighton: ${deg.beighton}/9 · Общий балл: ${deg.total}</div></div>`;
+const sorted=Object.values(res).sort((a,b)=>(b.score/b.max)-(a.score/a.max));let sysHtml='<div style="font-size:13px;color:#888;margin:0 1rem 8px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em">Профиль поражения по системам</div>';sorted.forEach(s=>{const lvl=sysLevel(s.score,s.max);sysHtml+=`<div class="sys-row level-${lvl}"><div><div class="sys-name">${s.name}</div><div class="sys-level">${sysLabel(lvl)}</div></div><div class="sys-score">${s.score}</div></div>`;});const top=sorted[0];if(top&&sysLevel(top.score,top.max)!=='low'){sysHtml+=`<div class="tip-box" style="background:#FAEEDA;border:1px solid #EF9F27"><strong>На что обратить внимание в первую очередь:</strong><br>Наибольшая нагрузка — <strong>«${top.name}»</strong>.</div>`;}document.getElementById('res-systems').innerHTML=sysHtml;}
 </script>
 </body>
 </html>
