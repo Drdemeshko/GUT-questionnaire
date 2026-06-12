@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Анкета «ДСТ» · Dr. Diana Demeshko</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --deep:#2D4A2D;--cream:#F7F3EC;--cream-dark:#E8E0D0;
+  --text:#2C2C2C;--text-light:#7A7A6E;
+  --green:#5B8C5A;--accent-light:#EDF3EC;
+  --yellow:#C4924A;--orange:#B86B3A;--red:#A84040;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;}
+.hero{width:100%;height:160px;display:block;}
+.header{background:var(--deep);padding:24px 20px 28px;text-align:center;}
+.brand{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
+.header h1{font-family:'Playfair Display',serif;font-size:clamp(22px,5vw,32px);color:#fff;line-height:1.3;margin-bottom:8px;}
+.header p{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;max-width:480px;margin:0 auto;}
+.time-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(91,140,90,0.2);border:1px solid rgba(91,140,90,0.4);border-radius:99px;padding:6px 14px;font-size:12px;color:rgba(255,255,255,0.8);margin-top:12px;}
+.progress-wrap{padding:16px 16px 0;}
+.progress-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--text-light);margin-bottom:8px;}
+.progress-bar{height:6px;background:var(--cream-dark);border-radius:99px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,#8FBC8E,var(--green));border-radius:99px;transition:width 0.4s ease;width:0%;}
+.steps-row{display:flex;gap:3px;margin-top:8px;}
+.step-dot{flex:1;height:3px;border-radius:99px;background:var(--cream-dark);transition:background 0.3s;}
+.step-dot.done{background:var(--green);}
+.step-dot.active{background:var(--yellow);}
+
+/* SCREENS */
+.screen{display:none;padding:16px 16px 32px;}
+.screen.active{display:block;}
+.screen-title{font-family:'Playfair Display',serif;font-size:20px;color:var(--deep);margin-bottom:4px;font-weight:600;}
+.screen-desc{font-size:13px;color:var(--text-light);line-height:1.6;margin-bottom:20px;}
+
+/* CARDS */
+.card{background:#fff;border-radius:16px;padding:18px 20px;border:1px solid var(--cream-dark);margin-bottom:12px;}
+.q-label{font-size:14px;font-weight:600;color:var(--deep);display:block;margin-bottom:8px;line-height:1.4;}
+.q-hint{font-size:12px;color:var(--text-light);margin-bottom:10px;line-height:1.5;font-style:italic;}
+.field-label{font-size:13px;font-weight:600;color:var(--deep);display:block;margin-bottom:6px;}
+.field-input,.field-select{width:100%;padding:13px 16px;border:1.5px solid var(--cream-dark);border-radius:12px;font-family:'Inter',sans-serif;font-size:15px;color:var(--text);background:var(--cream);outline:none;transition:border-color 0.2s;}
+.field-input:focus,.field-select:focus{border-color:var(--green);background:#fff;}
+.field-input.error{border-color:var(--red);}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+/* CHOICE BUTTONS */
+.choices{display:flex;flex-direction:column;gap:6px;}
+.choice{background:var(--cream);border:1.5px solid var(--cream-dark);border-radius:12px;padding:12px 16px;cursor:pointer;font-size:13.5px;color:var(--text);line-height:1.4;transition:all 0.15s;text-align:left;-webkit-tap-highlight-color:transparent;}
+.choice:hover{background:var(--accent-light);border-color:var(--green);}
+.choice.selected{background:var(--accent-light);border-color:var(--deep);font-weight:500;}
+.choice.selected::before{content:'✓ ';color:var(--green);font-weight:700;}
+
+/* YES/NO INLINE */
+.yn-group{display:flex;gap:8px;}
+.yn-btn{flex:1;padding:12px 8px;background:var(--cream);border:1.5px solid var(--cream-dark);border-radius:12px;cursor:pointer;font-size:14px;text-align:center;font-family:'Inter',sans-serif;transition:all 0.15s;-webkit-tap-highlight-color:transparent;}
+.yn-btn:hover{background:var(--accent-light);border-color:var(--green);}
+.yn-btn.selected-yes{background:rgba(168,64,64,0.1);border-color:var(--red);color:var(--red);font-weight:600;}
+.yn-btn.selected-no{background:var(--accent-light);border-color:var(--green);color:var(--green);font-weight:600;}
+
+/* MOBILITY CARD */
+.mobility-grid{display:flex;flex-direction:column;gap:10px;}
+.mob-item{display:flex;align-items:center;gap:14px;background:var(--cream);border:1.5px solid var(--cream-dark);border-radius:14px;padding:12px 14px;}
+.mob-svg{width:56px;height:56px;flex-shrink:0;}
+.mob-info{flex:1;}
+.mob-title{font-size:13px;font-weight:600;color:var(--deep);margin-bottom:3px;}
+.mob-desc{font-size:11.5px;color:var(--text-light);line-height:1.4;margin-bottom:6px;}
+.mob-yn{display:flex;gap:6px;}
+.mob-btn{flex:1;padding:8px 4px;background:#fff;border:1.5px solid var(--cream-dark);border-radius:8px;cursor:pointer;font-size:12px;text-align:center;font-family:'Inter',sans-serif;transition:all 0.15s;-webkit-tap-highlight-color:transparent;}
+.mob-btn.yes{background:rgba(168,64,64,0.1);border-color:var(--red);color:var(--red);font-weight:600;}
+.mob-btn.no{background:var(--accent-light);border-color:var(--green);color:var(--green);font-weight:600;}
+
+/* SECTION DIVIDER */
+.sec-divider{background:var(--deep);color:#fff;border-radius:10px;padding:8px 14px;margin:16px 0 10px;font-size:12px;font-weight:600;letter-spacing:0.5px;}
+
+/* NAV */
+.nav-wrap{display:flex;gap:10px;margin-top:20px;}
+.btn-back{flex:1;padding:14px;background:#fff;border:1.5px solid var(--cream-dark);border-radius:12px;font-family:'Inter',sans-serif;font-size:15px;color:var(--text-light);cursor:pointer;}
+.btn-next{flex:2;padding:14px;background:var(--deep);color:#fff;border:none;border-radius:12px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;cursor:pointer;}
+.warn{background:rgba(168,64,64,0.08);border:1px solid rgba(168,64,64,0.25);border-radius:8px;padding:10px 14px;font-size:12.5px;color:var(--red);margin-top:10px;display:none;}
+
+/* RESULTS */
+.result-hero{border-radius:20px;padding:28px 24px;text-align:center;color:#fff;margin-bottom:16px;}
+.result-emoji{font-size:52px;margin-bottom:12px;}
+.result-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:8px;}
+.result-subtitle{font-size:13px;opacity:0.85;}
+.sys-block{border-radius:14px;padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px;}
+.sys-block.high{background:#FCEBEB;border:1px solid #F09595;}
+.sys-block.moderate{background:#FAEEDA;border:1px solid #EF9F27;}
+.sys-block.low{background:#EAF3DE;border:1px solid #97C459;}
+.sys-dot{font-size:20px;flex-shrink:0;}
+.sys-name{font-size:13px;font-weight:600;color:var(--deep);}
+.sys-level{font-size:11px;color:var(--text-light);margin-top:2px;}
+.sys-score{font-size:18px;font-weight:700;margin-left:auto;flex-shrink:0;}
+.sys-block.high .sys-score{color:var(--red);}
+.sys-block.moderate .sys-score{color:var(--yellow);}
+.sys-block.low .sys-score{color:var(--green);}
+.interp-card{background:#fff;border-radius:14px;padding:16px 18px;border:1px solid var(--cream-dark);margin-bottom:12px;}
+.interp-card h4{font-family:'Playfair Display',serif;font-size:14px;color:var(--deep);margin-bottom:10px;font-weight:600;}
+.interp-card p{font-size:13px;color:var(--text-light);line-height:1.6;}
+.send-status{margin-top:14px;padding:12px 16px;border-radius:10px;font-size:12.5px;text-align:center;display:none;}
+.send-status.ok{background:rgba(76,175,138,0.12);color:#2E7D5C;border:1px solid rgba(76,175,138,0.3);}
+.send-status.err{background:rgba(201,64,64,0.08);color:#9B2020;border:1px solid rgba(201,64,64,0.2);}
+
+/* OVERLAY */
+.overlay{display:none;position:fixed;inset:0;background:rgba(45,74,45,0.6);z-index:100;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+.overlay.active{display:flex;}
+.spinner{width:44px;height:44px;border:3px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.overlay-text{color:#fff;font-size:14px;}
+@media(max-width:380px){.field-row{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<svg class="hero" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 160" preserveAspectRatio="xMidYMid slice">
+  <rect width="800" height="160" fill="#2D4A2D"/>
+  <g fill="#3a7a32" opacity="0.7"><circle cx="80" cy="80" r="45"/><circle cx="125" cy="80" r="45"/><circle cx="102" cy="48" r="45"/><circle cx="102" cy="112" r="45"/></g>
+  <g fill="#4a9a42" opacity="0.5"><circle cx="280" cy="65" r="38"/><circle cx="318" cy="65" r="38"/><circle cx="299" cy="38" r="38"/><circle cx="299" cy="92" r="38"/></g>
+  <g fill="#5ab050" opacity="0.4"><circle cx="480" cy="90" r="42"/><circle cx="522" cy="90" r="42"/><circle cx="501" cy="58" r="42"/><circle cx="501" cy="122" r="42"/></g>
+  <g fill="#3a7a32" opacity="0.35"><circle cx="660" cy="55" r="35"/><circle cx="695" cy="55" r="35"/><circle cx="677" cy="30" r="35"/><circle cx="677" cy="80" r="35"/></g>
+  <g fill="#7acc70" opacity="0.2"><circle cx="760" cy="120" r="28"/><circle cx="788" cy="120" r="28"/><circle cx="774" cy="96" r="28"/><circle cx="774" cy="144" r="28"/></g>
+</svg>
+
+<div class="header">
+  <div class="brand">Dr. Diana Demeshko</div>
+  <h1>Анкета «ДСТ»</h1>
+  <p>Дисплазия соединительной ткани — оценка вовлечённости систем организма</p>
+  <div class="time-badge">⏱ Около 10 минут</div>
+</div>
+
+<div class="progress-wrap" id="progress-wrap">
+  <div class="progress-meta"><span id="step-label">Шаг 1 из 5</span><span id="step-pct">0%</span></div>
+  <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+  <div class="steps-row" id="steps-row"></div>
+</div>
+
+<!-- ═══ SCREEN 1: ДАННЫЕ ═══ -->
+<div class="screen active" id="screen-1">
+  <div style="height:12px"></div>
+  <div class="screen-title">Несколько слов о тебе</div>
+  <div class="screen-desc">Три поля — и сразу к анкете. Email свяжет эти результаты с твоим профилем.</div>
+  <div class="card">
+    <div class="field-row">
+      <div><label class="field-label">Имя <span style="color:var(--red)">*</span></label><input class="field-input" id="f-name" type="text" placeholder="Имя" autocomplete="given-name"></div>
+      <div><label class="field-label">Фамилия <span style="color:var(--red)">*</span></label><input class="field-input" id="f-lastname" type="text" placeholder="Фамилия" autocomplete="family-name"></div>
+    </div>
+    <div style="margin-top:12px"><label class="field-label">Email <span style="color:var(--red)">*</span></label><input class="field-input" id="f-email" type="email" placeholder="ваш@email.com"></div>
+    <div style="margin-top:12px">
+      <label class="field-label">Биологический пол</label>
+      <select class="field-select" id="f-sex">
+        <option value="">Выбери...</option>
+        <option value="female">Женский</option>
+        <option value="male">Мужской</option>
+      </select>
+    </div>
+  </div>
+  <div class="warn" id="warn-1">Пожалуйста, заполни имя, фамилию и email</div>
+  <div class="nav-wrap"><button class="btn-next" style="flex:1" onclick="nextScreen(1)">Начать анкету →</button></div>
+</div>
+
+<!-- ═══ SCREEN 2: СУСТАВЫ И ГИПЕРМОБИЛЬНОСТЬ ═══ -->
+<div class="screen" id="screen-2">
+  <div style="height:12px"></div>
+  <div class="screen-title">Суставы и гипермобильность</div>
+  <div class="screen-desc">Проверь прямо сейчас — сделай каждое движение и ответь честно.</div>
+
+  <div class="card">
+    <label class="q-label">Тест Бейтона — проверь каждый сустав прямо сейчас</label>
+    <div class="q-hint">Каждый «Да» = 1 балл. Максимум 9 баллов.</div>
+    <div class="mobility-grid">
+
+      <!-- Мизинец -->
+      <div class="mob-item">
+        <svg class="mob-svg" viewBox="0 0 56 56" fill="none">
+          <rect width="56" height="56" rx="10" fill="#EDF3EC"/>
+          <path d="M28 44 L28 20 Q28 14 34 14 Q40 14 40 20 L40 44" stroke="#2D4A2D" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <path d="M28 26 Q22 22 20 16" stroke="#5B8C5A" stroke-width="2" stroke-linecap="round" stroke-dasharray="3,2" fill="none"/>
+          <circle cx="20" cy="14" r="3" fill="#5B8C5A" opacity="0.6"/>
+          <text x="28" y="52" font-size="8" fill="#7A7A6E" text-anchor="middle" font-family="Inter">мизинец</text>
+        </svg>
+        <div class="mob-info">
+          <div class="mob-title">Мизинец (каждая рука отдельно)</div>
+          <div class="mob-desc">Пассивно отогни мизинец назад — угол больше 90°?</div>
+          <div class="mob-yn">
+            <button class="mob-btn" id="beighton-pinky-r-yes" onclick="setBeighton('pinky_r',1,this)">Да — правая</button>
+            <button class="mob-btn" id="beighton-pinky-l-yes" onclick="setBeighton('pinky_l',1,this)">Да — левая</button>
+            <button class="mob-btn" id="beighton-pinky-no" onclick="setBeighton('pinky_r',0,this);setBeighton('pinky_l',0,this)">Нет (обе)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Большой палец -->
+      <div class="mob-item">
+        <svg class="mob-svg" viewBox="0 0 56 56" fill="none">
+          <rect width="56" height="56" rx="10" fill="#EDF3EC"/>
+          <path d="M20 40 L20 24 Q20 18 26 16" stroke="#2D4A2D" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <path d="M26 16 Q34 12 38 20 Q42 28 36 32 L20 40" stroke="#2D4A2D" stroke-width="2" fill="none"/>
+          <path d="M26 16 Q18 24 16 36" stroke="#5B8C5A" stroke-width="2" stroke-linecap="round" stroke-dasharray="3,2" fill="none"/>
+          <text x="28" y="52" font-size="8" fill="#7A7A6E" text-anchor="middle" font-family="Inter">большой палец</text>
+        </svg>
+        <div class="mob-info">
+          <div class="mob-title">Большой палец (каждая рука)</div>
+          <div class="mob-desc">Прижми большой палец к предплечью — касается?</div>
+          <div class="mob-yn">
+            <button class="mob-btn" id="beighton-thumb-r-yes" onclick="setBeighton('thumb_r',1,this)">Да — правая</button>
+            <button class="mob-btn" id="beighton-thumb-l-yes" onclick="setBeighton('thumb_l',1,this)">Да — левая</button>
+            <button class="mob-btn" id="beighton-thumb-no" onclick="setBeighton('thumb_r',0,this);setBeighton('thumb_l',0,this)">Нет (обе)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Локоть -->
+      <div class="mob-item">
+        <svg class="mob-svg" viewBox="0 0 56 56" fill="none">
+          <rect width="56" height="56" rx="10" fill="#EDF3EC"/>
+          <path d="M14 44 L28 24 L42 44" stroke="#2D4A2D" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <path d="M28 24 Q32 18 38 16" stroke="#5B8C5A" stroke-width="2" stroke-linecap="round" stroke-dasharray="3,2" fill="none"/>
+          <text x="28" y="52" font-size="8" fill="#7A7A6E" text-anchor="middle" font-family="Inter">локоть &gt;10°</text>
+        </svg>
+        <div class="mob-info">
+          <div class="mob-title">Локоть (каждая рука)</div>
+          <div class="mob-desc">Вытяни руку — локоть переразгибается больше чем на 10°?</div>
+          <div class="mob-yn">
+            <button class="mob-btn" onclick="setBeighton('elbow_r',1,this)">Да — правый</button>
+            <button class="mob-btn" onclick="setBeighton('elbow_l',1,this)">Да — левый</button>
+            <button class="mob-btn" onclick="setBeighton('elbow_r',0,this);setBeighton('elbow_l',0,this)">Нет (оба)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Колено -->
+      <div class="mob-item">
+        <svg class="mob-svg" viewBox="0 0 56 56" fill="none">
+          <rect width="56" height="56" rx="10" fill="#EDF3EC"/>
+          <path d="M20 10 L20 28 L36 44" stroke="#2D4A2D" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <path d="M20 28 Q26 22 30 16" stroke="#5B8C5A" stroke-width="2" stroke-linecap="round" stroke-dasharray="3,2" fill="none"/>
+          <circle cx="20" cy="28" r="4" fill="none" stroke="#2D4A2D" stroke-width="1.5"/>
+          <text x="28" y="52" font-size="8" fill="#7A7A6E" text-anchor="middle" font-family="Inter">колено &gt;10°</text>
+        </svg>
+        <div class="mob-info">
+          <div class="mob-title">Колено (каждая нога)</div>
+          <div class="mob-desc">Встань прямо — колено уходит назад больше чем на 10°?</div>
+          <div class="mob-yn">
+            <button class="mob-btn" onclick="setBeighton('knee_r',1,this)">Да — правое</button>
+            <button class="mob-btn" onclick="setBeighton('knee_l',1,this)">Да — левое</button>
+            <button class="mob-btn" onclick="setBeighton('knee_r',0,this);setBeighton('knee_l',0,this)">Нет (оба)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Наклон -->
+      <div class="mob-item">
+        <svg class="mob-svg" viewBox="0 0 56 56" fill="none">
+          <rect width="56" height="56" rx="10" fill="#EDF3EC"/>
+          <path d="M28 8 Q28 24 14 40" stroke="#2D4A2D" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <path d="M28 8 Q28 24 42 40" stroke="#2D4A2D" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <line x1="8" y1="44" x2="48" y2="44" stroke="#7A7A6E" stroke-width="1.5"/>
+          <path d="M14 40 L20 38" stroke="#5B8C5A" stroke-width="2" stroke-linecap="round"/>
+          <text x="28" y="54" font-size="8" fill="#7A7A6E" text-anchor="middle" font-family="Inter">ладони на пол</text>
+        </svg>
+        <div class="mob-info">
+          <div class="mob-title">Наклон вперёд с прямыми коленями</div>
+          <div class="mob-desc">Ладони полностью ложатся на пол?</div>
+          <div class="mob-yn">
+            <button class="mob-btn" onclick="setBeighton('floor',1,this)">Да</button>
+            <button class="mob-btn" onclick="setBeighton('floor',0,this)">Нет</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card">
+    <label class="q-label">Дополнительные признаки суставов</label>
+    <div class="sec-divider" style="margin-top:0">Вывихи и нестабильность</div>
+    <div style="margin-bottom:10px">
+      <label class="q-label" style="font-size:13px">Привычные вывихи или подвывихи суставов без серьёзной травмы</label>
+      <div class="yn-group" id="q-dislocations"><button class="yn-btn" data-val="yes" onclick="selectYN(this,'q-dislocations')">Да</button><button class="yn-btn" data-val="no" onclick="selectYN(this,'q-dislocations')">Нет</button></div>
+    </div>
+    <div style="margin-bottom:10px">
+      <label class="q-label" style="font-size:13px">Частые растяжения связок</label>
+      <div class="yn-group" id="q-sprains"><button class="yn-btn" data-val="yes" onclick="selectYN(this,'q-sprains')">Да</button><button class="yn-btn" data-val="no" onclick="selectYN(this,'q-sprains')">Нет</button></div>
+    </div>
+    <div style="margin-bottom:10px">
+      <label class="q-label" style="font-size:13px">Щелчки и хруст в суставах при движении</label>
+      <div class="choices" id="q-joint-cracking">
+        <button class="choice" data-val="never" onclick="selectSingle(this,'q-joint-cracking')">Никогда</button>
+        <button class="choice" data-val="sometimes" onclick="selectSingle(this,'q-joint-cracking')">Иногда</button>
+        <button class="choice" data-val="often" onclick="selectSingle(this,'q-joint-cracking')">Часто</button>
+        <button class="choice" data-val="always" onclick="selectSingle(this,'q-joint-cracking')">Почти всегда</button>
+      </div>
+    </div>
+    <div>
+      <label class="q-label" style="font-size:13px">Боль в суставах без видимой причины или после минимальной нагрузки</label>
+      <div class="choices" id="q-joint-pain">
+        <button class="choice" data-val="never" onclick="selectSingle(this,'q-joint-pain')">Нет</button>
+        <button class="choice" data-val="sometimes" onclick="selectSingle(this,'q-joint-pain')">Иногда</button>
+        <button class="choice" data-val="often" onclick="selectSingle(this,'q-joint-pain')">Часто</button>
+        <button class="choice" data-val="always" onclick="selectSingle(this,'q-joint-pain')">Постоянно</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-wrap">
+    <button class="btn-back" onclick="prevScreen(2)">← Назад</button>
+    <button class="btn-next" onclick="nextScreen(2)">Далее →</button>
+  </div>
+</div>
+
+<!-- ═══ SCREEN 3: КОЖА, СОСУДЫ, ЖКТ, КОСТИ ═══ -->
+<div class="screen" id="screen-3">
+  <div style="height:12px"></div>
+  <div class="screen-title">Кожа, сосуды, ЖКТ и кости</div>
+  <div class="screen-desc">Соединительная ткань присутствует во всех этих системах — отметь что актуально.</div>
+
+  <!-- КОЖА -->
+  <div class="sec-divider">🧴 Кожа</div>
+  <div class="card">
+    <div style="margin-bottom:12px">
+      <label class="q-label" style="font-size:13px">Растяжки (стрии) на теле — не связанные с беременностью или резким набором веса</label>
+      <div class="yn-group" id="q-striae"><button class="yn-btn" data-val="yes" onclick="selectYN(this,'q-striae')">Да</button><button class="yn-btn" data-val="no" onclick="selectYN(this,'q-striae')">Нет</button></div>
+    </div>
+    <div style="margin-bottom:12px">
+      <label class="q-label" style="font-size:13px">Кожа очень легко тянется — оттяни кожу на тыльной стороне ладони — она тянется на 2+ см?</label>
+      <div class="yn-group" id="q-skin-stretch"><button class="yn-btn" data-val="yes" onclick="selectYN(this,'q-skin-stretch')">Да</button><button class="yn-btn" data-val="no" onclick="selectYN(this,'q-skin-stretch')">Нет</button></div>
+    </div>
+    <div style="margin-bottom:12px">
+      <label class="q-label" style="font-size:13px">Синяки появляются от лёгкого касания или без причины</label>
+      <div class="choices" id="q-bruising">
+        <button class="choice" data-val="never" onclick="selectSingle(this,'q-bruising')">Нет</button>
+        <button class="choice" data-val="sometimes" onclick="selectSingle(this,'q-bruising')">Иногда</button>
+        <button class="choice" data-val="often" onclick="selectSingle(this,'q-bruising')">Часто</button>
+      </div>
+    </div>
+    <div>
+      <label class="q-label" style="font-size:13px">Рубцы после порезов выглядят как тонкая бумага — запавшие или блестящие (атрофические)</label>
+      <div class="yn-group" id="q-scars"><button class="yn-btn" data-val="yes" onclick="selectYN(this,'q-scars')">Да</button><button class="yn-btn" data-val="no" onclick="selectYN(this,'q-scars')">Нет</button></div>
+    </div>
+  </div>
+
+  <!-- СОСУДЫ -->
+  <div class="sec-divider">🫀 Сосуды</div>
+  <div class="card">
+    <div style="margin-bottom:12px">
+      <label class="q-label" style="font-size:13px">Варикозное расширение вен на ногах</label>
+      <div class="yn-group" id="q-varicose"><button class="yn-btn" data-val="yes" onclick="selectYN(this,'q-varicose')">Да</button><button class="yn-btn" data-val="no" onclick="selectYN(this,'q-varicose')">Нет</button></div>
+    </div>
+    <div style="margin-bottom:12px">
+      <label class="q-label" style="font-size:13px">Сосудистые звёздочки или сеточки на ногах</label>
+      <div class="yn-group" id="q-spider-veins"><button class="yn-btn" data-val="yes" onclick="selectYN(this,'q-spider-veins')">Да</button><button class="yn-btn" data-val="no" onclick="selectYN(this,'q-spider-veins')">Нет</button></div>
+    </div>
+    <div style="margin-bottom:12px">
+      <label class="q-label" style="font-size:13px">Головокружение или темнеет в глазах при резком вставании</label>
+      <div class="choices" id="q-orthostatic">
+        <button class="choice" data-val="never" onclick="selectSingle(this,'q-orthostatic')">Нет</button>
+        <button class="choice" data-val="sometimes" onclick="selectSingle(this,'q-orthostatic')">Иногда</button>
+        <button class="choice" data-val="often" onclick="selectSingle(this,'q-orthostatic')">Часто</button>
+      </div>
+    </div>
+    <div>
+      <label class="q-label" style="font-size:13px">Пролапс митрального клапана по УЗИ сердца</label>
+      <div class="yn-group" id="q-mvp"><button class="yn-btn" data-val="yes" onclick="selectYN(this,'q-mvp')">Да</button><button class="yn-btn" data-val="no" onclick="selectYN(this,'q-mvp')">Нет</button></div>
+    </div>
+  </div>
+
+  <!-- ЖКТ -->
+  <div class="sec-divider">🌿 ЖКТ и органы</div>
+  <div class="card">
+    <div style="margin-bottom:12px">
+      <label class="q-label" style="font-size:13px">Изжога или кислый заброс в горло</label>
+      <div class="choices" id="q-gerd">
+        <button class="choice" data-val="never" onclick="selectSingle(this,'q-gerd')">Нет</button>
+        <button class="choice" data-val="sometimes" onclick="selectSingle(this,'q-gerd')">Иногда</button>
+        <button class="choice" data-val="often" onclick="selectSingle(this,'q-gerd')">Часто</button>
+      </div>
+    </div>
+    <div style="margin-bottom:12px">
+      <label class="q-label" style="font-size:13px">Опущение органов — желудка, почек, матки (поставлен диагноз)</label>
+      <div class="yn-group" id="q-prolapse-organs"><button class="yn-btn" data-val="yes" onclick="selectYN(this,'q-prolapse-organs')">Да</button><button class="yn-btn" data-val="no" onclick="selectYN(this,'q-prolapse-organs')">Нет</button></div>
+    </div>
+    <div>
+      <label class="q-label" style="font-size:13px">Грыжи — пищеводного отверстия, паховые, пупочные</label>
+      <div class="yn-group" id="q-hernia"><button class="yn-btn" data-val="yes" onclick="selectYN(this,'q-hernia')">Да</button><button class="yn-btn" data-val="no" onclick="selectYN(this,'q-hernia')">Нет</button></div>
+    </div>
+  </div>
+
+  <!-- КОСТИ -->
+  <div class="sec-divider">🦴 Кости и осанка</div>
+  <div class="card">
+    <div style="margin-bottom:12px">
+      <label class="q-label" style="font-size:13px">Сколиоз или кифоз — искривление позвоночника</label>
+      <div class="yn-group" id="q-scoliosis"><button class="yn-btn" data-val="yes" onclick="selectYN(this,'q-scoliosis')">Да</button><button class="yn-btn" data-val="no" onclick="selectYN(this,'q-scoliosis')">Нет</button></div>
+    </div>
+    <div style="margin-bottom:12px">
+      <label class="q-label" style="font-size:13px">Плоскостопие</label>
+      <div class="yn-group" id="q-flat-feet"><button class="yn-btn" data-val="yes" onclick="selectYN(this,'q-flat-feet')">Да</button><button class="yn-btn" data-val="no" onclick="selectYN(this,'q-flat-feet')">Нет</button></div>
+    </div>
+    <div style="margin-bottom:12px">
+      <label class="q-label" style="font-size:13px">«Косточки» у большого пальца стопы (вальгусная деформация)</label>
+      <div class="yn-group" id="q-hallux"><button class="yn-btn" data-val="yes" onclick="selectYN(this,'q-hallux')">Да</button><button class="yn-btn" data-val="no" onclick="selectYN(this,'q-hallux')">Нет</button></div>
+    </div>
+    <div>
+      <label class="q-label" style="font-size:13px">Межпозвоночные грыжи по МРТ или КТ</label>
+      <div class="yn-group" id="q-disc-hernia"><button class="yn-btn" data-val="yes" onclick="selectYN(this,'q-disc-hernia')">Да</button><button class="yn-btn" data-val="no" onclick="selectYN(this,'q-disc-hernia')">Нет</button></div>
+    </div>
+  </div>
+
+  <div class="nav-wrap">
+    <button class="btn-back" onclick="prevScreen(3)">← Назад</button>
+    <button class="btn-next" onclick="nextScreen(3)">Далее →</button>
+  </div>
+</div>
+
+<!-- ═══ SCREEN 4: НЕРВНАЯ СИСТЕМА, БОЛЬ, УСТАЛОСТЬ ═══ -->
+<div class="screen" id="screen-4">
+  <div style="height:12px"></div>
+  <div class="screen-title">Нервная система, боль и усталость</div>
+  <div class="screen-desc">Вегетативная дисфункция — частый спутник ДСТ. Отметь что актуально.</div>
+
+  <div class="sec-divider">⚡ Вегетативная нервная система</div>
+  <div class="card">
+    <div style="margin-bottom:12px">
+      <label class="q-label" style="font-size:13px">Вегетативные кризы — приступы сердцебиения, потливости, страха без причины</label>
+      <div class="choices" id="q-vegeto">
+        <button class="choice" data-val="never" onclick="selectSingle(this,'q-vegeto')">Никогда</button>
+        <button class="choice" data-val="sometimes" onclick="selectSingle(this,'q-vegeto')">Иногда</button>
+        <button class="choice" data-val="often" onclick="selectSingle(this,'q-vegeto')">Часто</button>
+      </div>
+    </div>
+    <div style="margin-bottom:12px">
+      <label class="q-label" style="font-size:13px">Повышенная тревожность или панические атаки</label>
+      <div class="choices" id="q-anxiety">
+        <button class="choice" data-val="never" onclick="selectSingle(this,'q-anxiety')">Нет</button>
+        <button class="choice" data-val="sometimes" onclick="selectSingle(this,'q-anxiety')">Иногда</button>
+        <button class="choice" data-val="often" onclick="selectSingle(this,'q-anxiety')">Часто</button>
+      </div>
+    </div>
+    <div>
+      <label class="q-label" style="font-size:13px">Нарушения сна — трудно засыпаешь, просыпаешься ночью</label>
+      <div class="choices" id="q-sleep-dst">
+        <button class="choice" data-val="never" onclick="selectSingle(this,'q-sleep-dst')">Нет</button>
+        <button class="choice" data-val="sometimes" onclick="selectSingle(this,'q-sleep-dst')">Иногда</button>
+        <button class="choice" data-val="often" onclick="selectSingle(this,'q-sleep-dst')">Часто</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-divider">😔 Хроническая боль и усталость</div>
+  <div class="card">
+    <div style="margin-bottom:12px">
+      <label class="q-label" style="font-size:13px">Боли в спине или пояснице</label>
+      <div class="choices" id="q-back-pain">
+        <button class="choice" data-val="never" onclick="selectSingle(this,'q-back-pain')">Нет</button>
+        <button class="choice" data-val="sometimes" onclick="selectSingle(this,'q-back-pain')">Иногда</button>
+        <button class="choice" data-val="often" onclick="selectSingle(this,'q-back-pain')">Часто</button>
+        <button class="choice" data-val="constant" onclick="selectSingle(this,'q-back-pain')">Постоянно</button>
+      </div>
+    </div>
+    <div style="margin-bottom:12px">
+      <label class="q-label" style="font-size:13px">Мышечная слабость — быстро устаю даже при небольшой нагрузке</label>
+      <div class="choices" id="q-muscle-weakness">
+        <button class="choice" data-val="never" onclick="selectSingle(this,'q-muscle-weakness')">Нет</button>
+        <button class="choice" data-val="sometimes" onclick="selectSingle(this,'q-muscle-weakness')">Иногда</button>
+        <button class="choice" data-val="often" onclick="selectSingle(this,'q-muscle-weakness')">Часто</button>
+      </div>
+    </div>
+    <div style="margin-bottom:12px">
+      <label class="q-label" style="font-size:13px">Синдром беспокойных ног — неприятные ощущения в ногах вечером</label>
+      <div class="choices" id="q-rls">
+        <button class="choice" data-val="never" onclick="selectSingle(this,'q-rls')">Нет</button>
+        <button class="choice" data-val="sometimes" onclick="selectSingle(this,'q-rls')">Иногда</button>
+        <button class="choice" data-val="often" onclick="selectSingle(this,'q-rls')">Часто</button>
+      </div>
+    </div>
+    <div>
+      <label class="q-label" style="font-size:13px">Головные боли или мигрени</label>
+      <div class="choices" id="q-headache">
+        <button class="choice" data-val="never" onclick="selectSingle(this,'q-headache')">Нет</button>
+        <button class="choice" data-val="sometimes" onclick="selectSingle(this,'q-headache')">Иногда</button>
+        <button class="choice" data-val="often" onclick="selectSingle(this,'q-headache')">Часто</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-wrap">
+    <button class="btn-back" onclick="prevScreen(4)">← Назад</button>
+    <button class="btn-next" onclick="nextScreen(4)">Далее →</button>
+  </div>
+</div>
+
+<!-- ═══ SCREEN 5: ГИНЕКОЛОГИЯ И ФИНАЛ ═══ -->
+<div class="screen" id="screen-5">
+  <div style="height:12px"></div>
+  <div class="screen-title">Последний раздел</div>
+  <div class="screen-desc">Гинекологические вопросы — только если актуально. Пропусти если не подходит.</div>
+
+  <div id="gyn-section">
+    <div class="sec-divider">🌸 Гинекология</div>
+    <div class="card">
+      <div style="margin-bottom:12px">
+        <label class="q-label" style="font-size:13px">Болезненные менструации</label>
+        <div class="choices" id="q-dysmenorrhea">
+          <button class="choice" data-val="no" onclick="selectSingle(this,'q-dysmenorrhea')">Нет</button>
+          <button class="choice" data-val="mild" onclick="selectSingle(this,'q-dysmenorrhea')">Есть, умеренные</button>
+          <button class="choice" data-val="severe" onclick="selectSingle(this,'q-dysmenorrhea')">Выраженные — мешают жить</button>
+        </div>
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="q-label" style="font-size:13px">Обильные менструации</label>
+        <div class="q-hint">Обильные = смена прокладки чаще раза в 2 часа, крупные сгустки, ночные протекания</div>
+        <div class="choices" id="q-heavy-menses">
+          <button class="choice" data-val="no" onclick="selectSingle(this,'q-heavy-menses')">Нет</button>
+          <button class="choice" data-val="sometimes" onclick="selectSingle(this,'q-heavy-menses')">Иногда (1–2 цикла в год)</button>
+          <button class="choice" data-val="periodic" onclick="selectSingle(this,'q-heavy-menses')">Периодически</button>
+          <button class="choice" data-val="most-cycles" onclick="selectSingle(this,'q-heavy-menses')">Почти каждый цикл</button>
+          <button class="choice" data-val="every-cycle" onclick="selectSingle(this,'q-heavy-menses')">Каждый цикл</button>
+        </div>
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="q-label" style="font-size:13px">ПМС — перепады настроения, отёки, боли за несколько дней до менструации</label>
+        <div class="choices" id="q-pms">
+          <button class="choice" data-val="no" onclick="selectSingle(this,'q-pms')">Нет</button>
+          <button class="choice" data-val="1-2/year" onclick="selectSingle(this,'q-pms')">Бывает 1–2 раза в год</button>
+          <button class="choice" data-val="not-every" onclick="selectSingle(this,'q-pms')">Иногда — не каждый цикл</button>
+          <button class="choice" data-val="most-cycles" onclick="selectSingle(this,'q-pms')">Почти каждый цикл</button>
+          <button class="choice" data-val="every-cycle-severe" onclick="selectSingle(this,'q-pms')">Каждый цикл и значительно влияет на качество жизни</button>
+        </div>
+      </div>
+      <div style="margin-bottom:12px">
+        <label class="q-label" style="font-size:13px">Непроизвольное мочеиспускание при кашле, смехе или нагрузке</label>
+        <div class="choices" id="q-incontinence">
+          <button class="choice" data-val="no" onclick="selectSingle(this,'q-incontinence')">Нет</button>
+          <button class="choice" data-val="sometimes" onclick="selectSingle(this,'q-incontinence')">Иногда</button>
+          <button class="choice" data-val="often" onclick="selectSingle(this,'q-incontinence')">Часто</button>
+        </div>
+      </div>
+      <div>
+        <label class="q-label" style="font-size:13px">Опущение органов малого таза (матки, мочевого пузыря)</label>
+        <div class="yn-group" id="q-pelvic-prolapse"><button class="yn-btn" data-val="yes" onclick="selectYN(this,'q-pelvic-prolapse')">Да</button><button class="yn-btn" data-val="no" onclick="selectYN(this,'q-pelvic-prolapse')">Нет</button></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <label class="q-label">Есть ли что-то важное о состоянии суставов или соединительной ткани что не вошло в вопросы?</label>
+    <input class="field-input" id="f-extra" type="text" placeholder="Необязательно...">
+  </div>
+
+  <div class="warn" id="warn-5">Пожалуйста, заполни хотя бы несколько вопросов</div>
+  <div class="nav-wrap">
+    <button class="btn-back" onclick="prevScreen(5)">← Назад</button>
+    <button class="btn-next" onclick="submitForm()">Получить результат ✓</button>
+  </div>
+</div>
+
+<!-- ═══ РЕЗУЛЬТАТЫ ═══ -->
+<div class="screen" id="screen-results">
+  <div style="height:12px"></div>
+  <div id="result-hero-wrap"></div>
+  <div style="font-size:13px;color:var(--text-light);margin:0 0 10px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Вовлечённость систем</div>
+  <div id="systems-breakdown"></div>
+  <div id="interp-blocks"></div>
+  <div class="send-status" id="send-status"></div>
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'})" style="width:100%;padding:14px;background:#fff;border:1.5px solid var(--cream-dark);border-radius:12px;font-family:Inter,sans-serif;font-size:14px;color:var(--text-light);cursor:pointer;margin-top:12px;">↑ В начало</button>
+</div>
+
+<div class="overlay" id="overlay"><div class="spinner"></div><div class="overlay-text">Сохраняем результаты…</div></div>
+
+<script>
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyvVyw6uJ0mCBywNOfo5bQLarApEVmqCK2hcV_D_g65A0DXK5zz8Pd-4JAzzUSk4Oc/exec';
+const TOTAL_SCREENS = 5;
+let currentScreen = 1;
+const answers = {};
+const beighton = {};
+
+// ── INIT ──
+function init() {
+  const row = document.getElementById('steps-row');
+  for (let i=1;i<=TOTAL_SCREENS;i++){
+    const d=document.createElement('div');
+    d.className='step-dot'+(i===1?' active':'');
+    d.id='dot-'+i;
+    row.appendChild(d);
+  }
+  updateProgress();
+  // Hide gyn if male
+  document.getElementById('f-sex').addEventListener('change', function(){
+    document.getElementById('gyn-section').style.display = this.value==='male' ? 'none' : 'block';
+  });
+}
+
+function updateProgress(){
+  const pct=Math.round(((currentScreen-1)/TOTAL_SCREENS)*100);
+  document.getElementById('progress-fill').style.width=pct+'%';
+  document.getElementById('step-label').textContent='Шаг '+currentScreen+' из '+TOTAL_SCREENS;
+  document.getElementById('step-pct').textContent=pct+'%';
+  for(let i=1;i<=TOTAL_SCREENS;i++){
+    const d=document.getElementById('dot-'+i);
+    if(d)d.className='step-dot'+(i<currentScreen?' done':i===currentScreen?' active':'');
+  }
+}
+
+function showScreen(n){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  const el=document.getElementById('screen-'+n);
+  if(el)el.classList.add('active');
+  currentScreen=n;
+  updateProgress();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function prevScreen(from){if(from>1)showScreen(from-1);}
+function nextScreen(from){if(!validateScreen(from))return;if(from<TOTAL_SCREENS)showScreen(from+1);}
+
+function validateScreen(n){
+  if(n===1){
+    const nm=document.getElementById('f-name').value.trim();
+    const ln=document.getElementById('f-lastname').value.trim();
+    const em=document.getElementById('f-email').value.trim();
+    ['f-name','f-lastname','f-email'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(!el.value.trim())el.classList.add('error');else el.classList.remove('error');
+    });
+    if(!nm||!ln||!em){document.getElementById('warn-1').style.display='block';return false;}
+    document.getElementById('warn-1').style.display='none';
+  }
+  return true;
+}
+
+// ── ANSWER HANDLERS ──
+function setBeighton(key, val, btn){
+  beighton[key]=val;
+  // visual feedback
+  const parent=btn.closest('.mob-yn');
+  parent.querySelectorAll('.mob-btn').forEach(b=>b.classList.remove('yes','no'));
+  btn.classList.add(val===1?'yes':'no');
+}
+
+function selectYN(btn, groupId){
+  const g=btn.closest('.yn-group');
+  g.querySelectorAll('.yn-btn').forEach(b=>{b.classList.remove('selected-yes','selected-no');});
+  btn.classList.add(btn.dataset.val==='yes'?'selected-yes':'selected-no');
+  answers[groupId]=btn.dataset.val;
+}
+
+function selectSingle(btn, groupId){
+  const g=btn.closest('.choices');
+  g.querySelectorAll('.choice').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  answers[groupId]=btn.dataset.val;
+}
+
+// ── BEIGHTON SCORE ──
+function calcBeighton(){
+  let score=0;
+  if(beighton.pinky_r===1)score++;
+  if(beighton.pinky_l===1)score++;
+  if(beighton.thumb_r===1)score++;
+  if(beighton.thumb_l===1)score++;
+  if(beighton.elbow_r===1)score++;
+  if(beighton.elbow_l===1)score++;
+  if(beighton.knee_r===1)score++;
+  if(beighton.knee_l===1)score++;
+  if(beighton.floor===1)score++;
+  return score;
+}
+
+// ── SCORING ──
+function calcScores(){
+  const g=id=>answers[id]||'';
+  const isYes=id=>g(id)==='yes';
+  const isOften=id=>['often','always','constant'].includes(g(id));
+
+  const beightonScore=calcBeighton();
+
+  // JOINTS
+  let joints=beightonScore*2;
+  if(isYes('q-dislocations'))joints+=3;
+  if(isYes('q-sprains'))joints+=1;
+  if(isOften('q-joint-cracking'))joints+=1;
+  if(isOften('q-joint-pain'))joints+=2;
+
+  // SKIN
+  let skin=0;
+  if(isYes('q-striae'))skin+=3;
+  if(isYes('q-skin-stretch'))skin+=3;
+  if(isOften('q-bruising'))skin+=2;
+  if(isYes('q-scars'))skin+=3;
+
+  // VASCULAR
+  let vascular=0;
+  if(isYes('q-varicose'))vascular+=3;
+  if(isYes('q-spider-veins'))vascular+=1;
+  if(isOften('q-orthostatic'))vascular+=2;
+  if(isYes('q-mvp'))vascular+=5;
+
+  // GI
+  let gi=0;
+  if(isOften('q-gerd'))gi+=2;
+  if(isYes('q-prolapse-organs'))gi+=3;
+  if(isYes('q-hernia'))gi+=2;
+
+  // BONES
+  let bones=0;
+  if(isYes('q-scoliosis'))bones+=3;
+  if(isYes('q-flat-feet'))bones+=2;
+  if(isYes('q-hallux'))bones+=1;
+  if(isYes('q-disc-hernia'))bones+=3;
+
+  // NEURO
+  let neuro=0;
+  if(isOften('q-vegeto'))neuro+=2;
+  if(isOften('q-anxiety'))neuro+=1;
+  if(isOften('q-sleep-dst'))neuro+=1;
+  if(isOften('q-back-pain'))neuro+=2;
+  if(isOften('q-muscle-weakness'))neuro+=1;
+  if(isOften('q-rls'))neuro+=1;
+  if(isOften('q-headache'))neuro+=1;
+
+  // GYN
+  let gyn=0;
+  if(g('q-dysmenorrhea')==='severe')gyn+=2;
+  if(['most-cycles','every-cycle'].includes(g('q-heavy-menses')))gyn+=2;
+  if(['most-cycles','every-cycle-severe'].includes(g('q-pms')))gyn+=2;
+  if(isOften('q-incontinence'))gyn+=2;
+  if(isYes('q-pelvic-prolapse'))gyn+=3;
+
+  const total=joints+skin+vascular+gi+bones+neuro+gyn;
+
+  return {beightonScore,joints,skin,vascular,gi,bones,neuro,gyn,total};
+}
+
+function getLevel(score, high, moderate){
+  if(score>=high)return'high';
+  if(score>=moderate)return'moderate';
+  return'low';
+}
+
+function levelLabel(l){
+  if(l==='high')return'Выраженная вовлечённость';
+  if(l==='moderate')return'Умеренные признаки';
+  return'Минимальные признаки';
+}
+
+// ── SUBMIT ──
+function submitForm(){
+  document.getElementById('overlay').classList.add('active');
+  const scores=calcScores();
+  const now=new Date().toLocaleString('ru-RU');
+
+  const sysLevels={
+    joints:getLevel(scores.joints,12,6),
+    skin:getLevel(scores.skin,6,3),
+    vascular:getLevel(scores.vascular,6,3),
+    gi:getLevel(scores.gi,4,2),
+    bones:getLevel(scores.bones,5,2),
+    neuro:getLevel(scores.neuro,5,3),
+    gyn:getLevel(scores.gyn,5,2),
+  };
+
+  const totalLevel=scores.total>=20?'high':scores.total>=10?'moderate':'low';
+
+  const payload={
+    questionnaire_type:'DST',
+    timestamp:now,
+    first_name:document.getElementById('f-name').value.trim(),
+    last_name:document.getElementById('f-lastname').value.trim(),
+    email:document.getElementById('f-email').value.trim(),
+    sex:document.getElementById('f-sex').value,
+    beighton_score:scores.beightonScore,
+    beighton_pinky_r:beighton.pinky_r||0,
+    beighton_pinky_l:beighton.pinky_l||0,
+    beighton_thumb_r:beighton.thumb_r||0,
+    beighton_thumb_l:beighton.thumb_l||0,
+    beighton_elbow_r:beighton.elbow_r||0,
+    beighton_elbow_l:beighton.elbow_l||0,
+    beighton_knee_r:beighton.knee_r||0,
+    beighton_knee_l:beighton.knee_l||0,
+    beighton_floor:beighton.floor||0,
+    joints_score:scores.joints,
+    joints_level:sysLevels.joints,
+    skin_score:scores.skin,
+    skin_level:sysLevels.skin,
+    vascular_score:scores.vascular,
+    vascular_level:sysLevels.vascular,
+    gi_score:scores.gi,
+    gi_level:sysLevels.gi,
+    bones_score:scores.bones,
+    bones_level:sysLevels.bones,
+    neuro_score:scores.neuro,
+    neuro_level:sysLevels.neuro,
+    gyn_score:scores.gyn,
+    gyn_level:sysLevels.gyn,
+    total_score:scores.total,
+    total_level:totalLevel,
+    extra_notes:document.getElementById('f-extra').value.trim(),
+    answers_json:JSON.stringify({...answers,...beighton}),
+    // individual answers
+    ...Object.fromEntries(Object.entries(answers).map(([k,v])=>[k,v]))
+  };
+
+  fetch(SHEETS_URL,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(payload)
+  })
+  .then(r=>r.json())
+  .then(json=>{
+    document.getElementById('overlay').classList.remove('active');
+    showResults(scores,sysLevels,totalLevel);
+    const el=document.getElementById('send-status');
+    if(json&&json.status==='ok'){el.textContent='✅ Данные сохранены';el.className='send-status ok';el.style.display='block';}
+    else{el.textContent='⚠️ Не удалось сохранить. Пожалуйста, напиши мне в Telegram.';el.className='send-status err';el.style.display='block';}
+  })
+  .catch(()=>{
+    document.getElementById('overlay').classList.remove('active');
+    showResults(scores,sysLevels,totalLevel);
+    const el=document.getElementById('send-status');
+    el.textContent='⚠️ Не удалось сохранить данные. Пожалуйста, напиши мне в Telegram.';
+    el.className='send-status err';el.style.display='block';
+  });
+}
+
+// ── SHOW RESULTS ──
+function showResults(scores,sysLevels,totalLevel){
+  document.getElementById('progress-wrap').style.display='none';
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-results').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  const heroColors={
+    high:'linear-gradient(135deg,#9C4A1A,#E07B39)',
+    moderate:'linear-gradient(135deg,#B8860B,#E8B84B)',
+    low:'linear-gradient(135deg,#2E7D5C,#4CAF8A)'
+  };
+  const heroTitles={
+    high:'Выраженные признаки ДСТ',
+    moderate:'Умеренные признаки ДСТ',
+    low:'Минимальные признаки ДСТ'
+  };
+  const heroEmojis={high:'🟠',moderate:'🟡',low:'🟢'};
+
+  document.getElementById('result-hero-wrap').innerHTML=`
+    <div class="result-hero" style="background:${heroColors[totalLevel]}">
+      <div class="result-emoji">${heroEmojis[totalLevel]}</div>
+      <div class="result-title">${heroTitles[totalLevel]}</div>
+      <div class="result-subtitle">Балл Бейтона: ${scores.beightonScore}/9 · Общий балл: ${scores.total}</div>
+    </div>`;
+
+  const systems=[
+    {key:'joints',name:'Суставы и гипермобильность',score:scores.joints,level:sysLevels.joints},
+    {key:'skin',name:'Кожа и соединительная ткань',score:scores.skin,level:sysLevels.skin},
+    {key:'vascular',name:'Сосудистая система',score:scores.vascular,level:sysLevels.vascular},
+    {key:'gi',name:'ЖКТ и органы',score:scores.gi,level:sysLevels.gi},
+    {key:'bones',name:'Кости и осанка',score:scores.bones,level:sysLevels.bones},
+    {key:'neuro',name:'Нервная система и усталость',score:scores.neuro,level:sysLevels.neuro},
+    {key:'gyn',name:'Гинекология',score:scores.gyn,level:sysLevels.gyn},
+  ];
+
+  const dots={high:'🔴',moderate:'🟡',low:'🟢'};
+  document.getElementById('systems-breakdown').innerHTML=systems.map(s=>`
+    <div class="sys-block ${s.level}">
+      <div class="sys-dot">${dots[s.level]}</div>
+      <div><div class="sys-name">${s.name}</div><div class="sys-level">${levelLabel(s.level)}</div></div>
+      <div class="sys-score">${s.score}</div>
+    </div>`).join('');
+
+  // Interpretation blocks
+  const interps=[];
+  interps.push(`<div class="interp-card"><h4>Что означает этот результат?</h4><p>Это не диагноз, а предварительная оценка признаков дисплазии соединительной ткани. ДСТ — это особенность строения, которая влияет на работу суставов, кожи, сосудов и других систем. Результаты будут рассмотрены на консультации в контексте полной клинической картины.</p></div>`);
+
+  if(sysLevels.joints==='high'){
+    interps.push(`<div class="interp-card"><h4>🔴 Суставы — стоит обратить внимание</h4><p>Высокий балл гипермобильности и нестабильности суставов. Важно исключить патологическую гипермобильность и подобрать правильный тип нагрузок — без ударных и с акцентом на стабилизацию.</p></div>`);
+  }
+  if(sysLevels.vascular==='high'){
+    interps.push(`<div class="interp-card"><h4>🔴 Сосуды — требует внимания</h4><p>Признаки сосудистой вовлечённости. При выраженных симптомах рекомендуется УЗИ сердца для исключения пролапса митрального клапана.</p></div>`);
+  }
+  if(sysLevels.neuro==='high'||sysLevels.neuro==='moderate'){
+    interps.push(`<div class="interp-card"><h4>⚡ Вегетативная система</h4><p>Симптомы вегетативной дисфункции часто сопровождают ДСТ. Приоритет — магний, работа со стрессом, режим сна.</p></div>`);
+  }
+  if(scores.gyn>0&&document.getElementById('f-sex').value!=='male'){
+    interps.push(`<div class="interp-card"><h4>🌸 Гинекология</h4><p>Признаки вовлечения соединительной ткани органов малого таза. Будет рассмотрено на консультации.</p></div>`);
+  }
+
+  document.getElementById('interp-blocks').innerHTML=interps.join('');
+}
+
+document.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
