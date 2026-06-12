@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Анкета «ЖКТ» · Dr. Diana Demeshko</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --deep:#2D4A2D;--cream:#F7F3EC;--cream-dark:#E8E0D0;
+  --text:#2C2C2C;--text-light:#7A7A6E;
+  --green:#5B8C5A;--accent-light:#EDF3EC;
+  --yellow:#C4924A;--orange:#B86B3A;--red:#A84040;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;}
+.hero{width:100%;height:160px;display:block;}
+.header{background:var(--deep);padding:24px 20px 28px;text-align:center;}
+.brand{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
+.header h1{font-family:'Playfair Display',serif;font-size:clamp(22px,5vw,32px);color:#fff;line-height:1.3;margin-bottom:8px;}
+.header p{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;max-width:480px;margin:0 auto;}
+.time-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(91,140,90,0.2);border:1px solid rgba(91,140,90,0.4);border-radius:99px;padding:6px 14px;font-size:12px;color:rgba(255,255,255,0.8);margin-top:12px;}
+.progress-wrap{padding:16px 16px 0;}
+.progress-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--text-light);margin-bottom:8px;}
+.progress-bar{height:6px;background:var(--cream-dark);border-radius:99px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,#8FBC8E,var(--green));border-radius:99px;transition:width 0.4s ease;width:0%;}
+.steps-row{display:flex;gap:3px;margin-top:8px;}
+.step-dot{flex:1;height:3px;border-radius:99px;background:var(--cream-dark);transition:background 0.3s;}
+.step-dot.done{background:var(--green);}
+.step-dot.active{background:var(--yellow);}
+.section{display:none;padding:16px;}
+.section.active{display:block;}
+.section-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--deep);margin-bottom:4px;font-weight:600;}
+.section-desc{font-size:13px;color:var(--text-light);line-height:1.6;margin-bottom:20px;}
+.card{background:#fff;border-radius:16px;padding:20px;border:1px solid var(--cream-dark);margin-bottom:12px;}
+.q-label{font-size:14px;font-weight:600;color:var(--deep);display:block;margin-bottom:10px;line-height:1.4;}
+.q-hint{font-size:12px;color:var(--text-light);margin-bottom:10px;font-style:italic;line-height:1.5;}
+.field-input,.field-select{width:100%;padding:14px 16px;border:1.5px solid var(--cream-dark);border-radius:12px;font-family:'Inter',sans-serif;font-size:15px;color:var(--text);background:var(--cream);outline:none;transition:border-color 0.2s;}
+.field-input:focus,.field-select:focus{border-color:var(--green);background:#fff;}
+.field-input.error{border-color:var(--red);}
+.field-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237A7A6E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.field-label{font-size:13px;font-weight:600;color:var(--deep);display:block;margin-bottom:6px;}
+.choices{display:flex;flex-direction:column;gap:8px;}
+.choice{background:var(--cream);border:1.5px solid var(--cream-dark);border-radius:12px;padding:13px 16px;cursor:pointer;font-size:14px;color:var(--text);line-height:1.4;transition:all 0.15s;text-align:left;-webkit-tap-highlight-color:transparent;}
+.choice:hover{background:var(--accent-light);border-color:var(--green);}
+.choice.selected{background:var(--accent-light);border-color:var(--deep);font-weight:500;color:var(--deep);}
+.choice.selected::before{content:'✓ ';color:var(--green);font-weight:700;}
+.multi-hint{font-size:11px;color:var(--text-light);margin-bottom:8px;font-style:italic;}
+
+/* BRISTOL SCALE */
+.bristol-grid{display:flex;flex-direction:column;gap:8px;}
+.bristol-card{display:flex;align-items:center;gap:14px;background:var(--cream);border:1.5px solid var(--cream-dark);border-radius:12px;padding:12px 14px;cursor:pointer;transition:all 0.15s;-webkit-tap-highlight-color:transparent;}
+.bristol-card:hover{background:var(--accent-light);border-color:var(--green);}
+.bristol-card.selected{background:var(--accent-light);border-color:var(--deep);}
+.bristol-icon{width:44px;height:44px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.bristol-info{flex:1;}
+.bristol-type{font-size:12px;font-weight:600;color:var(--deep);margin-bottom:2px;}
+.bristol-desc{font-size:12px;color:var(--text-light);line-height:1.4;}
+.bristol-badge{font-size:10px;padding:2px 8px;border-radius:99px;font-weight:600;flex-shrink:0;}
+.badge-constipation{background:rgba(184,107,58,0.15);color:var(--orange);}
+.badge-normal{background:rgba(91,140,90,0.15);color:var(--green);}
+.badge-diarrhea{background:rgba(168,64,64,0.12);color:var(--red);}
+
+/* FREQUENCY SCALE */
+.freq-opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:6px;}
+.freq-btn{padding:10px 8px;background:var(--cream);border:1.5px solid var(--cream-dark);border-radius:10px;cursor:pointer;font-size:12px;text-align:center;color:var(--text);transition:all 0.15s;line-height:1.3;-webkit-tap-highlight-color:transparent;}
+.freq-btn:hover{background:var(--accent-light);border-color:var(--green);}
+.freq-btn.selected{background:var(--accent-light);border-color:var(--deep);font-weight:500;}
+
+/* RED FLAG */
+.flag-card{background:#FFF5F5;border:1.5px solid rgba(168,64,64,0.25);border-radius:16px;padding:20px;margin-bottom:12px;}
+.flag-card .q-label{color:var(--red);}
+
+.nav-wrap{display:flex;gap:10px;padding:4px 0 20px;}
+.btn-back{flex:1;padding:14px;background:#fff;border:1.5px solid var(--cream-dark);border-radius:12px;font-family:'Inter',sans-serif;font-size:15px;color:var(--text-light);cursor:pointer;}
+.btn-next{flex:2;padding:14px;background:var(--deep);color:#fff;border:none;border-radius:12px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;cursor:pointer;}
+.warn{background:rgba(168,64,64,0.08);border:1px solid rgba(168,64,64,0.25);border-radius:8px;padding:10px 14px;font-size:12.5px;color:var(--red);margin-bottom:12px;display:none;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(45,74,45,0.6);z-index:100;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+.overlay.active{display:flex;}
+.spinner{width:44px;height:44px;border:3px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.overlay-text{color:#fff;font-size:14px;font-weight:500;}
+#screen-thanks{display:none;padding:40px 20px;text-align:center;}
+.thanks-icon{font-size:56px;margin-bottom:16px;}
+.thanks-title{font-family:'Playfair Display',serif;font-size:24px;color:var(--deep);margin-bottom:12px;}
+.thanks-text{font-size:14px;color:var(--text-light);line-height:1.7;max-width:360px;margin:0 auto 24px;}
+.flag-notice{background:#FFF5F5;border:1px solid rgba(168,64,64,0.25);border-radius:12px;padding:16px;margin:0 auto;max-width:360px;font-size:13px;color:var(--red);line-height:1.6;}
+@media(max-width:380px){.field-row{grid-template-columns:1fr;}.freq-opts{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+
+<svg class="hero" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 160" preserveAspectRatio="xMidYMid slice">
+  <rect width="800" height="160" fill="#2D4A2D"/>
+  <g fill="#3a7a32" opacity="0.7"><circle cx="80" cy="80" r="45"/><circle cx="125" cy="80" r="45"/><circle cx="102" cy="48" r="45"/><circle cx="102" cy="112" r="45"/></g>
+  <g fill="#4a9a42" opacity="0.5"><circle cx="280" cy="65" r="38"/><circle cx="318" cy="65" r="38"/><circle cx="299" cy="38" r="38"/><circle cx="299" cy="92" r="38"/></g>
+  <g fill="#5ab050" opacity="0.4"><circle cx="480" cy="90" r="42"/><circle cx="522" cy="90" r="42"/><circle cx="501" cy="58" r="42"/><circle cx="501" cy="122" r="42"/></g>
+  <g fill="#3a7a32" opacity="0.35"><circle cx="660" cy="55" r="35"/><circle cx="695" cy="55" r="35"/><circle cx="677" cy="30" r="35"/><circle cx="677" cy="80" r="35"/></g>
+  <g fill="#7acc70" opacity="0.2"><circle cx="760" cy="120" r="28"/><circle cx="788" cy="120" r="28"/><circle cx="774" cy="96" r="28"/><circle cx="774" cy="144" r="28"/></g>
+</svg>
+
+<div class="header">
+  <div class="brand">Dr. Diana Demeshko</div>
+  <h1>Анкета «ЖКТ»</h1>
+  <p>Помогает системно оценить работу пищеварения — стул, вздутие, реакции на еду и возможные паттерны дисбиоза</p>
+  <div class="time-badge">⏱ Около 10–15 минут</div>
+</div>
+
+<div class="progress-wrap" id="progress-wrap">
+  <div class="progress-meta"><span id="step-label">Шаг 1 из 10</span><span id="step-pct">0%</span></div>
+  <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+  <div class="steps-row" id="steps-row"></div>
+</div>
+
+<!-- ═══ STEP 1: ДАННЫЕ ═══ -->
+<div class="section active" id="step-1">
+  <div style="height:12px"></div>
+  <div class="section-title">Несколько слов о тебе</div>
+  <div class="section-desc">Минимум данных — чтобы правильно связать эту анкету с твоим профилем.</div>
+  <div class="card">
+    <div class="field-row">
+      <div><label class="field-label">Имя <span style="color:var(--red)">*</span></label><input class="field-input" id="f-name" type="text" placeholder="Имя" autocomplete="given-name"></div>
+      <div><label class="field-label">Фамилия <span style="color:var(--red)">*</span></label><input class="field-input" id="f-lastname" type="text" placeholder="Фамилия" autocomplete="family-name"></div>
+    </div>
+    <div style="margin-top:12px"><label class="field-label">Email <span style="color:var(--red)">*</span></label><input class="field-input" id="f-email" type="email" placeholder="ваш@email.com"><div style="font-size:11px;color:var(--text-light);margin-top:4px">По email мы свяжем эту анкету с твоим профилем</div></div>
+  </div>
+  <div class="warn" id="warn-1">Пожалуйста, заполни все обязательные поля</div>
+  <div class="nav-wrap"><button class="btn-next" onclick="nextStep(1)">Начать анкету →</button></div>
+</div>
+
+<!-- ═══ STEP 2: БРИСТОЛЬ ═══ -->
+<div class="section" id="step-2">
+  <div style="height:12px"></div>
+  <div class="section-title">Бристольская шкала стула</div>
+  <div class="section-desc">Это медицинская шкала которая помогает оценить работу пищеварения. Нет правильных ответов — только честных.</div>
+  <div class="card">
+    <label class="q-label">Какой тип стула у тебя чаще всего?</label>
+    <div class="bristol-grid" id="q-bristol-main">
+      <div class="bristol-card" data-val="1" onclick="selectBristol(this,'q-bristol-main')">
+        <div class="bristol-icon"><svg width="40" height="40" viewBox="0 0 40 40"><circle cx="8" cy="20" r="5" fill="#8B5E3C"/><circle cx="20" cy="18" r="5" fill="#8B5E3C"/><circle cx="32" cy="21" r="5" fill="#8B5E3C"/><circle cx="14" cy="28" r="4" fill="#7A5230"/><circle cx="26" cy="27" r="4" fill="#7A5230"/></svg></div>
+        <div class="bristol-info"><div class="bristol-type">Тип 1</div><div class="bristol-desc">Отдельные твёрдые комочки — как орехи, трудно отходят</div></div>
+        <span class="bristol-badge badge-constipation">Запор</span>
+      </div>
+      <div class="bristol-card" data-val="2" onclick="selectBristol(this,'q-bristol-main')">
+        <div class="bristol-icon"><svg width="40" height="40" viewBox="0 0 40 40"><ellipse cx="20" cy="22" rx="16" ry="9" fill="#9B6A3C"/><circle cx="8" cy="20" r="4" fill="#8B5E3C"/><circle cx="16" cy="16" r="3" fill="#8B5E3C"/><circle cx="28" cy="17" r="3" fill="#8B5E3C"/><circle cx="33" cy="22" r="3" fill="#8B5E3C"/></svg></div>
+        <div class="bristol-info"><div class="bristol-type">Тип 2</div><div class="bristol-desc">Колбасовидный, но комковатый</div></div>
+        <span class="bristol-badge badge-constipation">Запор</span>
+      </div>
+      <div class="bristol-card" data-val="3" onclick="selectBristol(this,'q-bristol-main')">
+        <div class="bristol-icon"><svg width="40" height="40" viewBox="0 0 40 40"><ellipse cx="20" cy="22" rx="16" ry="8" fill="#A0734A"/><line x1="5" y1="18" x2="12" y2="22" stroke="#8B6040" stroke-width="1.5"/><line x1="14" y1="15" x2="18" y2="20" stroke="#8B6040" stroke-width="1.5"/><line x1="22" y1="15" x2="26" y2="20" stroke="#8B6040" stroke-width="1.5"/><line x1="29" y1="17" x2="34" y2="22" stroke="#8B6040" stroke-width="1.5"/></svg></div>
+        <div class="bristol-info"><div class="bristol-type">Тип 3</div><div class="bristol-desc">Колбасовидный с трещинами на поверхности</div></div>
+        <span class="bristol-badge badge-normal">Норма−</span>
+      </div>
+      <div class="bristol-card" data-val="4" onclick="selectBristol(this,'q-bristol-main')">
+        <div class="bristol-icon"><svg width="40" height="40" viewBox="0 0 40 40"><ellipse cx="20" cy="22" rx="16" ry="8" fill="#8B6B4A" rx="4"/><ellipse cx="20" cy="21" rx="14" ry="6" fill="#9B7A58"/></svg></div>
+        <div class="bristol-info"><div class="bristol-type">Тип 4 ✓</div><div class="bristol-desc">Гладкий, мягкий, оформленный — как банан</div></div>
+        <span class="bristol-badge badge-normal">Норма</span>
+      </div>
+      <div class="bristol-card" data-val="5" onclick="selectBristol(this,'q-bristol-main')">
+        <div class="bristol-icon"><svg width="40" height="40" viewBox="0 0 40 40"><ellipse cx="10" cy="22" rx="6" ry="5" fill="#B08060"/><ellipse cx="20" cy="20" rx="6" ry="5" fill="#B08060"/><ellipse cx="30" cy="22" rx="6" ry="5" fill="#B08060"/></svg></div>
+        <div class="bristol-info"><div class="bristol-type">Тип 5</div><div class="bristol-desc">Мягкие фрагменты с чёткими краями, лёгкое отхождение</div></div>
+        <span class="bristol-badge badge-diarrhea">Мягкий</span>
+      </div>
+      <div class="bristol-card" data-val="6" onclick="selectBristol(this,'q-bristol-main')">
+        <div class="bristol-icon"><svg width="40" height="40" viewBox="0 0 40 40"><ellipse cx="20" cy="24" rx="15" ry="8" fill="#C4A882" opacity="0.7"/><ellipse cx="12" cy="20" rx="8" ry="5" fill="#B09070" opacity="0.8"/><ellipse cx="28" cy="21" rx="8" ry="5" fill="#B09070" opacity="0.8"/></svg></div>
+        <div class="bristol-info"><div class="bristol-type">Тип 6</div><div class="bristol-desc">Кашицеобразный, рыхлый, неоформленный</div></div>
+        <span class="bristol-badge badge-diarrhea">Диарея−</span>
+      </div>
+      <div class="bristol-card" data-val="7" onclick="selectBristol(this,'q-bristol-main')">
+        <div class="bristol-icon"><svg width="40" height="40" viewBox="0 0 40 40"><ellipse cx="20" cy="25" rx="16" ry="7" fill="#D4B896" opacity="0.5"/><ellipse cx="20" cy="24" rx="14" ry="5" fill="#C4A882" opacity="0.4"/></svg></div>
+        <div class="bristol-info"><div class="bristol-type">Тип 7</div><div class="bristol-desc">Водянистый, жидкий, без твёрдых частиц</div></div>
+        <span class="bristol-badge badge-diarrhea">Диарея</span>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Какие ещё типы бывают у тебя? <span style="font-weight:400;color:var(--text-light)">(выбери все подходящее)</span></label>
+    <div class="multi-hint">Можно выбрать несколько</div>
+    <div class="bristol-grid" id="q-bristol-additional">
+      <div class="bristol-card multi" data-val="1" onclick="toggleBristolMulti(this)"><div class="bristol-icon"><svg width="32" height="32" viewBox="0 0 40 40"><circle cx="8" cy="20" r="5" fill="#8B5E3C"/><circle cx="20" cy="18" r="5" fill="#8B5E3C"/><circle cx="32" cy="21" r="5" fill="#8B5E3C"/></svg></div><div class="bristol-info"><div class="bristol-type">Тип 1</div><div class="bristol-desc">Твёрдые комочки</div></div></div>
+      <div class="bristol-card multi" data-val="2" onclick="toggleBristolMulti(this)"><div class="bristol-icon"><svg width="32" height="32" viewBox="0 0 40 40"><ellipse cx="20" cy="22" rx="14" ry="8" fill="#9B6A3C"/><circle cx="10" cy="19" r="3" fill="#8B5E3C"/><circle cx="30" cy="19" r="3" fill="#8B5E3C"/></svg></div><div class="bristol-info"><div class="bristol-type">Тип 2</div><div class="bristol-desc">Комковатый</div></div></div>
+      <div class="bristol-card multi" data-val="3" onclick="toggleBristolMulti(this)"><div class="bristol-icon"><svg width="32" height="32" viewBox="0 0 40 40"><ellipse cx="20" cy="22" rx="14" ry="7" fill="#A0734A"/></svg></div><div class="bristol-info"><div class="bristol-type">Тип 3</div><div class="bristol-desc">С трещинами</div></div></div>
+      <div class="bristol-card multi" data-val="4" onclick="toggleBristolMulti(this)"><div class="bristol-icon"><svg width="32" height="32" viewBox="0 0 40 40"><ellipse cx="20" cy="22" rx="14" ry="7" fill="#9B7A58"/></svg></div><div class="bristol-info"><div class="bristol-type">Тип 4</div><div class="bristol-desc">Гладкий</div></div></div>
+      <div class="bristol-card multi" data-val="5" onclick="toggleBristolMulti(this)"><div class="bristol-icon"><svg width="32" height="32" viewBox="0 0 40 40"><ellipse cx="10" cy="22" rx="6" ry="5" fill="#B08060"/><ellipse cx="22" cy="20" rx="6" ry="5" fill="#B08060"/><ellipse cx="33" cy="22" rx="5" ry="4" fill="#B08060"/></svg></div><div class="bristol-info"><div class="bristol-type">Тип 5</div><div class="bristol-desc">Мягкие фрагменты</div></div></div>
+      <div class="bristol-card multi" data-val="6" onclick="toggleBristolMulti(this)"><div class="bristol-icon"><svg width="32" height="32" viewBox="0 0 40 40"><ellipse cx="20" cy="24" rx="14" ry="7" fill="#C4A882" opacity="0.7"/></svg></div><div class="bristol-info"><div class="bristol-type">Тип 6</div><div class="bristol-desc">Кашицеобразный</div></div></div>
+      <div class="bristol-card multi" data-val="7" onclick="toggleBristolMulti(this)"><div class="bristol-icon"><svg width="32" height="32" viewBox="0 0 40 40"><ellipse cx="20" cy="25" rx="14" ry="6" fill="#D4B896" opacity="0.5"/></svg></div><div class="bristol-info"><div class="bristol-type">Тип 7</div><div class="bristol-desc">Водянистый</div></div></div>
+    </div>
+  </div>
+  <div class="warn" id="warn-2">Пожалуйста, выбери основной тип стула</div>
+  <div class="nav-wrap"><button class="btn-back" onclick="prevStep(2)">← Назад</button><button class="btn-next" onclick="nextStep(2)">Далее →</button></div>
+</div>
+
+<!-- ═══ STEP 3: ЗАПОРЫ ═══ -->
+<div class="section" id="step-3">
+  <div style="height:12px"></div>
+  <div class="section-title">Частота и характер стула</div>
+  <div class="section-desc">Эти вопросы помогают понять работу моторики кишечника.</div>
+  <div class="card">
+    <label class="q-label">Как часто у тебя стул?</label>
+    <div class="choices" id="q-stool-freq">
+      <button class="choice" data-val="2-3/day">2–3 раза в день</button>
+      <button class="choice" data-val="1/day">1 раз в день</button>
+      <button class="choice" data-val="every-other">Через день</button>
+      <button class="choice" data-val="2-3/week">2–3 раза в неделю</button>
+      <button class="choice" data-val="1/week">1 раз в неделю или реже</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Бывает ли ощущение неполного опорожнения?</label>
+    <div class="freq-opts" id="q-incomplete">
+      <button class="freq-btn" data-val="never">Никогда</button>
+      <button class="freq-btn" data-val="rarely">Редко</button>
+      <button class="freq-btn" data-val="sometimes">Иногда</button>
+      <button class="freq-btn" data-val="often">Часто</button>
+      <button class="freq-btn" data-val="always">Почти всегда</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Нужно ли тужиться?</label>
+    <div class="freq-opts" id="q-straining">
+      <button class="freq-btn" data-val="no">Нет</button>
+      <button class="freq-btn" data-val="a-bit">Немного</button>
+      <button class="freq-btn" data-val="often">Часто</button>
+      <button class="freq-btn" data-val="always">Почти всегда</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Бывает ли очень твёрдый стул?</label>
+    <div class="freq-opts" id="q-hard-stool">
+      <button class="freq-btn" data-val="no">Нет</button>
+      <button class="freq-btn" data-val="rarely">Редко</button>
+      <button class="freq-btn" data-val="sometimes">Иногда</button>
+      <button class="freq-btn" data-val="often">Часто</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Используешь ли слабительные, магний, псиллиум или другие средства?</label>
+    <div class="freq-opts" id="q-laxatives">
+      <button class="freq-btn" data-val="no">Нет</button>
+      <button class="freq-btn" data-val="sometimes">Иногда</button>
+      <button class="freq-btn" data-val="regularly">Регулярно</button>
+    </div>
+    <div style="margin-top:10px"><input class="field-input" id="f-laxatives-what" type="text" placeholder="Если да — какие именно?"></div>
+  </div>
+  <div class="nav-wrap"><button class="btn-back" onclick="prevStep(3)">← Назад</button><button class="btn-next" onclick="nextStep(3)">Далее →</button></div>
+</div>
+
+<!-- ═══ STEP 4: ДИАРЕЯ ═══ -->
+<div class="section" id="step-4">
+  <div style="height:12px"></div>
+  <div class="section-title">Диарея и ускоренный транзит</div>
+  <div class="section-desc">Оцени наличие и частоту этих симптомов за последние 4 недели.</div>
+  <div class="card">
+    <label class="q-label">Бывает ли жидкий или водянистый стул?</label>
+    <div class="freq-opts" id="q-loose-stool">
+      <button class="freq-btn" data-val="never">Никогда</button>
+      <button class="freq-btn" data-val="rarely">Редко</button>
+      <button class="freq-btn" data-val="sometimes">Иногда</button>
+      <button class="freq-btn" data-val="often">Часто</button>
+      <button class="freq-btn" data-val="daily">Почти каждый день</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Как часто бывает срочный позыв в туалет — когда не можешь терпеть?</label>
+    <div class="freq-opts" id="q-urgency">
+      <button class="freq-btn" data-val="never">Никогда</button>
+      <button class="freq-btn" data-val="rarely">Редко</button>
+      <button class="freq-btn" data-val="sometimes">Иногда</button>
+      <button class="freq-btn" data-val="often">Часто</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Бывает ли стул сразу после еды?</label>
+    <div class="freq-opts" id="q-postprandial">
+      <button class="freq-btn" data-val="no">Нет</button>
+      <button class="freq-btn" data-val="sometimes">Иногда</button>
+      <button class="freq-btn" data-val="often">Часто</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Есть ли слизь в стуле?</label>
+    <div class="freq-opts" id="q-mucus">
+      <button class="freq-btn" data-val="no">Нет</button>
+      <button class="freq-btn" data-val="sometimes">Иногда</button>
+      <button class="freq-btn" data-val="often">Часто</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Есть ли жирный, блестящий стул который плохо смывается?</label>
+    <div class="freq-opts" id="q-fatty-stool">
+      <button class="freq-btn" data-val="no">Нет</button>
+      <button class="freq-btn" data-val="sometimes">Иногда</button>
+      <button class="freq-btn" data-val="often">Часто</button>
+    </div>
+  </div>
+  <div class="nav-wrap"><button class="btn-back" onclick="prevStep(4)">← Назад</button><button class="btn-next" onclick="nextStep(4)">Далее →</button></div>
+</div>
+
+<!-- ═══ STEP 5: ВЗДУТИЕ ═══ -->
+<div class="section" id="step-5">
+  <div style="height:12px"></div>
+  <div class="section-title">Вздутие и газообразование</div>
+  <div class="section-desc">Вздутие может многое рассказать о работе разных отделов пищеварения.</div>
+  <div class="card">
+    <label class="q-label">Как часто бывает вздутие?</label>
+    <div class="freq-opts" id="q-bloating-freq">
+      <button class="freq-btn" data-val="never">Нет</button>
+      <button class="freq-btn" data-val="rarely">Редко</button>
+      <button class="freq-btn" data-val="sometimes">Иногда</button>
+      <button class="freq-btn" data-val="often">Часто</button>
+      <button class="freq-btn" data-val="daily">Ежедневно</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Когда вздутие сильнее?</label>
+    <div class="choices" id="q-bloating-timing">
+      <button class="choice" data-val="morning">Утром</button>
+      <button class="choice" data-val="after-meal">После еды</button>
+      <button class="choice" data-val="evening">К вечеру</button>
+      <button class="choice" data-val="constant">Постоянно</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Через сколько после еды появляется вздутие?</label>
+    <div class="choices" id="q-bloating-delay">
+      <button class="choice" data-val="immediate">Сразу</button>
+      <button class="choice" data-val="30-60min">Через 30–60 минут</button>
+      <button class="choice" data-val="2-4h">Через 2–4 часа</button>
+      <button class="choice" data-val="no-pattern">Не замечаю связи</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Какие продукты чаще провоцируют вздутие? <span style="font-weight:400;color:var(--text-light)">(выбери все подходящее)</span></label>
+    <div class="multi-hint">Можно выбрать несколько</div>
+    <div class="choices" id="q-bloating-triggers">
+      <button class="choice multi" data-val="legumes">Бобовые (горох, фасоль, чечевица)</button>
+      <button class="choice multi" data-val="cabbage">Капуста и крестоцветные</button>
+      <button class="choice multi" data-val="onion-garlic">Лук и чеснок</button>
+      <button class="choice multi" data-val="dairy">Молочные продукты</button>
+      <button class="choice multi" data-val="gluten">Хлеб, макароны, выпечка</button>
+      <button class="choice multi" data-val="sugar">Сладкое</button>
+      <button class="choice multi" data-val="fruits">Фрукты</button>
+      <button class="choice multi" data-val="raw-veg">Сырые овощи</button>
+      <button class="choice multi" data-val="fatty">Жирная пища</button>
+      <button class="choice multi" data-val="unknown">Не знаю / не замечаю</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Есть ли дополнительные симптомы? <span style="font-weight:400;color:var(--text-light)">(выбери все подходящее)</span></label>
+    <div class="choices" id="q-upper-gi">
+      <button class="choice multi" data-val="belching">Отрыжка</button>
+      <button class="choice multi" data-val="heartburn">Изжога</button>
+      <button class="choice multi" data-val="nausea">Тошнота</button>
+      <button class="choice multi" data-val="heaviness">Тяжесть после еды</button>
+      <button class="choice multi" data-val="early-satiety">Быстрое насыщение — сложно доесть порцию</button>
+      <button class="choice multi" data-val="none">Ничего из этого</button>
+    </div>
+  </div>
+  <div class="nav-wrap"><button class="btn-back" onclick="prevStep(5)">← Назад</button><button class="btn-next" onclick="nextStep(5)">Далее →</button></div>
+</div>
+
+<!-- ═══ STEP 6: ВОДА ═══ -->
+<div class="section" id="step-6">
+  <div style="height:12px"></div>
+  <div class="section-title">Вода и гидратация</div>
+  <div class="section-desc">Количество воды напрямую влияет на формирование стула и работу кишечника.</div>
+  <div class="card">
+    <label class="q-label">Сколько воды ты пьёшь в день?</label>
+    <div class="choices" id="q-water">
+      <button class="choice" data-val="<500ml">Меньше 500 мл</button>
+      <button class="choice" data-val="500ml-1l">500 мл — 1 литр</button>
+      <button class="choice" data-val="1-1.5l">1–1,5 литра</button>
+      <button class="choice" data-val="1.5-2l">1,5–2 литра</button>
+      <button class="choice" data-val=">2l">Больше 2 литров</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Что пьёшь чаще всего? <span style="font-weight:400;color:var(--text-light)">(выбери все подходящее)</span></label>
+    <div class="choices" id="q-drinks">
+      <button class="choice multi" data-val="water">Вода</button>
+      <button class="choice multi" data-val="tea">Чай</button>
+      <button class="choice multi" data-val="coffee">Кофе</button>
+      <button class="choice multi" data-val="juice">Соки</button>
+      <button class="choice multi" data-val="soda">Газировка</button>
+      <button class="choice multi" data-val="sweet-drinks">Сладкие напитки</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Пьёшь ли воду утром до еды?</label>
+    <div class="freq-opts" id="q-morning-water">
+      <button class="freq-btn" data-val="yes">Да</button>
+      <button class="freq-btn" data-val="no">Нет</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Какой обычно цвет мочи?</label>
+    <div class="choices" id="q-urine-color">
+      <button class="choice" data-val="light">Светлая, почти прозрачная</button>
+      <button class="choice" data-val="medium">Средняя, соломенная</button>
+      <button class="choice" data-val="dark">Тёмная, насыщенная</button>
+      <button class="choice" data-val="not-sure">Не обращаю внимания</button>
+    </div>
+  </div>
+  <div class="nav-wrap"><button class="btn-back" onclick="prevStep(6)">← Назад</button><button class="btn-next" onclick="nextStep(6)">Далее →</button></div>
+</div>
+
+<!-- ═══ STEP 7: КЛЕТЧАТКА ═══ -->
+<div class="section" id="step-7">
+  <div style="height:12px"></div>
+  <div class="section-title">Клетчатка и питание</div>
+  <div class="section-desc">Пищевые волокна — ключевой фактор для нормальной моторики и здоровья микробиоты.</div>
+  <div class="card">
+    <label class="q-label">Сколько порций овощей ты ешь в день?</label>
+    <div class="freq-opts" id="q-veggies">
+      <button class="freq-btn" data-val="0">0</button>
+      <button class="freq-btn" data-val="1">1</button>
+      <button class="freq-btn" data-val="2">2</button>
+      <button class="freq-btn" data-val="3">3</button>
+      <button class="freq-btn" data-val="4+">4+</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Сколько порций фруктов или ягод?</label>
+    <div class="freq-opts" id="q-fruits">
+      <button class="freq-btn" data-val="0">0</button>
+      <button class="freq-btn" data-val="1">1</button>
+      <button class="freq-btn" data-val="2">2</button>
+      <button class="freq-btn" data-val="3+">3+</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Едишь ли бобовые?</label>
+    <div class="choices" id="q-legumes">
+      <button class="choice" data-val="never">Нет</button>
+      <button class="choice" data-val="rarely">Редко</button>
+      <button class="choice" data-val="1-2/week">1–2 раза в неделю</button>
+      <button class="choice" data-val="3+/week">3 и более раз в неделю</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Как реагируешь на клетчатку?</label>
+    <div class="choices" id="q-fiber-reaction">
+      <button class="choice" data-val="better">Становится лучше</button>
+      <button class="choice" data-val="bloating">Появляется вздутие</button>
+      <button class="choice" data-val="pain">Появляется боль</button>
+      <button class="choice" data-val="diarrhea">Появляется диарея</button>
+      <button class="choice" data-val="no-reaction">Не знаю / не замечаю</button>
+    </div>
+  </div>
+  <div class="nav-wrap"><button class="btn-back" onclick="prevStep(7)">← Назад</button><button class="btn-next" onclick="nextStep(7)">Далее →</button></div>
+</div>
+
+<!-- ═══ STEP 8: МИКРОБИОТА / КАНДИДОЗНЫЙ ПАТТЕРН ═══ -->
+<div class="section" id="step-8">
+  <div style="height:12px"></div>
+  <div class="section-title">Микробиота и реакция на сахар</div>
+  <div class="section-desc">Симптомы которые помогают оценить баланс микрофлоры и реакцию организма на углеводы.</div>
+  <div class="card">
+    <label class="q-label">Есть ли тяга к сладкому?</label>
+    <div class="choices" id="q-sugar-craving">
+      <button class="choice" data-val="none">Нет</button>
+      <button class="choice" data-val="moderate">Умеренная</button>
+      <button class="choice" data-val="strong">Сильная</button>
+      <button class="choice" data-val="very-strong">Очень сильная — трудно контролировать</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Усиливаются ли симптомы ЖКТ после сладкого, выпечки или алкоголя?</label>
+    <div class="freq-opts" id="q-sugar-reaction">
+      <button class="freq-btn" data-val="no">Нет</button>
+      <button class="freq-btn" data-val="sometimes">Иногда</button>
+      <button class="freq-btn" data-val="often">Часто</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Бывает ли белый налёт на языке?</label>
+    <div class="freq-opts" id="q-tongue-coating">
+      <button class="freq-btn" data-val="no">Нет</button>
+      <button class="freq-btn" data-val="sometimes">Иногда</button>
+      <button class="freq-btn" data-val="often">Часто</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Бывают ли грибковые инфекции кожи или ногтей?</label>
+    <div class="choices" id="q-fungal">
+      <button class="choice" data-val="no">Нет</button>
+      <button class="choice" data-val="past">Да, раньше</button>
+      <button class="choice" data-val="now">Да, сейчас</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Бывает ли выраженная усталость или «туман в голове» после углеводов?</label>
+    <div class="freq-opts" id="q-brain-fog">
+      <button class="freq-btn" data-val="no">Нет</button>
+      <button class="freq-btn" data-val="sometimes">Иногда</button>
+      <button class="freq-btn" data-val="often">Часто</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Принимал(а) ли антибиотики за последние 12 месяцев?</label>
+    <div class="choices" id="q-antibiotics">
+      <button class="choice" data-val="no">Нет</button>
+      <button class="choice" data-val="1-course">Да, 1 курс</button>
+      <button class="choice" data-val="2+courses">Да, 2 и более курса</button>
+    </div>
+  </div>
+  <div class="nav-wrap"><button class="btn-back" onclick="prevStep(8)">← Назад</button><button class="btn-next" onclick="nextStep(8)">Далее →</button></div>
+</div>
+
+<!-- ═══ STEP 9: РЕАКЦИИ НА ЕДУ ═══ -->
+<div class="section" id="step-9">
+  <div style="height:12px"></div>
+  <div class="section-title">Реакции на продукты</div>
+  <div class="section-desc">Это помогает выявить возможные пищевые чувствительности и паттерны.</div>
+  <div class="card">
+    <label class="q-label">Какие продукты чаще всего ухудшают пищеварение? <span style="font-weight:400;color:var(--text-light)">(выбери все подходящее)</span></label>
+    <div class="multi-hint">Можно выбрать несколько</div>
+    <div class="choices" id="q-food-reactions">
+      <button class="choice multi" data-val="gluten">Глютен — хлеб, макароны, выпечка</button>
+      <button class="choice multi" data-val="dairy">Молочные продукты</button>
+      <button class="choice multi" data-val="eggs">Яйца</button>
+      <button class="choice multi" data-val="sugar">Сладкое</button>
+      <button class="choice multi" data-val="alcohol">Алкоголь</button>
+      <button class="choice multi" data-val="coffee">Кофе</button>
+      <button class="choice multi" data-val="fatty">Жирная пища</button>
+      <button class="choice multi" data-val="raw-veg">Сырые овощи</button>
+      <button class="choice multi" data-val="fruits">Фрукты</button>
+      <button class="choice multi" data-val="fermented">Ферментированные продукты — кефир, квашеная капуста</button>
+      <button class="choice multi" data-val="none">Ничего из этого</button>
+    </div>
+    <div style="margin-top:10px"><input class="field-input" id="f-food-other" type="text" placeholder="Другое — напиши если есть..."></div>
+  </div>
+  <div class="card">
+    <label class="q-label">Есть ли тяжесть после белковой пищи — мяса, яиц, рыбы?</label>
+    <div class="freq-opts" id="q-protein-heaviness">
+      <button class="freq-btn" data-val="no">Нет</button>
+      <button class="freq-btn" data-val="sometimes">Иногда</button>
+      <button class="freq-btn" data-val="often">Часто</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Есть ли горечь во рту — особенно утром или после еды?</label>
+    <div class="freq-opts" id="q-bitter">
+      <button class="freq-btn" data-val="no">Нет</button>
+      <button class="freq-btn" data-val="sometimes">Иногда</button>
+      <button class="freq-btn" data-val="often">Часто</button>
+    </div>
+  </div>
+  <div class="nav-wrap"><button class="btn-back" onclick="prevStep(9)">← Назад</button><button class="btn-next" onclick="nextStep(9)">Далее →</button></div>
+</div>
+
+<!-- ═══ STEP 10: КРАСНЫЕ ФЛАГИ ═══ -->
+<div class="section" id="step-10">
+  <div style="height:12px"></div>
+  <div class="section-title">Последний раздел</div>
+  <div class="section-desc">Несколько важных вопросов — отвечай честно, это нужно для правильной подготовки к консультации.</div>
+  <div class="flag-card">
+    <label class="q-label">Есть ли у тебя сейчас или были недавно следующие симптомы? <span style="font-weight:400;color:var(--text-light)">(выбери все подходящее)</span></label>
+    <div class="multi-hint">Выбери всё что есть или было</div>
+    <div class="choices" id="q-red-flags">
+      <button class="choice multi" data-val="blood-stool">Кровь в стуле (алая)</button>
+      <button class="choice multi" data-val="black-stool">Чёрный или дёгтеобразный стул</button>
+      <button class="choice multi" data-val="weight-loss">Необъяснимая потеря веса за последние 3 месяца</button>
+      <button class="choice multi" data-val="night-diarrhea">Ночная диарея — просыпаюсь из-за позыва</button>
+      <button class="choice multi" data-val="constant-pain">Постоянная или нарастающая боль в животе</button>
+      <button class="choice multi" data-val="fever">Повышенная температура без видимой причины</button>
+      <button class="choice multi" data-val="anemia">Анемия или низкий ферритин по анализам</button>
+      <button class="choice multi" data-val="family-history">Семейная история: рак кишечника, болезнь Крона, целиакия</button>
+      <button class="choice multi" data-val="none">Ничего из этого</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Есть ли что-то важное о своём пищеварении что не вошло в вопросы выше?</label>
+    <input class="field-input" id="f-extra" type="text" placeholder="Необязательно, но если есть — напиши...">
+  </div>
+  <div class="warn" id="warn-10">Пожалуйста, ответь на вопрос о симптомах</div>
+  <div class="nav-wrap"><button class="btn-back" onclick="prevStep(10)">← Назад</button><button class="btn-next" onclick="submitForm()">Отправить анкету ✓</button></div>
+</div>
+
+<!-- THANKS -->
+<div id="screen-thanks" style="display:none;padding:40px 20px;text-align:center;">
+  <div style="font-size:56px;margin-bottom:16px">🌿</div>
+  <div style="font-family:'Playfair Display',serif;font-size:24px;color:var(--deep);margin-bottom:12px;">Спасибо!</div>
+  <div style="font-size:14px;color:var(--text-light);line-height:1.7;max-width:360px;margin:0 auto 24px;">Анкета получена. Я внимательно изучу результаты до нашей встречи. Следующий шаг придёт в Telegram.</div>
+  <div id="flag-notice" style="display:none;background:#FFF5F5;border:1px solid rgba(168,64,64,0.25);border-radius:12px;padding:16px;max-width:360px;margin:0 auto;font-size:13px;color:var(--red);line-height:1.6;">Некоторые ответы требуют более внимательного обсуждения на консультации — я обязательно обращу на это внимание.</div>
+</div>
+
+<div class="overlay" id="overlay"><div class="spinner"></div><div class="overlay-text">Сохраняем ответы…</div></div>
+
+<script>
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyvVyw6uJ0mCBywNOfo5bQLarApEVmqCK2hcV_D_g65A0DXK5zz8Pd-4JAzzUSk4Oc/exec';
+const TOTAL_STEPS = 10;
+let currentStep = 1;
+const answers = {};
+
+// ── INIT ──
+function init() {
+  const row = document.getElementById('steps-row');
+  for (let i=1;i<=TOTAL_STEPS;i++) {
+    const d=document.createElement('div');
+    d.className='step-dot'+(i===1?' active':'');
+    d.id='dot-'+i;
+    row.appendChild(d);
+  }
+  document.querySelectorAll('.choices .choice:not(.multi)').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const g=btn.closest('.choices');
+      g.querySelectorAll('.choice:not(.multi)').forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+      answers[g.id]=btn.dataset.val;
+    });
+  });
+  document.querySelectorAll('.freq-opts .freq-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const g=btn.closest('.freq-opts');
+      g.querySelectorAll('.freq-btn').forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+      answers[g.id]=btn.dataset.val;
+    });
+  });
+  document.querySelectorAll('.choices .choice.multi').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const g=btn.closest('.choices');
+      const noneVal=btn.dataset.val&&(btn.dataset.val==='none'||btn.dataset.val==='unknown');
+      if(noneVal){
+        g.querySelectorAll('.choice.multi').forEach(b=>b.classList.remove('selected'));
+        btn.classList.add('selected');
+      } else {
+        const noneBtn=g.querySelector('[data-val="none"],[data-val="unknown"]');
+        if(noneBtn)noneBtn.classList.remove('selected');
+        btn.classList.toggle('selected');
+      }
+      answers[g.id]=[...g.querySelectorAll('.choice.multi.selected')].map(b=>b.dataset.val).join(';');
+    });
+  });
+  updateProgress();
+}
+
+function selectBristol(el,groupId){
+  document.querySelectorAll(`#${groupId} .bristol-card:not(.multi)`).forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  answers[groupId]=el.dataset.val;
+}
+function toggleBristolMulti(el){
+  el.classList.toggle('selected');
+  answers['q-bristol-additional']=[...document.querySelectorAll('#q-bristol-additional .bristol-card.multi.selected')].map(c=>c.dataset.val).join(';');
+}
+
+function updateProgress(){
+  const pct=Math.round(((currentStep-1)/TOTAL_STEPS)*100);
+  document.getElementById('progress-fill').style.width=pct+'%';
+  document.getElementById('step-label').textContent='Шаг '+currentStep+' из '+TOTAL_STEPS;
+  document.getElementById('step-pct').textContent=pct+'%';
+  for(let i=1;i<=TOTAL_STEPS;i++){
+    const d=document.getElementById('dot-'+i);
+    d.className='step-dot'+(i<currentStep?' done':i===currentStep?' active':'');
+  }
+}
+
+function showStep(n){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  const el=document.getElementById('step-'+n);
+  if(el)el.classList.add('active');
+  currentStep=n;
+  updateProgress();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function prevStep(from){if(from>1)showStep(from-1);}
+function nextStep(from){if(!validateStep(from))return;if(from<TOTAL_STEPS)showStep(from+1);}
+
+function validateStep(step){
+  if(step===1){
+    const n=document.getElementById('f-name').value.trim();
+    const l=document.getElementById('f-lastname').value.trim();
+    const e=document.getElementById('f-email').value.trim();
+    ['f-name','f-lastname','f-email'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(!el.value.trim())el.classList.add('error');else el.classList.remove('error');
+    });
+    if(!n||!l||!e){document.getElementById('warn-1').style.display='block';return false;}
+    document.getElementById('warn-1').style.display='none';
+  }
+  if(step===2){
+    if(!answers['q-bristol-main']){document.getElementById('warn-2').style.display='block';return false;}
+    document.getElementById('warn-2').style.display='none';
+  }
+  return true;
+}
+
+// ── INTERPRETATION ──
+function calcInterpretation(){
+  const get=id=>answers[id]||'';
+  const bristolMain=parseInt(get('q-bristol-main'))||0;
+  const bristolAdd=(get('q-bristol-additional')||'').split(';').map(Number).filter(Boolean);
+  const allBristol=[bristolMain,...bristolAdd];
+
+  // Constipation
+  let constScore=0;
+  if(['every-other','2-3/week','1/week'].includes(get('q-stool-freq')))constScore+=2;
+  if(['often','always'].includes(get('q-incomplete')))constScore+=2;
+  if(['often','always'].includes(get('q-straining')))constScore+=1;
+  if(['often'].includes(get('q-hard-stool')))constScore+=1;
+  if(allBristol.some(t=>t<=2))constScore+=2;
+  const constipation_pattern=constScore>=4;
+
+  // Diarrhea
+  let diarScore=0;
+  if(['often','daily'].includes(get('q-loose-stool')))diarScore+=2;
+  if(['often'].includes(get('q-urgency')))diarScore+=2;
+  if(get('q-postprandial')==='often')diarScore+=1;
+  if(allBristol.some(t=>t>=6))diarScore+=2;
+  const diarrhea_pattern=diarScore>=3;
+
+  // Maldigestion
+  const possible_maldigestion=get('q-fatty-stool')==='often'||get('q-protein-heaviness')==='often';
+
+  // SIBO pattern
+  let siboScore=0;
+  const triggers=get('q-bloating-triggers')||'';
+  if(get('q-bloating-freq')==='daily'||get('q-bloating-freq')==='often')siboScore+=2;
+  if(get('q-bloating-delay')==='2-4h')siboScore+=2;
+  if(['legumes','onion-garlic','cabbage','fruits'].some(t=>triggers.includes(t)))siboScore+=2;
+  if(get('q-bloating-timing')==='evening')siboScore+=1;
+  const possible_sibo_pattern=siboScore>=4;
+
+  // Upper GI
+  const upperGI=get('q-upper-gi')||'';
+  const upper_gi_pattern=['belching','heartburn','early-satiety'].filter(s=>upperGI.includes(s)).length>=2;
+
+  // Candida
+  let candScore=0;
+  if(['strong','very-strong'].includes(get('q-sugar-craving')))candScore+=2;
+  if(get('q-sugar-reaction')==='often')candScore+=2;
+  if(get('q-tongue-coating')==='often')candScore+=1;
+  if(get('q-fungal')==='now')candScore+=2;
+  if(get('q-brain-fog')==='often')candScore+=1;
+  if(get('q-antibiotics')==='2+courses')candScore+=2;
+  const possible_candida_pattern=candScore>=4;
+
+  // Hydration
+  const water=get('q-water');
+  const low_hydration=water==='<500ml'||water==='500ml-1l';
+  const low_fluid_constipation_contributor=low_hydration&&constipation_pattern;
+
+  // Fiber
+  const veggies=parseInt(get('q-veggies'))||0;
+  const fruits=parseInt(get('q-fruits'))||0;
+  const low_fiber=veggies<=1&&fruits<=1&&get('q-legumes')==='never';
+  const fiber_intolerance=['bloating','pain','diarrhea'].includes(get('q-fiber-reaction'));
+
+  // Red flags
+  const redFlags=get('q-red-flags')||'';
+  const red_flag_gi=['blood-stool','black-stool','weight-loss','night-diarrhea','constant-pain'].some(f=>redFlags.includes(f));
+
+  // Priority
+  let priorities=[];
+  if(constipation_pattern)priorities.push('Запор/моторика');
+  if(diarrhea_pattern)priorities.push('Диарея/ускоренный транзит');
+  if(possible_sibo_pattern)priorities.push('Возможный SIBO-паттерн');
+  if(possible_candida_pattern)priorities.push('Кандидозный паттерн');
+  if(low_fluid_constipation_contributor)priorities.push('Недостаточная гидратация');
+  if(low_fiber&&constipation_pattern)priorities.push('Дефицит клетчатки');
+  if(possible_maldigestion)priorities.push('Мальдигестия/мальабсорбция');
+  if(upper_gi_pattern)priorities.push('Верхний ЖКТ');
+  if(red_flag_gi)priorities.push('⚠️ КРАСНЫЕ ФЛАГИ — обратить внимание');
+
+  return {
+    constipation_score:constScore, constipation_pattern,
+    diarrhea_score:diarScore, diarrhea_pattern,
+    bloating_score:siboScore, possible_sibo_pattern,
+    candida_pattern_score:candScore, possible_candida_pattern,
+    upper_gi_pattern, possible_maldigestion,
+    low_fiber_pattern:low_fiber, fiber_intolerance_pattern:fiber_intolerance,
+    low_fluid_constipation_contributor,
+    hydration_score:low_hydration?0:1,
+    red_flag_gi,
+    overall_gi_priority:priorities.join('; ')||'Без выраженных паттернов'
+  };
+}
+
+// ── SUBMIT ──
+function submitForm(){
+  if(!validateStep(10))return;
+  const interp=calcInterpretation();
+  const now=new Date().toLocaleString('ru-RU');
+  const get=id=>answers[id]||'';
+
+  const payload={
+    questionnaire_type:'GI',
+    timestamp:now,
+    first_name:document.getElementById('f-name').value.trim(),
+    last_name:document.getElementById('f-lastname').value.trim(),
+    email:document.getElementById('f-email').value.trim(),
+    bristol_main:get('q-bristol-main'),
+    bristol_additional:get('q-bristol-additional'),
+    stool_frequency:get('q-stool-freq'),
+    incomplete_emptying:get('q-incomplete'),
+    straining:get('q-straining'),
+    hard_stool:get('q-hard-stool'),
+    laxatives:get('q-laxatives'),
+    laxatives_what:document.getElementById('f-laxatives-what').value.trim(),
+    loose_stool:get('q-loose-stool'),
+    urgency:get('q-urgency'),
+    postprandial_stool:get('q-postprandial'),
+    mucus:get('q-mucus'),
+    fatty_stool:get('q-fatty-stool'),
+    bloating_freq:get('q-bloating-freq'),
+    bloating_timing:get('q-bloating-timing'),
+    bloating_delay:get('q-bloating-delay'),
+    bloating_triggers:get('q-bloating-triggers'),
+    upper_gi_symptoms:get('q-upper-gi'),
+    water_intake:get('q-water'),
+    drinks:get('q-drinks'),
+    morning_water:get('q-morning-water'),
+    urine_color:get('q-urine-color'),
+    veggies_per_day:get('q-veggies'),
+    fruits_per_day:get('q-fruits'),
+    legumes:get('q-legumes'),
+    fiber_reaction:get('q-fiber-reaction'),
+    sugar_craving:get('q-sugar-craving'),
+    sugar_reaction:get('q-sugar-reaction'),
+    tongue_coating:get('q-tongue-coating'),
+    fungal_infections:get('q-fungal'),
+    brain_fog_after_carbs:get('q-brain-fog'),
+    antibiotics_last_year:get('q-antibiotics'),
+    food_reactions:get('q-food-reactions'),
+    food_reactions_other:document.getElementById('f-food-other').value.trim(),
+    protein_heaviness:get('q-protein-heaviness'),
+    bitter_taste:get('q-bitter'),
+    red_flags:get('q-red-flags'),
+    extra_notes:document.getElementById('f-extra').value.trim(),
+    // Interpretation (specialist only)
+    constipation_score:interp.constipation_score,
+    constipation_pattern:interp.constipation_pattern,
+    diarrhea_score:interp.diarrhea_score,
+    diarrhea_pattern:interp.diarrhea_pattern,
+    bloating_score:interp.bloating_score,
+    possible_sibo_pattern:interp.possible_sibo_pattern,
+    candida_pattern_score:interp.candida_pattern_score,
+    possible_candida_pattern:interp.possible_candida_pattern,
+    upper_gi_pattern:interp.upper_gi_pattern,
+    possible_maldigestion:interp.possible_maldigestion,
+    low_fiber_pattern:interp.low_fiber_pattern,
+    fiber_intolerance_pattern:interp.fiber_intolerance_pattern,
+    low_fluid_constipation_contributor:interp.low_fluid_constipation_contributor,
+    red_flag_gi:interp.red_flag_gi,
+    overall_gi_priority:interp.overall_gi_priority,
+    raw_answers_json:JSON.stringify(answers)
+  };
+
+  document.getElementById('overlay').classList.add('active');
+  fetch(SHEETS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+  .then(()=>showThanks(interp))
+  .catch(()=>showThanks(interp));
+}
+
+function showThanks(interp){
+  document.getElementById('overlay').classList.remove('active');
+  document.getElementById('progress-wrap').style.display='none';
+  document.querySelectorAll('.section').forEach(s=>s.style.display='none');
+  document.getElementById('screen-thanks').style.display='block';
+  if(interp.red_flag_gi)document.getElementById('flag-notice').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+document.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
