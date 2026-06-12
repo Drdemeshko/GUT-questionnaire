@@ -571,7 +571,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
 <div class="overlay" id="overlay"><div class="spinner"></div><div class="overlay-text">Сохраняем результаты…</div></div>
 
 <script>
-const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyvVyw6uJ0mCBywNOfo5bQLarApEVmqCK2hcV_D_g65A0DXK5zz8Pd-4JAzzUSk4Oc/exec';
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzusjqVQWAFi2VTI6_Ex2_SjufTDqe-l0RL3Eeas4iwXwYNhLil0nWCBikmYYQSaD84/exec';
 const TOTAL_SCREENS = 5;
 let currentScreen = 1;
 const answers = {};
@@ -764,7 +764,7 @@ function submitForm(){
   const totalLevel=scores.total>=20?'high':scores.total>=10?'moderate':'low';
 
   const payload={
-    questionnaire_type:'DST',
+    questionnaire_type:'dst',
     timestamp:now,
     first_name:document.getElementById('f-name').value.trim(),
     last_name:document.getElementById('f-lastname').value.trim(),
