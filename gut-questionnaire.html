@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Анкета «ЖКТ» · Dr. Diana Demeshko</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--deep:#2D4A2D;--cream:#F7F3EC;--cdark:#E8E0D0;--text:#2C2C2C;--tl:#7A7A6E;--green:#5B8C5A;--al:#EDF3EC;--yellow:#C4924A;--orange:#B86B3A;--red:#A84040;}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;}
+.hero{width:100%;height:130px;display:block;}
+.hdr{background:var(--deep);padding:18px 20px 22px;text-align:center;}
+.brand{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:5px;}
+.hdr h1{font-family:'Playfair Display',serif;font-size:clamp(19px,5vw,26px);color:#fff;line-height:1.3;margin-bottom:5px;}
+.hdr p{font-size:12px;color:rgba(255,255,255,0.6);line-height:1.6;max-width:460px;margin:0 auto;}
+.tbadge{display:inline-flex;align-items:center;gap:5px;background:rgba(91,140,90,0.2);border:1px solid rgba(91,140,90,0.4);border-radius:99px;padding:4px 11px;font-size:11px;color:rgba(255,255,255,0.75);margin-top:9px;}
+.pw{padding:12px 16px 0;}
+.pm{display:flex;justify-content:space-between;font-size:12px;color:var(--tl);margin-bottom:5px;}
+.pb{height:5px;background:var(--cdark);border-radius:99px;overflow:hidden;}
+.pf{height:100%;background:linear-gradient(90deg,#8FBC8E,var(--green));border-radius:99px;transition:width 0.4s;width:0%;}
+.sr{display:flex;gap:3px;margin-top:7px;}
+.sd{flex:1;height:3px;border-radius:99px;background:var(--cdark);transition:background 0.3s;}
+.sd.done{background:var(--green);}
+.sd.active{background:var(--yellow);}
+.sec{display:none;padding:12px 16px;}
+.sec.active{display:block;}
+.sbadge{display:inline-block;background:rgba(45,74,45,0.1);color:var(--deep);font-size:11px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;padding:3px 9px;border-radius:99px;margin-bottom:7px;}
+.stitle{font-family:'Playfair Display',serif;font-size:16px;color:var(--deep);margin-bottom:3px;font-weight:600;}
+.sdesc{font-size:12px;color:var(--tl);line-height:1.6;margin-bottom:12px;}
+.card{background:#fff;border-radius:13px;padding:14px;border:1px solid var(--cdark);margin-bottom:9px;}
+.ql{font-size:13.5px;font-weight:600;color:var(--deep);display:block;margin-bottom:7px;line-height:1.4;}
+.qh{font-size:11px;color:var(--tl);margin-bottom:7px;font-style:italic;line-height:1.5;}
+.fi{width:100%;padding:11px 13px;border:1.5px solid var(--cdark);border-radius:9px;font-family:'Inter',sans-serif;font-size:15px;color:var(--text);background:var(--cream);outline:none;transition:border-color 0.2s;}
+.fi:focus{border-color:var(--green);background:#fff;}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.fl{font-size:12px;font-weight:600;color:var(--deep);display:block;margin-bottom:4px;}
+/* SCALE */
+.sw{margin-bottom:12px;}
+.sq{font-size:13px;font-weight:500;color:var(--text);margin-bottom:5px;line-height:1.4;}
+.srow{display:flex;gap:4px;}
+.sb{flex:1;padding:8px 3px;background:var(--cream);border:1.5px solid var(--cdark);border-radius:7px;cursor:pointer;font-size:12px;text-align:center;color:var(--text);transition:all 0.15s;line-height:1.2;-webkit-tap-highlight-color:transparent;}
+.sb:hover{background:var(--al);}
+.sb.on{border-color:var(--deep);font-weight:700;}
+.sb[data-v="0"].on{background:#EDF3EC;border-color:#5B8C5A;color:#2D4A2D;}
+.sb[data-v="1"].on{background:#FDF6E8;border-color:#C4924A;color:#8A5E1A;}
+.sb[data-v="2"].on{background:#FFF0E0;border-color:#B86B3A;color:#7A3A10;}
+.sb[data-v="3"].on{background:#FFF0F0;border-color:#A84040;color:#A84040;}
+.slabs{display:flex;justify-content:space-between;font-size:9px;color:var(--tl);margin-top:2px;padding:0 2px;}
+/* BRISTOL */
+.bg{display:flex;flex-direction:column;gap:6px;}
+.bc{display:flex;align-items:center;gap:11px;background:var(--cream);border:1.5px solid var(--cdark);border-radius:11px;padding:9px 11px;cursor:pointer;transition:all 0.15s;-webkit-tap-highlight-color:transparent;}
+.bc:hover{background:var(--al);border-color:var(--green);}
+.bc.on{background:var(--al);border-color:var(--deep);}
+.bsvg{width:48px;height:30px;flex-shrink:0;}
+.bi{flex:1;}
+.bnum{font-size:10px;font-weight:700;color:var(--tl);}
+.btype{font-size:12px;font-weight:600;color:var(--deep);}
+.bdesc{font-size:10px;color:var(--tl);line-height:1.3;}
+.bbadge{font-size:10px;padding:2px 6px;border-radius:99px;font-weight:600;flex-shrink:0;align-self:flex-start;}
+.bco{background:rgba(184,107,58,0.15);color:var(--orange);}
+.bno{background:rgba(91,140,90,0.15);color:var(--green);}
+.bdi{background:rgba(168,64,64,0.12);color:var(--red);}
+/* RESULT */
+.rb{background:#fff;border-radius:14px;padding:16px;border:1px solid var(--cdark);margin-bottom:9px;}
+.rbt{font-family:'Playfair Display',serif;font-size:14px;color:var(--deep);margin-bottom:10px;font-weight:600;}
+.rrow{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-radius:9px;margin-bottom:5px;}
+.rname{font-size:12px;font-weight:600;}
+.rsub{font-size:10px;opacity:0.75;margin-top:1px;}
+.rscore{font-size:19px;font-weight:700;}
+.rg{background:#EDF3EC;border:1px solid #97C459;color:#2D4A2D;}
+.ry{background:#FDF6E8;border:1px solid #E8A830;color:#7A4A0A;}
+.rr{background:#FFF0F0;border:1px solid #E09090;color:#8A2020;}
+.rnote{font-size:11px;color:var(--tl);line-height:1.6;background:var(--cream);border-radius:9px;padding:10px 12px;margin-top:8px;}
+/* NAV */
+.nav{display:flex;gap:9px;padding:4px 0 22px;}
+.bb{flex:1;padding:12px;background:#fff;border:1.5px solid var(--cdark);border-radius:11px;font-family:'Inter',sans-serif;font-size:14px;color:var(--tl);cursor:pointer;}
+.bn{flex:2;padding:12px;background:var(--deep);color:#fff;border:none;border-radius:11px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;}
+.warn{background:rgba(168,64,64,0.08);border:1px solid rgba(168,64,64,0.2);border-radius:7px;padding:8px 12px;font-size:12px;color:var(--red);margin-bottom:9px;display:none;}
+.ov{display:none;position:fixed;inset:0;background:rgba(45,74,45,0.6);z-index:100;align-items:center;justify-content:center;flex-direction:column;gap:14px;}
+.ov.on{display:flex;}
+.spin{width:38px;height:38px;border:3px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:sp 0.8s linear infinite;}
+@keyframes sp{to{transform:rotate(360deg);}}
+.ovt{color:#fff;font-size:13px;}
+#thanks{display:none;padding:18px 16px;}
+.fn{background:#FFF5F5;border:1px solid rgba(168,64,64,0.3);border-radius:11px;padding:13px;margin-bottom:11px;font-size:12px;color:var(--red);line-height:1.6;display:none;}
+@media(max-width:380px){.fr{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<svg class="hero" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 130" preserveAspectRatio="xMidYMid slice">
+<rect width="800" height="130" fill="#2D4A2D"/>
+<g fill="#3a7a32" opacity="0.7"><circle cx="80" cy="65" r="38"/><circle cx="118" cy="65" r="38"/><circle cx="99" cy="37" r="38"/><circle cx="99" cy="93" r="38"/></g>
+<g fill="#4a9a42" opacity="0.5"><circle cx="280" cy="54" r="32"/><circle cx="312" cy="54" r="32"/><circle cx="296" cy="28" r="32"/><circle cx="296" cy="80" r="32"/></g>
+<g fill="#5ab050" opacity="0.4"><circle cx="480" cy="75" r="36"/><circle cx="516" cy="75" r="36"/><circle cx="498" cy="46" r="36"/><circle cx="498" cy="104" r="36"/></g>
+<g fill="#7acc70" opacity="0.2"><circle cx="720" cy="95" r="30"/><circle cx="750" cy="95" r="30"/><circle cx="735" cy="68" r="30"/></g>
+</svg>
+<div class="hdr">
+  <div class="brand">Dr. Diana Demeshko</div>
+  <h1>Анкета «ЖКТ»</h1>
+  <p>Комплексная оценка пищеварительной системы — питание, клинические симптомы, кандида-паттерн</p>
+  <div class="tbadge">⏱ 20–25 минут</div>
+</div>
+<div class="pw" id="pw">
+  <div class="pm"><span id="sl">Шаг 1 из 14</span><span id="sp">0%</span></div>
+  <div class="pb"><div class="pf" id="pf"></div></div>
+  <div class="sr" id="sr"></div>
+</div>
+
+<!-- ШАГ 1 -->
+<div class="sec active" id="s1">
+  <div style="height:8px"></div>
+  <div class="stitle">Несколько слов о тебе</div>
+  <div class="sdesc">Нужно чтобы связать анкету с твоим профилем.</div>
+  <div class="card">
+    <div class="fr">
+      <div><label class="fl">Имя *</label><input class="fi" id="fn" type="text" placeholder="Имя"></div>
+      <div><label class="fl">Фамилия *</label><input class="fi" id="fln" type="text" placeholder="Фамилия"></div>
+    </div>
+    <div style="margin-top:9px"><label class="fl">Email *</label><input class="fi" id="fe" type="email" placeholder="ваш@email.com"><div style="font-size:10px;color:var(--tl);margin-top:3px">По email анкета свяжется с твоим профилем</div></div>
+    <div style="margin-top:9px"><label class="fl">Возраст</label><input class="fi" id="fa" type="number" placeholder="лет" style="max-width:110px"></div>
+  </div>
+  <div class="warn" id="w1">Заполни имя, фамилию и email</div>
+  <div class="nav"><button class="bn" onclick="nx(1)">Начать →</button></div>
+</div>
+
+<!-- ШАГ 2: БРИСТОЛЬ -->
+<div class="sec" id="s2">
+  <div class="sbadge">Стул</div>
+  <div class="stitle">Бристольская шкала</div>
+  <div class="sdesc">Выбери тип стула, который встречается у тебя чаще всего.</div>
+  <div class="card">
+    <span class="ql">Как обычно выглядит твой стул?</span>
+    <div class="bg">
+      <div class="bc" id="br1" onclick="selB(1)"><svg class="bsvg" viewBox="0 0 48 30"><circle cx="7" cy="15" r="5" fill="#8B6914"/><circle cx="18" cy="9" r="4" fill="#7A5E12"/><circle cx="30" cy="17" r="6" fill="#8B6914"/><circle cx="42" cy="11" r="4" fill="#7A5E12"/></svg><div class="bi"><div class="bnum">Тип 1</div><div class="btype">Отдельные твёрдые комки</div><div class="bdesc">Как орехи, тяжело отходят</div></div><div class="bbadge bco">Запор</div></div>
+      <div class="bc" id="br2" onclick="selB(2)"><svg class="bsvg" viewBox="0 0 48 30"><path d="M3 20 Q12 7 24 15 Q36 22 45 10" stroke="#8B6914" stroke-width="8" stroke-linecap="round" fill="none"/><circle cx="10" cy="14" r="2" fill="#6B4A0A" opacity="0.5"/><circle cx="24" cy="11" r="2" fill="#6B4A0A" opacity="0.5"/><circle cx="37" cy="15" r="2" fill="#6B4A0A" opacity="0.5"/></svg><div class="bi"><div class="bnum">Тип 2</div><div class="btype">Колбасообразный, бугристый</div><div class="bdesc">Комковатая поверхность</div></div><div class="bbadge bco">Запор</div></div>
+      <div class="bc" id="br3" onclick="selB(3)"><svg class="bsvg" viewBox="0 0 48 30"><path d="M3 20 Q24 5 45 17" stroke="#6B8C3A" stroke-width="8" stroke-linecap="round" fill="none"/><path d="M10 16 Q15 12 20 15" stroke="#4A6A20" stroke-width="1.5" fill="none"/><path d="M26 11 Q31 8 36 12" stroke="#4A6A20" stroke-width="1.5" fill="none"/></svg><div class="bi"><div class="bnum">Тип 3</div><div class="btype">Колбасообразный, с трещинами</div><div class="bdesc">Небольшие трещины на поверхности</div></div><div class="bbadge bno">Норма</div></div>
+      <div class="bc" id="br4" onclick="selB(4)"><svg class="bsvg" viewBox="0 0 48 30"><path d="M3 18 Q24 7 45 18" stroke="#4A7A2A" stroke-width="9" stroke-linecap="round" fill="none"/></svg><div class="bi"><div class="bnum">Тип 4</div><div class="btype">Гладкая колбаска</div><div class="bdesc">Мягкая и гладкая — идеально ✓</div></div><div class="bbadge bno">Норма ✓</div></div>
+      <div class="bc" id="br5" onclick="selB(5)"><svg class="bsvg" viewBox="0 0 48 30"><ellipse cx="9" cy="19" rx="6" ry="5" fill="#C4924A"/><ellipse cx="23" cy="14" rx="7" ry="5" fill="#B87E3A"/><ellipse cx="38" cy="19" rx="6" ry="4" fill="#C4924A"/></svg><div class="bi"><div class="bnum">Тип 5</div><div class="btype">Мягкие комочки</div><div class="bdesc">С чёткими краями, легко отходят</div></div><div class="bbadge bdi">Ускорен</div></div>
+      <div class="bc" id="br6" onclick="selB(6)"><svg class="bsvg" viewBox="0 0 48 30"><path d="M3 24 Q9 14 15 18 Q21 10 27 16 Q33 8 39 14 Q43 10 46 12" stroke="#A84040" stroke-width="7" stroke-linecap="round" fill="none" stroke-dasharray="4,2"/></svg><div class="bi"><div class="bnum">Тип 6</div><div class="btype">Рыхлый, кашицеобразный</div><div class="bdesc">Рваные края</div></div><div class="bbadge bdi">Диарея</div></div>
+      <div class="bc" id="br7" onclick="selB(7)"><svg class="bsvg" viewBox="0 0 48 30"><ellipse cx="24" cy="21" rx="19" ry="7" fill="#A84040" opacity="0.6"/><ellipse cx="24" cy="19" rx="13" ry="4" fill="#A84040" opacity="0.4"/></svg><div class="bi"><div class="bnum">Тип 7</div><div class="btype">Водянистый</div><div class="bdesc">Без твёрдых частиц</div></div><div class="bbadge bdi">Диарея</div></div>
+    </div>
+  </div>
+  <div class="warn" id="w2">Выбери тип стула</div>
+  <div class="nav"><button class="bb" onclick="pv(2)">←</button><button class="bn" onclick="nx(2)">Далее →</button></div>
+</div>
+
+<!-- ШАГ 3: ПИТАНИЕ А -->
+<div class="sec" id="s3">
+  <div class="sbadge">Питание · Часть 1</div>
+  <div class="stitle">Что ты употребляешь регулярно?</div>
+  <div class="sdesc">0 — не употребляю &nbsp;·&nbsp; 1 — 1–3 раза в месяц &nbsp;·&nbsp; 2 — 1–3 раза в неделю &nbsp;·&nbsp; 3 — ежедневно</div>
+  <div class="card" id="bfa"></div>
+  <div class="warn" id="w3">Ответь на все вопросы</div>
+  <div class="nav"><button class="bb" onclick="pv(3)">←</button><button class="bn" onclick="nx(3)">Далее →</button></div>
+</div>
+
+<!-- ШАГ 4: ПИТАНИЕ Б -->
+<div class="sec" id="s4">
+  <div class="sbadge">Питание · Часть 2</div>
+  <div class="stitle">Полезные привычки питания</div>
+  <div class="sdesc">0 — употребляю ежедневно &nbsp;·&nbsp; 1 — 1–3 раза в неделю &nbsp;·&nbsp; 2 — 1–3 раза в месяц &nbsp;·&nbsp; 3 — не употребляю / не делаю</div>
+  <div class="card" id="bfb"></div>
+  <div class="warn" id="w4">Ответь на все вопросы</div>
+  <div class="nav"><button class="bb" onclick="pv(4)">←</button><button class="bn" onclick="nx(4)">Далее →</button></div>
+</div>
+
+<!-- ШАГ 5: ВРЕДНЫЕ СУБСТАНЦИИ + ОБРАЗ ЖИЗНИ -->
+<div class="sec" id="s5">
+  <div class="sbadge">Образ жизни</div>
+  <div class="stitle">Вредные субстанции и образ жизни</div>
+  <div class="sdesc">Отвечай по подсказке к каждому вопросу</div>
+  <div class="card" id="bls"></div>
+  <div class="warn" id="w5">Ответь на все вопросы</div>
+  <div class="nav"><button class="bb" onclick="pv(5)">←</button><button class="bn" onclick="nx(5)">Далее →</button></div>
+</div>
+
+<!-- ШАГ 6: ПРЕПАРАТЫ -->
+<div class="sec" id="s6">
+  <div class="sbadge">Препараты</div>
+  <div class="stitle">Принимаешь ли ты регулярно?</div>
+  <div class="sdesc">0 — не принимаю &nbsp;·&nbsp; 1 — принимаю</div>
+  <div class="card" id="bmd"></div>
+  <div class="warn" id="w6">Ответь на все вопросы</div>
+  <div class="nav"><button class="bb" onclick="pv(6)">←</button><button class="bn" onclick="nx(6)">Далее →</button></div>
+</div>
+
+<!-- ШАГ 7: ЖЕЛУДОК -->
+<div class="sec" id="s7">
+  <div class="sbadge">Клинический блок 1 из 6</div>
+  <div class="stitle">Желудок и поджелудочная</div>
+  <div class="sdesc">0 — не актуально &nbsp;·&nbsp; 1 — иногда (1–3 раза в месяц) &nbsp;·&nbsp; 2 — часто (1–3 раза в неделю) &nbsp;·&nbsp; 3 — ежедневно</div>
+  <div id="bst"></div>
+  <div class="warn" id="w7">Ответь на все вопросы</div>
+  <div class="nav"><button class="bb" onclick="pv(7)">←</button><button class="bn" onclick="nx(7)">Далее →</button></div>
+</div>
+
+<!-- ШАГ 8: ТОНКИЙ КИШЕЧНИК -->
+<div class="sec" id="s8">
+  <div class="sbadge">Клинический блок 2 из 6</div>
+  <div class="stitle">Тонкий кишечник</div>
+  <div class="sdesc">0 — не актуально &nbsp;·&nbsp; 1 — иногда &nbsp;·&nbsp; 2 — часто &nbsp;·&nbsp; 3 — ежедневно</div>
+  <div id="bsm"></div>
+  <div class="warn" id="w8">Ответь на все вопросы</div>
+  <div class="nav"><button class="bb" onclick="pv(8)">←</button><button class="bn" onclick="nx(8)">Далее →</button></div>
+</div>
+
+<!-- ШАГ 9: ИНФЕКЦИИ -->
+<div class="sec" id="s9">
+  <div class="sbadge">Клинический блок 3 из 6</div>
+  <div class="stitle">Инфекции и инвазии ЖКТ</div>
+  <div class="sdesc">0 — не актуально &nbsp;·&nbsp; 1 — иногда &nbsp;·&nbsp; 2 — часто &nbsp;·&nbsp; 3 — ежедневно</div>
+  <div id="binf"></div>
+  <div class="warn" id="w9">Ответь на все вопросы</div>
+  <div class="nav"><button class="bb" onclick="pv(9)">←</button><button class="bn" onclick="nx(9)">Далее →</button></div>
+</div>
+
+<!-- ШАГ 10: ТОЛСТЫЙ КИШЕЧНИК -->
+<div class="sec" id="s10">
+  <div class="sbadge">Клинический блок 4 из 6</div>
+  <div class="stitle">Толстый кишечник</div>
+  <div class="sdesc">0 — не актуально &nbsp;·&nbsp; 1 — иногда &nbsp;·&nbsp; 2 — часто &nbsp;·&nbsp; 3 — ежедневно</div>
+  <div id="blg"></div>
+  <div class="warn" id="w10">Ответь на все вопросы</div>
+  <div class="nav"><button class="bb" onclick="pv(10)">←</button><button class="bn" onclick="nx(10)">Далее →</button></div>
+</div>
+
+<!-- ШАГ 11: ПЕЧЕНЬ -->
+<div class="sec" id="s11">
+  <div class="sbadge">Клинический блок 5 из 6</div>
+  <div class="stitle">Печень и желчный пузырь</div>
+  <div class="sdesc">0 — не актуально &nbsp;·&nbsp; 1 — иногда &nbsp;·&nbsp; 2 — часто &nbsp;·&nbsp; 3 — ежедневно</div>
+  <div id="blv"></div>
+  <div class="warn" id="w11">Ответь на все вопросы</div>
+  <div class="nav"><button class="bb" onclick="pv(11)">←</button><button class="bn" onclick="nx(11)">Далее →</button></div>
+</div>
+
+<!-- ШАГ 12: НУТРИЕНТЫ -->
+<div class="sec" id="s12">
+  <div class="sbadge">Клинический блок 6 из 6</div>
+  <div class="stitle">Эссенциальные нутриенты</div>
+  <div class="sdesc">0 — не актуально / нет &nbsp;·&nbsp; 1 — иногда / да &nbsp;·&nbsp; 2 — часто &nbsp;·&nbsp; 3 — ежедневно / выраженно</div>
+  <div id="bnu"></div>
+  <div class="warn" id="w12">Ответь на все вопросы</div>
+  <div class="nav"><button class="bb" onclick="pv(12)">←</button><button class="bn" onclick="nx(12)">Далее →</button></div>
+</div>
+
+<!-- ШАГ 13: КАНДИДА -->
+<div class="sec" id="s13">
+  <div class="sbadge">Опросник Candida</div>
+  <div class="stitle">Кандида-паттерн</div>
+  <div class="sdesc">Помогает выявить признаки кандидоза. Отвечай по подсказкам к каждому вопросу.</div>
+  <div id="bca"></div>
+  <div class="warn" id="w13">Ответь на все вопросы</div>
+  <div class="nav"><button class="bb" onclick="pv(13)">←</button><button class="bn" onclick="nx(13)">Далее →</button></div>
+</div>
+
+<!-- ШАГ 14: ФИНАЛ -->
+<div class="sec" id="s14">
+  <div class="sbadge">Финал</div>
+  <div class="stitle">Последний шаг</div>
+  <div class="sdesc">Если есть что добавить — напиши.</div>
+  <div class="card">
+    <span class="ql">Что тебя беспокоит в работе ЖКТ больше всего?</span>
+    <textarea class="fi" id="fex" rows="4" placeholder="Напиши своими словами..." style="resize:none;line-height:1.5;"></textarea>
+  </div>
+  <div class="nav"><button class="bb" onclick="pv(14)">←</button><button class="bn" onclick="sub()">Отправить анкету 🌿</button></div>
+</div>
+
+<div class="ov" id="ov"><div class="spin"></div><div class="ovt">Сохраняю данные…</div></div>
+
+<div id="thanks">
+  <div class="fn" id="fn2">⚠️ Ты отметил(а) тревожные симптомы. Сделай скриншот и сообщи мне в Telegram до встречи.</div>
+  <div id="rc"></div>
+  <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--tl);line-height:1.6;">Это не диагноз — предварительная оценка для подготовки к консультации.<br>Я изучу результаты и разберём их вместе.</div>
+</div>
+
+<script>
+const URL_='https://script.google.com/macros/s/AKfycbzusjqVQWAFi2VTI6_Ex2_SjufTDqe-l0RL3Eeas4iwXwYNhLil0nWCBikmYYQSaD84/exec';
+const T=14;
+const A={};
+
+const FA=['Искусственные подсластители, сахарозаменители','Конфеты, десерты, сладости, сахар','Батончики «здоровые» (финики, сухофрукты, мёд)','Батончики с молочным протеином','Газированные сладкие напитки','Напитки с кофеином','Фастфуд','Жареная пища','Мясные полуфабрикаты','Маргарин / продукты с маргарином','Молочная продукция','Мучные изделия','Вода неизвестного качества','Дистиллированная вода'];
+const FB=['Свежие овощи и фрукты','Мясо, птица, рыба и морепродукты','Питьевая вода — фильтрованная / из стеклянных бутылок','Придерживаюсь принципов правильного питания'];
+const LS=[
+  {q:'Сигареты / сигары / трубки',h:'0 — не употребляю, 1 — 1–3×мес, 2 — 1–3×нед, 3 — ежедневно',m:3},
+  {q:'Кальян',h:'',m:3},{q:'Слабый алкоголь (вино, пиво)',h:'',m:3},{q:'Крепкий алкоголь',h:'',m:3},{q:'Конопля и производные',h:'',m:3},
+  {q:'Ежедневная утренняя зарядка',h:'0 — да, 1 — нет',m:1},
+  {q:'Регулярные занятия спортом',h:'0 — 2+ раза/нед, 1 — 1 раз/нед, 2 — 1–2 раза/мес, 3 — никогда',m:3},
+  {q:'Жёсткие диеты / вегетарианство / веганство',h:'0 — никогда, 1 — раз в 3 мес, 2 — раз в полгода, 3 — постоянно',m:3},
+  {q:'Стабильный сон 7–8 часов в день',h:'0 — да, 1 — нет',m:1},
+  {q:'Работа более 60 часов в неделю',h:'0 — никогда, 1 — эпизодически, 2 — часто, 3 — постоянно',m:3},
+];
+const MD=['Антациды','Анксиолитики','Антибиотики','Антиконвульсанты','Антидепрессанты','ЗГТ/МГТ','Противогрибковые','Противопаразитарные','НПВС (аспирин, ибупрофен)','Парацетамол','Ингибиторы протонной помпы (ИПП)','Ингаляторы при астме','Бета-блокаторы','Статины','Слабительные','Диуретики','Препараты для ССЗ','Оральные контрацептивы (КОК)','Эстрогены или прогестерон','Глюкокортикостероиды','Инсулин','Метформин / сахароснижающие','Препараты тестостерона','Гормоны щитовидной железы','Седативные / снотворные','Противоопухолевые / химиотерапия'];
+const ST=['Отрыжка вскоре после еды','Изжога или рефлюкс','Вздутие / тяжесть через час после еды','Потеря интереса к белковой пище','Ощущение переполненности желудка после еды','Состояние «лучше не есть»','Неприятный привкус во рту','Несвежее дыхание (галитоз)','Налёт на языке','Насыщение малым объёмом пищи','Пропускаю еду из-за отсутствия аппетита','Боль / жжение в желудке через 30–90 мин после еды','Острая / жирная пища, кофе, алкоголь вызывают жжение','Боли / спазмы / дискомфорт в желудке','Хрупкие или ломкие ногти','Анемия, не поддающаяся коррекции железом','Опоясывающие боли','Тошнота / рвота','Трудность или боль при глотании','Чёрный или дёгтеобразный стул','Непереваренная пища в кале'];
+const SM=['Утренняя рвота кислым содержимым','Голодные и ночные боли','Боль в эпигастрии, которая облегчается едой или антацидами','Вздутие живота через 1–2 часа после еды','Метеоризм, урчание вскоре после еды','Диарея вскоре после еды','Резкий неприятный запах стула','Неоформленный водянистый стул (1–3 раза в сутки)','Частый / бесконтрольный приём НПВС','Пищевая аллергия / непереносимость','Непереносимость глютена','Непереносимость молочной продукции','Синусит, постоянная заложенность носа','Акне / розацеа у взрослых'];
+const INF=[
+  {q:'Приём антибиотиков',h:'0 — никогда, 1 — >3 мес назад, 2 — <3 мес назад, 3 — <1 мес назад',m:3},
+  {q:'Кандидоз слизистых',h:'0 — нет, 1 — иногда, 2 — часто, 3 — постоянно',m:3},
+  {q:'Грибок ногтей / стоп / стригущий лишай',h:'',m:3},{q:'Вагинальный кандидоз (молочница)',h:'',m:3},
+  {q:'Кандидоз усиливается после сахара, крахмала, алкоголя',h:'',m:3},
+  {q:'Сонливость / вялость после углеводной пищи',h:'',m:3},{q:'Перхоть',h:'',m:3},{q:'Анальный зуд',h:'',m:3},
+  {q:'Паразитоз в анамнезе или сейчас',h:'0 — нет, 1 — да',m:1},
+];
+const LG=['Боль в области заднего прохода, спазмы','Дискомфорт / боль / спазмы в нижней половине живота','Затруднённая дефекация','Дефекация реже 1 раза в день','Кал угловатой / плоской формы','Неоформленный стул / диарея (3–10 раз в сутки)','Схваткообразные боли при диарее','Чередование запора и диареи','Акт дефекации без облегчения','Стресс / сырые овощи вызывают вздутие, спазмы, газы','Ощущение переполнения живота через 2–4 часа после еды','Зловонный запах газов','Кровь в стуле','Слизь в стуле'];
+const LV=[
+  {q:'Горечь во рту (особенно после еды)',h:'',m:3},{q:'Тошнота / дискомфорт от жирной пищи',h:'',m:3},{q:'Тяжесть / боль в правом подреберье',h:'',m:3},{q:'Жирный блестящий кал (стеаторея)',h:'',m:3},{q:'Светлый кал (цвет глины)',h:'',m:3},{q:'Сухая шелушащаяся кожа на стопах',h:'',m:3},
+  {q:'Приступы холецистита',h:'0 — никогда, 1 — несколько лет назад, 2 — за последний год, 3 — за последние 3 мес',m:3},
+  {q:'Удаление желчного пузыря',h:'0 — нет, 1 — да',m:1},
+  {q:'Потребление алкоголя',h:'0 — <3 порций/нед или не пью, 1 — <7/нед, 2 — <14/нед, 3 — >14/нед',m:3},
+  {q:'Злоупотребление алкоголем в анамнезе',h:'0 — нет, 1 — да',m:1},
+  {q:'Гепатит в анамнезе',h:'0 — нет, 1 — да',m:1},
+  {q:'Сильный неприятный запах пота / тела',h:'',m:3},{q:'Необъяснимый зуд кожи',h:'',m:3},{q:'Лёгкое образование синяков',h:'',m:3},{q:'Желтушность кожи или белков глаз',h:'',m:3},
+];
+const NUA=[
+  {q:'Ломкость, расслоение ногтей, плохой рост',h:'',m:3},
+  {q:'Более 2 переломов костей / перелом шейки бедра',h:'0 — нет, 1 — да',m:1},
+  {q:'Подтверждённая остеопения / остеопороз',h:'0 — нет, 1 — да',m:1},
+  {q:'Уменьшение роста с течением жизни',h:'0 — нет, 1 — да',m:1},
+  {q:'Грыжи межпозвоночных дисков',h:'0 — нет, 1 — да',m:1},
+  {q:'Повышенная гибкость суставов',h:'0 — нет, 1 — да',m:1},
+  {q:'Бессонница / трудности с засыпанием',h:'',m:3},{q:'«Синдром беспокойных ног»',h:'',m:3},{q:'Судороги, мышечная скованность, сжатые челюсти',h:'',m:3},{q:'Подёргивания тела при засыпании',h:'',m:3},
+  {q:'Анемия (сейчас или в анамнезе)',h:'0 — нет, 1 — да',m:1},
+  {q:'Склеры глаз с голубоватым оттенком',h:'0 — нет, 1 — да',m:1},
+  {q:'Белые точки на ногтях',h:'0 — нет, 1 — да',m:1},
+  {q:'Медленное заживление порезов / рубцевание',h:'0 — нет, 1 — да',m:1},
+  {q:'Снижение чувствительности к вкусам и запахам',h:'',m:3},{q:'Частые простуды и ОРВИ',h:'',m:3},{q:'Герпетические высыпания',h:'',m:3},{q:'Экзема или другие кожные сыпи',h:'',m:3},
+];
+const NUB=[
+  {q:'Диета с ограничением жиров',h:'0 — никогда, 1 — несколько лет назад, 2 — в прошлом году, 3 — сейчас',m:3},
+  {q:'Боль хорошо снимается аспирином',h:'0 — нет, 1 — да',m:1},
+  {q:'Сухая, зудящая, трескающаяся кожа',h:'',m:3},{q:'Быстрое утомление мышц',h:'',m:3},{q:'Уязвимость к укусам насекомых',h:'',m:3},{q:'Онемение, покалывание или зуд конечностей',h:'',m:3},{q:'Трещины в уголках рта (хейлоз)',h:'',m:3},{q:'«Гусиная кожа» (фолликулярный гиперкератоз)',h:'',m:3},{q:'Сильный свет ночью раздражает глаза',h:'',m:3},{q:'Носовые кровотечения / склонность к кровотечениям',h:'',m:3},{q:'Кровоточивость дёсен при чистке зубов',h:'',m:3},
+  {q:'Работаю в помещении',h:'0 — нет, 1 — да',m:1},
+  {q:'Избегаю солнца / редко бываю на нём',h:'0 — нет, 1 — да',m:1},
+  {q:'Живу в городе с малым количеством солнца',h:'0 — нет, 1 — да',m:1},
+  {q:'Очень редко ем рыбу и морепродукты',h:'0 — нет, 1 — да',m:1},
+  {q:'Есть аутоиммунное заболевание',h:'0 — нет, 1 — да',m:1},
+];
+const CAA=[
+  {q:'Антибиотики длительно в последний год (≥1 месяца)',h:'0 — нет, 1 — да',sc:[0,35]},
+  {q:'Антибиотики короткими курсами, ≥4 курса за год',h:'0 — нет, 1 — да',sc:[0,35]},
+  {q:'Антибиотики однократно в течение года',h:'0 — нет, 1 — да',sc:[0,6]},
+  {q:'Хронический простатит, вагинит или воспаление мочеполовой системы',h:'0 — нет, 1 — да',sc:[0,25]},
+  {q:'Количество беременностей',h:'0 — не было, 1 — одна, 2 — две и более',sc:[0,3,5]},
+  {q:'Употребление противозачаточных препаратов',h:'0 — нет, 1 — 6–24 мес, 2 — более 24 мес',sc:[0,8,15]},
+  {q:'Преднизолон или кортизон-содержащие препараты',h:'0 — нет, 1 — до 2 нед, 2 — от 2 нед',sc:[0,6,15]},
+  {q:'Повышенная чувствительность к запахам, химии, пестицидам',h:'0 — нет, 1 — средние симптомы, 2 — сильные',sc:[0,5,20]},
+  {q:'Симптомы ухудшаются во влажных местах, при плесени',h:'0 — нет, 1 — да',sc:[0,20]},
+  {q:'Грибковые поражения стоп, ногтей или кожи',h:'0 — нет, 1 — средней тяжести, 2 — сильные',sc:[0,10,20]},
+  {q:'Выраженная тяга к сладкому',h:'0 — нет, 1 — да',sc:[0,10]},
+  {q:'Выраженная тяга к мучному',h:'0 — нет, 1 — да',sc:[0,10]},
+  {q:'Выраженная тяга к алкоголю',h:'0 — нет, 1 — да',sc:[0,10]},
+  {q:'Выраженная тяга к табаку',h:'0 — нет, 1 — да',sc:[0,10]},
+];
+const CAB=['Хроническая усталость и/или сонливость','Ощущение потери энергии','Плохая память','Депрессия','Чувство нереальности','Неспособность принимать решения','Онемение, жжение, покалывание в теле','Боль в мышцах или слабость','Боль и/или припухлость в суставах','Боли в животе','Запоры','Диарея','Вздутие живота, отрыжка, кишечные газы','Периодическое жжение / зуд из влагалища','Стойкое жжение или зуд во влагалище','Простатит','Снижение сексуального влечения','Эндометриоз и бесплодие','Нарушения менструального цикла','Предменструальный синдром','Приступы тревоги и плача','Холодные руки или ноги / зябкость','Тряска / раздражительность, когда голоден(а)'];
+const CAC=['Сонливость','Раздражительность','Проблемы с координацией','Проблемы с концентрацией','Перепады настроения','Головная боль','Головокружение / потеря равновесия','Давление выше ушей, ощущение отёка головы','Склонность к синякам','Хроническая сыпь или зуд','Онемение, покалывание','Несварение или изжога','Пищевая чувствительность','Слизь в стуле','Ректальный зуд','Сухость во рту или горле','Сыпь или волдыри во рту','Плохой запах изо рта','Плохой запах от ног, тела, волос','Заложенность носа','Зуд в носу','Ангина','Ларингит, грубый голос','Кашель / хронический бронхит','Боль или сдавливание в груди','Хрипы или одышка','Частое мочеиспускание','Жжение при мочеиспускании','Пятна перед глазами','Жжение или слезотечение из глаз','Рецидивирующие выделения из ушей','Боль в ушах или снижение слуха'];
+
+// РЕНДЕР
+function mk(key,label,hint,max){
+  const btns=Array.from({length:max+1},(_,i)=>`<button class="sb" data-v="${i}" onclick="sa('${key}',${i},this)">${i}</button>`).join('');
+  const h=hint?`<div class="qh">${hint}</div>`:'';
+  const labs=max===1?`<div class="slabs"><span>нет</span><span>да</span></div>`:
+             max===3?`<div class="slabs"><span>нет</span><span>редко</span><span>часто</span><span>всегда</span></div>`:'';
+  return `<div class="sw"><div class="sq">${label}</div>${h}<div class="srow" id="r_${key}">${btns}</div>${labs}</div>`;
+}
+
+function rBlock(items,cid,pfx){
+  const c=document.getElementById(cid);if(!c)return;
+  let h='';
+  items.forEach((it,i)=>{
+    const key=`${pfx}${i}`,label=typeof it==='string'?it:it.q,hint=typeof it==='object'&&it.h?it.h:'',max=typeof it==='object'&&it.m?it.m:3;
+    h+=mk(key,label,hint,max);
+  });
+  c.innerHTML=`<div class="card">${h}</div>`;
+}
+
+function rNu(){
+  const c=document.getElementById('bnu');if(!c)return;
+  let h=`<div class="card"><div style="font-weight:600;color:var(--deep);font-size:12px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--cdark);">Часть 1 — Кости, мышцы, кожа</div>`;
+  NUA.forEach((it,i)=>h+=mk(`na${i}`,typeof it==='string'?it:it.q,typeof it==='object'?it.h||'':'',typeof it==='object'&&it.m?it.m:3));
+  h+=`</div><div class="card"><div style="font-weight:600;color:var(--deep);font-size:12px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--cdark);">Часть 2 — Жирорастворимые витамины, жирные кислоты</div>`;
+  NUB.forEach((it,i)=>h+=mk(`nb${i}`,typeof it==='string'?it:it.q,typeof it==='object'?it.h||'':'',typeof it==='object'&&it.m?it.m:3));
+  h+=`</div>`;c.innerHTML=h;
+}
+
+function rCa(){
+  const c=document.getElementById('bca');if(!c)return;
+  let h=`<div class="card"><div style="font-weight:600;color:var(--deep);font-size:12px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--cdark);">А. История</div>`;
+  CAA.forEach((it,i)=>h+=mk(`ca${i}`,it.q,it.h,it.sc.length-1));
+  h+=`</div><div class="card"><div style="font-weight:600;color:var(--deep);font-size:12px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--cdark);">Б. Главные симптомы</div><div class="qh">0 — не актуально, 1 — слабые, 2 — средние, 3 — сильные</div>`;
+  CAB.forEach((it,i)=>h+=mk(`cb${i}`,it,'',3));
+  h+=`</div><div class="card"><div style="font-weight:600;color:var(--deep);font-size:12px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--cdark);">В. Прочие симптомы</div><div class="qh">0 — не актуально, 1 — слабые, 2 — средние, 3 — сильные</div>`;
+  CAC.forEach((it,i)=>h+=mk(`cc${i}`,it,'',3));
+  h+=`</div>`;c.innerHTML=h;
+}
+
+// СЕЛЕКТОРЫ
+function sa(key,val,btn){
+  A[key]=val;
+  document.querySelectorAll(`#r_${key} .sb`).forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+}
+function selB(n){
+  document.querySelectorAll('.bc').forEach(c=>c.classList.remove('on'));
+  document.getElementById('br'+n).classList.add('on');
+  A.bristol=n;
+}
+
+// НАВИГАЦИЯ
+function pv(s){ss(s-1);}
+function nx(s){if(!vld(s))return;ss(s+1);}
+
+function vld(s){
+  const w=document.getElementById('w'+s);
+  let ok=true;
+  if(s===1){ok=document.getElementById('fn').value.trim()&&document.getElementById('fln').value.trim()&&document.getElementById('fe').value.includes('@');}
+  else if(s===2){ok=A.bristol!==undefined;}
+  else if(s===3){ok=FA.every((_,i)=>A['fa'+i]!==undefined);}
+  else if(s===4){ok=FB.every((_,i)=>A['fb'+i]!==undefined);}
+  else if(s===5){ok=LS.every((_,i)=>A['ls'+i]!==undefined);}
+  else if(s===6){ok=MD.every((_,i)=>A['md'+i]!==undefined);}
+  else if(s===7){ok=ST.every((_,i)=>A['st'+i]!==undefined);}
+  else if(s===8){ok=SM.every((_,i)=>A['sm'+i]!==undefined);}
+  else if(s===9){ok=INF.every((_,i)=>A['inf'+i]!==undefined);}
+  else if(s===10){ok=LG.every((_,i)=>A['lg'+i]!==undefined);}
+  else if(s===11){ok=LV.every((_,i)=>A['lv'+i]!==undefined);}
+  else if(s===12){ok=NUA.every((_,i)=>A['na'+i]!==undefined)&&NUB.every((_,i)=>A['nb'+i]!==undefined);}
+  else if(s===13){ok=CAA.every((_,i)=>A['ca'+i]!==undefined)&&CAB.every((_,i)=>A['cb'+i]!==undefined)&&CAC.every((_,i)=>A['cc'+i]!==undefined);}
+  if(w)w.style.display=ok?'none':'block';
+  return ok;
+}
+
+function ss(n){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  const el=document.getElementById('s'+n);
+  if(el){el.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+  const pct=Math.round(((n-1)/T)*100);
+  document.getElementById('pf').style.width=pct+'%';
+  document.getElementById('sl').textContent=`Шаг ${n} из ${T}`;
+  document.getElementById('sp').textContent=pct+'%';
+  for(let i=1;i<=T;i++){const d=document.getElementById('d'+i);if(d)d.className='sd'+(i<n?' done':i===n?' active':'');}
+}
+
+// ПОДСЧЁТ
+function calcSc(){
+  const sm=(arr,pfx)=>arr.reduce((s,_,i)=>s+(A[pfx+i]||0),0);
+  const faS=sm(FA,'fa'),fbS=sm(FB,'fb');
+  const lsS=LS.slice(0,5).reduce((s,_,i)=>s+(A['ls'+i]||0),0);
+  const olS=LS.slice(5).reduce((s,_,i)=>s+(A['ls'+(i+5)]||0),0);
+  const mdS=sm(MD,'md'),stS=sm(ST,'st'),smS=sm(SM,'sm');
+  const infS=INF.reduce((s,_,i)=>s+(A['inf'+i]||0),0);
+  const lgS=sm(LG,'lg'),lvS=LV.reduce((s,_,i)=>s+(A['lv'+i]||0),0);
+  const naS=NUA.reduce((s,_,i)=>s+(A['na'+i]||0),0);
+  const nbS=NUB.reduce((s,_,i)=>s+(A['nb'+i]||0),0);
+  const caS=CAA.reduce((s,it,i)=>s+(it.sc[A['ca'+i]]||0),0);
+  const cbS=CAB.reduce((s,_,i)=>s+(A['cb'+i]||0)*3,0);
+  const ccS=CAC.reduce((s,_,i)=>s+(A['cc'+i]||0)*3,0);
+  const red=[];
+  if(A['st19']>0)red.push('Чёрный стул');
+  if(A['lg12']>0)red.push('Кровь в стуле');
+  if(A['lv14']>0)red.push('Желтушность');
+  return{faS,fbS,lsS,olS,mdS,stS,smS,infS,lgS,lvS,naS,nbS,caS,cbS,ccS,red};
+}
+
+function lvl(sc,l1,l2){return sc<=l1?'g':sc<=l2?'y':'r';}
+function lbl(l){return l==='g'?'Низкий уровень':l==='y'?'Средний уровень':'Высокий уровень';}
+
+function buildRes(sc){
+  const rows=[
+    {n:'Питание — вредные продукты',sub:'Организационный',sc:sc.faS,l:lvl(sc.faS,8,13)},
+    {n:'Питание — полезные привычки',sub:'Организационный',sc:sc.fbS,l:sc.fbS<=1?'g':sc.fbS<=3?'y':'r'},
+    {n:'Вредные субстанции',sub:'Организационный',sc:sc.lsS,l:lvl(sc.lsS,5,8)},
+    {n:'Образ жизни',sub:'Организационный',sc:sc.olS,l:lvl(sc.olS,4,6)},
+    {n:'Желудок и поджелудочная',sub:'Клинический',sc:sc.stS,l:lvl(sc.stS,10,15)},
+    {n:'Тонкий кишечник',sub:'Клинический',sc:sc.smS,l:lvl(sc.smS,6,11)},
+    {n:'Инфекции / инвазии',sub:'Клинический',sc:sc.infS,l:lvl(sc.infS,5,8)},
+    {n:'Толстый кишечник',sub:'Клинический',sc:sc.lgS,l:lvl(sc.lgS,6,11)},
+    {n:'Печень и желчный',sub:'Клинический',sc:sc.lvS,l:lvl(sc.lvS,5,10)},
+    {n:'Эссенциальные нутриенты ч.1',sub:'Нутриенты',sc:sc.naS,l:lvl(sc.naS,9,17)},
+    {n:'Эссенциальные нутриенты ч.2',sub:'Нутриенты',sc:sc.nbS,l:lvl(sc.nbS,13,21)},
+    {n:'Кандида — история',sub:'Candida',sc:sc.caS,l:lvl(sc.caS,40,140)},
+    {n:'Кандида — симптомы',sub:'Candida',sc:sc.cbS+sc.ccS,l:lvl(sc.cbS+sc.ccS,40,140)},
+  ];
+  let h=`<div class="rb"><div class="rbt">🌿 Результаты по разделам</div>`;
+  rows.forEach(r=>{
+    const cl=r.l==='g'?'rg':r.l==='y'?'ry':'rr';
+    const dot=r.l==='g'?'🟢':r.l==='y'?'🟡':'🔴';
+    h+=`<div class="rrow ${cl}"><div><div class="rname">${dot} ${r.n}</div><div class="rsub">${lbl(r.l)} · ${r.sub}</div></div><div class="rscore">${r.sc}</div></div>`;
+  });
+  h+=`<div class="rnote">🔴 Красный — приоритетное внимание на консультации<br>🟡 Жёлтый — умеренные признаки<br>🟢 Зелёный — в пределах нормы</div></div>`;
+  return h;
+}
+
+// SUBMIT
+function sub(){
+  const sc=calcSc(),now=new Date().toLocaleString('ru-RU');
+  const fds={};
+  FA.forEach((_,i)=>fds['food_a_'+i]=A['fa'+i]||0);
+  FB.forEach((_,i)=>fds['food_b_'+i]=A['fb'+i]||0);
+  const payload={
+    questionnaire_type:'gi',timestamp:now,
+    first_name:document.getElementById('fn').value.trim(),
+    last_name:document.getElementById('fln').value.trim(),
+    email:document.getElementById('fe').value.trim(),
+    age:document.getElementById('fa').value||'',
+    bristol_type:A.bristol||'',
+    food_a_score:sc.faS,food_b_score:sc.fbS,substances_score:sc.lsS,lifestyle_score:sc.olS,meds_score:sc.mdS,
+    stomach_score:sc.stS,small_intestine_score:sc.smS,infection_score:sc.infS,
+    large_intestine_score:sc.lgS,liver_score:sc.lvS,
+    nutrients_a_score:sc.naS,nutrients_b_score:sc.nbS,
+    candida_history_score:sc.caS,candida_main_score:sc.cbS,candida_other_score:sc.ccS,
+    candida_total:sc.caS+sc.cbS+sc.ccS,
+    stomach_level:lvl(sc.stS,10,15)==='g'?'low':lvl(sc.stS,10,15)==='y'?'mid':'high',
+    red_flags:sc.red.join('; ')||'нет',
+    red_flag_present:sc.red.length>0,
+    extra_notes:document.getElementById('fex').value.trim(),
+    raw_answers:JSON.stringify(A),
+    ...fds
+  };
+  document.getElementById('ov').classList.add('on');
+  fetch(URL_,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    .then(()=>showT(sc)).catch(()=>showT(sc));
+}
+
+function showT(sc){
+  document.getElementById('ov').classList.remove('on');
+  document.getElementById('pw').style.display='none';
+  document.querySelectorAll('.sec').forEach(s=>s.style.display='none');
+  const t=document.getElementById('thanks');t.style.display='block';
+  if(sc.red.length>0)document.getElementById('fn2').style.display='block';
+  document.getElementById('rc').innerHTML=buildRes(sc);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// INIT
+function init(){
+  const sr=document.getElementById('sr');
+  for(let i=1;i<=T;i++){const d=document.createElement('div');d.id='d'+i;d.className='sd'+(i===1?' active':'');sr.appendChild(d);}
+  // Питание A
+  let h='';FA.forEach((q,i)=>h+=mk('fa'+i,q,'',3));document.getElementById('bfa').innerHTML=h;
+  // Питание B
+  h='';FB.forEach((q,i)=>h+=mk('fb'+i,q,'',3));document.getElementById('bfb').innerHTML=h;
+  // Образ жизни
+  h='';LS.forEach((it,i)=>h+=mk('ls'+i,it.q,it.h,it.m));document.getElementById('bls').innerHTML=h;
+  // Препараты
+  h='';MD.forEach((q,i)=>h+=mk('md'+i,q,'0 — не принимаю, 1 — принимаю',1));document.getElementById('bmd').innerHTML=h;
+  // Клинические
+  rBlock(ST,'bst','st');rBlock(SM,'bsm','sm');
+  INF.forEach((it,i)=>{INF[i]={q:typeof it==='string'?it:it.q,h:typeof it==='object'?it.h||'':'',m:typeof it==='object'&&it.m?it.m:3};});
+  rBlock(INF,'binf','inf');
+  rBlock(LG,'blg','lg');
+  LV.forEach((it,i)=>{LV[i]={q:typeof it==='string'?it:it.q,h:typeof it==='object'?it.h||'':'',m:typeof it==='object'&&it.m?it.m:3};});
+  rBlock(LV,'blv','lv');
+  rNu();rCa();
+}
+document.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
