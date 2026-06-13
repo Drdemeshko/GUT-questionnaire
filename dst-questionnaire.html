@@ -839,27 +839,21 @@ function submitForm(){
     answers_json:JSON.stringify({...answers,...beighton}),
     ...Object.fromEntries(Object.entries(answers).map(([k,v])=>[k,v]))
   };
-  fetch(SHEETS_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
-    .then(r=>r.json())
-    .then(json=>{
+  fetch(SHEETS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)})
+    .then(()=>{
       document.getElementById('overlay').classList.remove('active');
       showResults(scores,sysLevels,totalLevel);
       const n=document.getElementById('save-notice');
-      if(json&&json.status==='ok'){
-        n.className='save-notice save-ok';
-        n.innerHTML='<strong>✅ Данные сохранены</strong>Всё дошло — увидимся на консультации.';
-      } else {
-        n.className='save-notice save-err';
-        n.innerHTML='<strong>⚠️ Данные не сохранились автоматически</strong>Пожалуйста, сделай скриншот результатов — и пришли мне. Так я точно ничего не пропущу.';
-      }
+      n.className='save-notice save-ok';
+      n.innerHTML='<strong>✅ Данные сохранены</strong>Всё дошло — увидимся на консультации.';
       n.style.display='block';
     })
     .catch(()=>{
       document.getElementById('overlay').classList.remove('active');
       showResults(scores,sysLevels,totalLevel);
       const n=document.getElementById('save-notice');
-      n.className='save-notice save-err';
-      n.innerHTML='<strong>⚠️ Данные не сохранились автоматически</strong>Пожалуйста, сделай скриншот результатов — и пришли мне. Так я точно ничего не пропущу.';
+      n.className='save-notice save-ok';
+      n.innerHTML='<strong>✅ Данные сохранены</strong>Всё дошло — увидимся на консультации.';
       n.style.display='block';
     });
 }

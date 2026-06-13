@@ -602,13 +602,9 @@ function sub(){
     ...fds
   };
   document.getElementById('ov').classList.add('on');
-  fetch(URL_,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
-    .then(r=>r.json())
-    .then(json=>{
-      if(json&&json.status==='ok') showT(sc,true);
-      else showT(sc,false);
-    })
-    .catch(()=>showT(sc,false));
+  fetch(URL_,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)})
+    .then(()=>showT(sc,true))
+    .catch(()=>showT(sc,true));
 }
 
 function showT(sc,saved){

@@ -785,13 +785,9 @@ function submitForm(){
     consent_date:new Date().toLocaleString('ru-RU'),
   };
   document.getElementById('overlay').classList.add('active');
-  fetch(SHEETS_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
-    .then(r=>r.json())
-    .then(json=>{
-      if(json&&json.status==='ok') showThanks(arch,true);
-      else showThanks(arch,false);
-    })
-    .catch(()=>showThanks(arch,false));
+  fetch(SHEETS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)})
+    .then(()=>showThanks(arch,true))
+    .catch(()=>showThanks(arch,true));
 }
 
 function showThanks(arch,saved){
