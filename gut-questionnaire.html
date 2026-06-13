@@ -7,62 +7,77 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-:root{--deep:#2D4A2D;--cream:#F7F3EC;--cdark:#E8E0D0;--text:#2C2C2C;--tl:#7A7A6E;--green:#5B8C5A;--al:#EDF3EC;--yellow:#C4924A;--orange:#B86B3A;--red:#A84040;}
+html{scroll-behavior:smooth;}
+:root{
+  --deep:#2D4A2D;--cream:#F7F3EC;--cream-dark:#E8E0D0;
+  --text:#2C2C2C;--text-light:#7A7A6E;
+  --green:#5B8C5A;--accent-light:#EDF3EC;
+  --yellow:#C4924A;--orange:#B86B3A;--red:#A84040;
+}
 body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;}
-.hero{width:100%;height:130px;display:block;}
-.hdr{background:var(--deep);padding:18px 20px 22px;text-align:center;}
-.brand{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:5px;}
-.hdr h1{font-family:'Playfair Display',serif;font-size:clamp(19px,5vw,26px);color:#fff;line-height:1.3;margin-bottom:5px;}
-.hdr p{font-size:12px;color:rgba(255,255,255,0.6);line-height:1.6;max-width:460px;margin:0 auto;}
-.tbadge{display:inline-flex;align-items:center;gap:5px;background:rgba(91,140,90,0.2);border:1px solid rgba(91,140,90,0.4);border-radius:99px;padding:4px 11px;font-size:11px;color:rgba(255,255,255,0.75);margin-top:9px;}
-.pw{padding:12px 16px 0;}
-.pm{display:flex;justify-content:space-between;font-size:12px;color:var(--tl);margin-bottom:5px;}
-.pb{height:5px;background:var(--cdark);border-radius:99px;overflow:hidden;}
-.pf{height:100%;background:linear-gradient(90deg,#8FBC8E,var(--green));border-radius:99px;transition:width 0.4s;width:0%;}
-.sr{display:flex;gap:3px;margin-top:7px;}
-.sd{flex:1;height:3px;border-radius:99px;background:var(--cdark);transition:background 0.3s;}
-.sd.done{background:var(--green);}
-.sd.active{background:var(--yellow);}
-.sec{display:none;padding:12px 16px;}
+.hero{width:100%;height:150px;display:block;}
+.header{background:var(--deep);padding:20px 20px 24px;text-align:center;}
+.brand{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--green);margin-bottom:6px;}
+.header h1{font-family:'Playfair Display',serif;font-size:clamp(20px,5vw,28px);color:#fff;line-height:1.3;margin-bottom:6px;}
+.header p{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.6;max-width:480px;margin:0 auto;}
+.time-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(91,140,90,0.2);border:1px solid rgba(91,140,90,0.4);border-radius:99px;padding:5px 13px;font-size:12px;color:rgba(255,255,255,0.8);margin-top:10px;}
+.progress-wrap{padding:14px 16px 0;}
+.progress-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--text-light);margin-bottom:6px;}
+.progress-bar{height:5px;background:var(--cream-dark);border-radius:99px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,#8FBC8E,var(--green));border-radius:99px;transition:width 0.4s ease;width:0%;}
+.steps-row{display:flex;gap:3px;margin-top:7px;}
+.step-dot{flex:1;height:3px;border-radius:99px;background:var(--cream-dark);transition:background 0.3s;}
+.step-dot.done{background:var(--green);}
+.step-dot.active{background:var(--yellow);}
+/* SCREENS */
+.sec{display:none;padding:14px 16px 28px;}
 .sec.active{display:block;}
-.sbadge{display:inline-block;background:rgba(45,74,45,0.1);color:var(--deep);font-size:11px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;padding:3px 9px;border-radius:99px;margin-bottom:7px;}
-.stitle{font-family:'Playfair Display',serif;font-size:16px;color:var(--deep);margin-bottom:3px;font-weight:600;}
-.sdesc{font-size:12px;color:var(--tl);line-height:1.6;margin-bottom:12px;}
-.card{background:#fff;border-radius:13px;padding:14px;border:1px solid var(--cdark);margin-bottom:9px;}
-.ql{font-size:13.5px;font-weight:600;color:var(--deep);display:block;margin-bottom:7px;line-height:1.4;}
-.qh{font-size:11px;color:var(--tl);margin-bottom:7px;font-style:italic;line-height:1.5;}
-.fi{width:100%;padding:11px 13px;border:1.5px solid var(--cdark);border-radius:9px;font-family:'Inter',sans-serif;font-size:15px;color:var(--text);background:var(--cream);outline:none;transition:border-color 0.2s;}
-.fi:focus{border-color:var(--green);background:#fff;}
-.fr{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
-.fl{font-size:12px;font-weight:600;color:var(--deep);display:block;margin-bottom:4px;}
-/* SCALE */
-.sw{margin-bottom:12px;}
+.section-badge{display:inline-block;background:rgba(45,74,45,0.1);color:var(--deep);font-size:11px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;padding:3px 10px;border-radius:99px;margin-bottom:8px;}
+.screen-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--deep);margin-bottom:3px;font-weight:600;}
+.screen-desc{font-size:13px;color:var(--text-light);line-height:1.6;margin-bottom:14px;}
+/* CARDS */
+.card{background:#fff;border-radius:14px;padding:16px 18px;border:1px solid var(--cream-dark);margin-bottom:10px;}
+.q-label{font-size:13.5px;font-weight:600;color:var(--deep);display:block;margin-bottom:6px;line-height:1.4;}
+.q-hint{font-size:11px;color:var(--text-light);margin-bottom:7px;font-style:italic;line-height:1.5;}
+.field-label{font-size:13px;font-weight:600;color:var(--deep);display:block;margin-bottom:5px;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.field-input,.fi{width:100%;padding:12px 14px;border:1.5px solid var(--cream-dark);border-radius:10px;font-family:'Inter',sans-serif;font-size:15px;color:var(--text);background:var(--cream);outline:none;transition:border-color 0.2s;}
+.field-input:focus,.fi:focus{border-color:var(--green);background:#fff;}
+.field-input.error,.fi.error{border-color:var(--red);}
+.field-label,.fl{font-size:13px;font-weight:600;color:var(--deep);display:block;margin-bottom:5px;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.field-note{font-size:11px;color:var(--text-light);margin-top:4px;}
+.field-input:focus{border-color:var(--green);background:#fff;}
+.field-input.error{border-color:var(--red);}
+/* SCALE BUTTONS */
+.sw{margin-bottom:13px;}
 .sq{font-size:13px;font-weight:500;color:var(--text);margin-bottom:5px;line-height:1.4;}
 .srow{display:flex;gap:4px;}
-.sb{flex:1;padding:8px 3px;background:var(--cream);border:1.5px solid var(--cdark);border-radius:7px;cursor:pointer;font-size:12px;text-align:center;color:var(--text);transition:all 0.15s;line-height:1.2;-webkit-tap-highlight-color:transparent;}
-.sb:hover{background:var(--al);}
-.sb.on{border-color:var(--deep);font-weight:700;}
-.sb[data-v="0"].on{background:#EDF3EC;border-color:#5B8C5A;color:#2D4A2D;}
-.sb[data-v="1"].on{background:#FDF6E8;border-color:#C4924A;color:#8A5E1A;}
-.sb[data-v="2"].on{background:#FFF0E0;border-color:#B86B3A;color:#7A3A10;}
-.sb[data-v="3"].on{background:#FFF0F0;border-color:#A84040;color:#A84040;}
-.slabs{display:flex;justify-content:space-between;font-size:9px;color:var(--tl);margin-top:2px;padding:0 2px;}
+.sb{flex:1;padding:9px 3px;background:var(--cream);border:1.5px solid var(--cream-dark);border-radius:8px;cursor:pointer;font-size:12px;text-align:center;color:var(--text);transition:all 0.15s;line-height:1.2;-webkit-tap-highlight-color:transparent;font-family:'Inter',sans-serif;}
+.sb:hover{background:var(--accent-light);}
+.sb.on{border-color:var(--deep);background:var(--accent-light);font-weight:700;color:var(--deep);}
 /* BRISTOL */
-.bg{display:flex;flex-direction:column;gap:6px;}
-.bc{display:flex;align-items:center;gap:11px;background:var(--cream);border:1.5px solid var(--cdark);border-radius:11px;padding:9px 11px;cursor:pointer;transition:all 0.15s;-webkit-tap-highlight-color:transparent;}
-.bc:hover{background:var(--al);border-color:var(--green);}
-.bc.on{background:var(--al);border-color:var(--deep);}
+.bg{display:flex;flex-direction:column;gap:7px;}
+.bc{display:flex;align-items:center;gap:11px;background:var(--cream);border:1.5px solid var(--cream-dark);border-radius:12px;padding:10px 12px;cursor:pointer;transition:all 0.15s;-webkit-tap-highlight-color:transparent;}
+.bc:hover{background:var(--accent-light);border-color:var(--green);}
+.bc.on{background:var(--accent-light);border-color:var(--deep);}
 .bsvg{width:48px;height:30px;flex-shrink:0;}
 .bi{flex:1;}
-.bnum{font-size:10px;font-weight:700;color:var(--tl);}
+.bnum{font-size:10px;font-weight:700;color:var(--text-light);}
 .btype{font-size:12px;font-weight:600;color:var(--deep);}
-.bdesc{font-size:10px;color:var(--tl);line-height:1.3;}
+.bdesc{font-size:10px;color:var(--text-light);line-height:1.3;}
 .bbadge{font-size:10px;padding:2px 6px;border-radius:99px;font-weight:600;flex-shrink:0;align-self:flex-start;}
 .bco{background:rgba(184,107,58,0.15);color:var(--orange);}
 .bno{background:rgba(91,140,90,0.15);color:var(--green);}
 .bdi{background:rgba(168,64,64,0.12);color:var(--red);}
+/* CANDIDA CONTEXT CARD */
+.candida-intro{background:linear-gradient(135deg,#EDF3EC,#F5F9F0);border:1.5px solid rgba(91,140,90,0.3);border-radius:14px;padding:16px 18px;margin-bottom:12px;}
+.candida-intro-title{font-family:'Playfair Display',serif;font-size:16px;color:var(--deep);margin-bottom:8px;font-weight:600;}
+.candida-intro-text{font-size:13px;color:var(--text-light);line-height:1.7;}
+.candida-intro-text strong{color:var(--deep);}
+.candida-section-divider{background:rgba(91,140,90,0.12);border:1px solid rgba(91,140,90,0.25);border-radius:10px;padding:8px 14px;margin:14px 0 10px;font-size:12px;font-weight:600;color:var(--deep);display:flex;align-items:center;gap:8px;}
 /* RESULT */
-.rb{background:#fff;border-radius:14px;padding:16px;border:1px solid var(--cdark);margin-bottom:9px;}
+.rb{background:#fff;border-radius:14px;padding:16px;border:1px solid var(--cream-dark);margin-bottom:10px;}
 .rbt{font-family:'Playfair Display',serif;font-size:14px;color:var(--deep);margin-bottom:10px;font-weight:600;}
 .rrow{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-radius:9px;margin-bottom:5px;}
 .rname{font-size:12px;font-weight:600;}
@@ -71,20 +86,31 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
 .rg{background:#EDF3EC;border:1px solid #97C459;color:#2D4A2D;}
 .ry{background:#FDF6E8;border:1px solid #E8A830;color:#7A4A0A;}
 .rr{background:#FFF0F0;border:1px solid #E09090;color:#8A2020;}
-.rnote{font-size:11px;color:var(--tl);line-height:1.6;background:var(--cream);border-radius:9px;padding:10px 12px;margin-top:8px;}
+.rnote{font-size:11px;color:var(--text-light);line-height:1.6;background:var(--cream);border-radius:9px;padding:10px 12px;margin-top:8px;}
 /* NAV */
-.nav{display:flex;gap:9px;padding:4px 0 22px;}
-.bb{flex:1;padding:12px;background:#fff;border:1.5px solid var(--cdark);border-radius:11px;font-family:'Inter',sans-serif;font-size:14px;color:var(--tl);cursor:pointer;}
-.bn{flex:2;padding:12px;background:var(--deep);color:#fff;border:none;border-radius:11px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;}
-.warn{background:rgba(168,64,64,0.08);border:1px solid rgba(168,64,64,0.2);border-radius:7px;padding:8px 12px;font-size:12px;color:var(--red);margin-bottom:9px;display:none;}
-.ov{display:none;position:fixed;inset:0;background:rgba(45,74,45,0.6);z-index:100;align-items:center;justify-content:center;flex-direction:column;gap:14px;}
+.nav-wrap{display:flex;gap:10px;margin-top:14px;}
+.btn-back{flex:1;padding:13px;background:#fff;border:1.5px solid var(--cream-dark);border-radius:11px;font-family:'Inter',sans-serif;font-size:15px;color:var(--text-light);cursor:pointer;transition:background 0.15s;}
+.btn-back:hover{background:var(--cream-dark);}
+.btn-next{flex:2;padding:13px;background:var(--deep);color:#fff;border:none;border-radius:11px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:background 0.15s;}
+.btn-next:hover{background:#3d6b3d;}
+.warn{background:rgba(168,64,64,0.07);border:1px solid rgba(168,64,64,0.2);border-radius:8px;padding:9px 13px;font-size:12px;color:var(--red);margin-bottom:9px;display:none;}
+/* THANKS */
+.thanks-wrap{padding:32px 16px;text-align:center;}
+.thanks-icon{font-size:54px;margin-bottom:14px;}
+.thanks-title{font-family:'Playfair Display',serif;font-size:22px;color:var(--deep);margin-bottom:10px;}
+.thanks-text{font-size:14px;color:var(--text-light);line-height:1.7;max-width:360px;margin:0 auto 16px;}
+.save-notice{background:#fff;border:1.5px solid var(--cream-dark);border-radius:13px;padding:14px 16px;max-width:400px;margin:0 auto 14px;font-size:13px;color:var(--text-light);line-height:1.6;text-align:left;}
+.save-notice strong{display:block;margin-bottom:4px;}
+.save-err{background:rgba(168,64,64,0.06);border-color:rgba(168,64,64,0.2);}
+.save-err strong{color:var(--red);}
+/* OVERLAY */
+.ov{display:none;position:fixed;inset:0;background:rgba(45,74,45,0.65);z-index:100;align-items:center;justify-content:center;flex-direction:column;gap:14px;}
 .ov.on{display:flex;}
-.spin{width:38px;height:38px;border:3px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:sp 0.8s linear infinite;}
+.spin{width:42px;height:42px;border:3px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:sp 0.8s linear infinite;}
 @keyframes sp{to{transform:rotate(360deg);}}
 .ovt{color:#fff;font-size:13px;}
-#thanks{display:none;padding:18px 16px;}
-.fn{background:#FFF5F5;border:1px solid rgba(168,64,64,0.3);border-radius:11px;padding:13px;margin-bottom:11px;font-size:12px;color:var(--red);line-height:1.6;display:none;}
-@media(max-width:380px){.fr{grid-template-columns:1fr;}}
+.needs-answer{outline:2px solid rgba(168,64,64,0.35);border-radius:10px;}
+@media(max-width:380px){.field-row{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -95,40 +121,40 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
 <g fill="#5ab050" opacity="0.4"><circle cx="480" cy="75" r="36"/><circle cx="516" cy="75" r="36"/><circle cx="498" cy="46" r="36"/><circle cx="498" cy="104" r="36"/></g>
 <g fill="#7acc70" opacity="0.2"><circle cx="720" cy="95" r="30"/><circle cx="750" cy="95" r="30"/><circle cx="735" cy="68" r="30"/></g>
 </svg>
-<div class="hdr">
+<div class="header">
   <div class="brand">Dr. Diana Demeshko</div>
   <h1>Анкета «ЖКТ»</h1>
   <p>Комплексная оценка пищеварительной системы — питание, клинические симптомы, кандида-паттерн</p>
-  <div class="tbadge">⏱ 20–25 минут</div>
+  <div class="time-badge">⏱ 20–25 минут</div>
 </div>
-<div class="pw" id="pw">
-  <div class="pm"><span id="sl">Шаг 1 из 14</span><span id="sp">0%</span></div>
-  <div class="pb"><div class="pf" id="pf"></div></div>
-  <div class="sr" id="sr"></div>
+<div class="progress-wrap" id="pw">
+  <div class="progress-meta"><span id="sl">Шаг 1 из 14</span><span id="sp">0%</span></div>
+  <div class="progress-bar"><div class="progress-fill" id="pf"></div></div>
+  <div class="steps-row" id="sr"></div>
 </div>
 
 <!-- ШАГ 1 -->
 <div class="sec active" id="s1">
-  <div style="height:8px"></div>
-  <div class="stitle">Несколько слов о тебе</div>
-  <div class="sdesc">Нужно чтобы связать анкету с твоим профилем.</div>
+  <div style="height:10px"></div>
+  <div class="screen-title">Несколько слов о тебе</div>
+  <div class="screen-desc">По email анкета свяжется с твоим профилем.</div>
   <div class="card">
-    <div class="fr">
-      <div><label class="fl">Имя *</label><input class="fi" id="fn" type="text" placeholder="Имя"></div>
-      <div><label class="fl">Фамилия *</label><input class="fi" id="fln" type="text" placeholder="Фамилия"></div>
+    <div class="field-row">
+      <div><label class="field-label">Имя *</label><input class="field-input" id="fn" type="text" placeholder="Имя"></div>
+      <div><label class="field-label">Фамилия *</label><input class="field-input" id="fln" type="text" placeholder="Фамилия"></div>
     </div>
-    <div style="margin-top:9px"><label class="fl">Email *</label><input class="fi" id="fe" type="email" placeholder="ваш@email.com"><div style="font-size:10px;color:var(--tl);margin-top:3px">По email анкета свяжется с твоим профилем</div></div>
-    <div style="margin-top:9px"><label class="fl">Возраст</label><input class="fi" id="fa" type="number" placeholder="лет" style="max-width:110px"></div>
+    <div style="margin-top:9px"><label class="field-label">Email *</label><input class="field-input" id="fe" type="email" placeholder="ваш@email.com"><div style="font-size:11px;color:var(--text-light);margin-top:4px">По email анкета свяжется с твоим профилем</div></div>
+    <div style="margin-top:9px"><label class="field-label">Возраст</label><input class="field-input" id="fa" type="number" placeholder="лет" style="max-width:110px"></div>
   </div>
-  <div class="warn" id="w1">Заполни имя, фамилию и email</div>
-  <div class="nav"><button class="bn" onclick="nx(1)">Начать →</button></div>
+  <div class="warn" id="w1">Пожалуйста, заполни имя, фамилию и email</div>
+  <div class="nav-wrap"><button class="btn-next" onclick="nx(1)">Начать →</button></div>
 </div>
 
 <!-- ШАГ 2: БРИСТОЛЬ -->
 <div class="sec" id="s2">
-  <div class="sbadge">Стул</div>
-  <div class="stitle">Бристольская шкала</div>
-  <div class="sdesc">Выбери тип стула, который встречается у тебя чаще всего.</div>
+  <div class="section-badge">Стул</div>
+  <div class="screen-title">Бристольская шкала</div>
+  <div class="screen-desc">Выбери тип стула, который встречается у тебя чаще всего.</div>
   <div class="card">
     <span class="ql">Как обычно выглядит твой стул?</span>
     <div class="bg">
@@ -142,137 +168,154 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
     </div>
   </div>
   <div class="warn" id="w2">Выбери тип стула</div>
-  <div class="nav"><button class="bb" onclick="pv(2)">←</button><button class="bn" onclick="nx(2)">Далее →</button></div>
+  <div class="nav-wrap"><button class="btn-back" onclick="pv(2)">←</button><button class="btn-next" onclick="nx(2)">Далее →</button></div>
 </div>
 
 <!-- ШАГ 3: ПИТАНИЕ А -->
 <div class="sec" id="s3">
-  <div class="sbadge">Питание · Часть 1</div>
-  <div class="stitle">Что ты употребляешь регулярно?</div>
-  <div class="sdesc">0 — не употребляю &nbsp;·&nbsp; 1 — 1–3 раза в месяц &nbsp;·&nbsp; 2 — 1–3 раза в неделю &nbsp;·&nbsp; 3 — ежедневно</div>
+  <div class="section-badge">Питание · Часть 1</div>
+  <div class="screen-title">Что ты употребляешь регулярно?</div>
+  <div class="screen-desc">0 — не употребляю &nbsp;·&nbsp; 1 — 1–3 раза в месяц &nbsp;·&nbsp; 2 — 1–3 раза в неделю &nbsp;·&nbsp; 3 — ежедневно</div>
   <div class="card" id="bfa"></div>
   <div class="warn" id="w3">Ответь на все вопросы</div>
-  <div class="nav"><button class="bb" onclick="pv(3)">←</button><button class="bn" onclick="nx(3)">Далее →</button></div>
+  <div class="nav-wrap"><button class="btn-back" onclick="pv(3)">←</button><button class="btn-next" onclick="nx(3)">Далее →</button></div>
 </div>
 
 <!-- ШАГ 4: ПИТАНИЕ Б -->
 <div class="sec" id="s4">
-  <div class="sbadge">Питание · Часть 2</div>
-  <div class="stitle">Полезные привычки питания</div>
-  <div class="sdesc">0 — употребляю ежедневно &nbsp;·&nbsp; 1 — 1–3 раза в неделю &nbsp;·&nbsp; 2 — 1–3 раза в месяц &nbsp;·&nbsp; 3 — не употребляю / не делаю</div>
+  <div class="section-badge">Питание · Часть 2</div>
+  <div class="screen-title">Полезные привычки питания</div>
+  <div class="screen-desc">0 — употребляю ежедневно &nbsp;·&nbsp; 1 — 1–3 раза в неделю &nbsp;·&nbsp; 2 — 1–3 раза в месяц &nbsp;·&nbsp; 3 — не употребляю / не делаю</div>
   <div class="card" id="bfb"></div>
   <div class="warn" id="w4">Ответь на все вопросы</div>
-  <div class="nav"><button class="bb" onclick="pv(4)">←</button><button class="bn" onclick="nx(4)">Далее →</button></div>
+  <div class="nav-wrap"><button class="btn-back" onclick="pv(4)">←</button><button class="btn-next" onclick="nx(4)">Далее →</button></div>
 </div>
 
 <!-- ШАГ 5: ВРЕДНЫЕ СУБСТАНЦИИ + ОБРАЗ ЖИЗНИ -->
 <div class="sec" id="s5">
-  <div class="sbadge">Образ жизни</div>
-  <div class="stitle">Вредные субстанции и образ жизни</div>
-  <div class="sdesc">Отвечай по подсказке к каждому вопросу</div>
+  <div class="section-badge">Образ жизни</div>
+  <div class="screen-title">Вредные субстанции и образ жизни</div>
+  <div class="screen-desc">Отвечай по подсказке к каждому вопросу</div>
   <div class="card" id="bls"></div>
   <div class="warn" id="w5">Ответь на все вопросы</div>
-  <div class="nav"><button class="bb" onclick="pv(5)">←</button><button class="bn" onclick="nx(5)">Далее →</button></div>
+  <div class="nav-wrap"><button class="btn-back" onclick="pv(5)">←</button><button class="btn-next" onclick="nx(5)">Далее →</button></div>
 </div>
 
 <!-- ШАГ 6: ПРЕПАРАТЫ -->
 <div class="sec" id="s6">
-  <div class="sbadge">Препараты</div>
-  <div class="stitle">Принимаешь ли ты регулярно?</div>
-  <div class="sdesc">0 — не принимаю &nbsp;·&nbsp; 1 — принимаю</div>
+  <div class="section-badge">Препараты</div>
+  <div class="screen-title">Принимаешь ли ты регулярно?</div>
+  <div class="screen-desc">0 — не принимаю &nbsp;·&nbsp; 1 — принимаю</div>
   <div class="card" id="bmd"></div>
   <div class="warn" id="w6">Ответь на все вопросы</div>
-  <div class="nav"><button class="bb" onclick="pv(6)">←</button><button class="bn" onclick="nx(6)">Далее →</button></div>
+  <div class="nav-wrap"><button class="btn-back" onclick="pv(6)">←</button><button class="btn-next" onclick="nx(6)">Далее →</button></div>
 </div>
 
 <!-- ШАГ 7: ЖЕЛУДОК -->
 <div class="sec" id="s7">
-  <div class="sbadge">Клинический блок 1 из 6</div>
-  <div class="stitle">Желудок и поджелудочная</div>
-  <div class="sdesc">0 — не актуально &nbsp;·&nbsp; 1 — иногда (1–3 раза в месяц) &nbsp;·&nbsp; 2 — часто (1–3 раза в неделю) &nbsp;·&nbsp; 3 — ежедневно</div>
+  <div class="section-badge">Клинический блок 1 из 6</div>
+  <div class="screen-title">Желудок и поджелудочная</div>
+  <div class="screen-desc">0 — не актуально &nbsp;·&nbsp; 1 — иногда (1–3 раза в месяц) &nbsp;·&nbsp; 2 — часто (1–3 раза в неделю) &nbsp;·&nbsp; 3 — ежедневно</div>
   <div id="bst"></div>
   <div class="warn" id="w7">Ответь на все вопросы</div>
-  <div class="nav"><button class="bb" onclick="pv(7)">←</button><button class="bn" onclick="nx(7)">Далее →</button></div>
+  <div class="nav-wrap"><button class="btn-back" onclick="pv(7)">←</button><button class="btn-next" onclick="nx(7)">Далее →</button></div>
 </div>
 
 <!-- ШАГ 8: ТОНКИЙ КИШЕЧНИК -->
 <div class="sec" id="s8">
-  <div class="sbadge">Клинический блок 2 из 6</div>
-  <div class="stitle">Тонкий кишечник</div>
-  <div class="sdesc">0 — не актуально &nbsp;·&nbsp; 1 — иногда &nbsp;·&nbsp; 2 — часто &nbsp;·&nbsp; 3 — ежедневно</div>
+  <div class="section-badge">Клинический блок 2 из 6</div>
+  <div class="screen-title">Тонкий кишечник</div>
+  <div class="screen-desc">0 — не актуально &nbsp;·&nbsp; 1 — иногда &nbsp;·&nbsp; 2 — часто &nbsp;·&nbsp; 3 — ежедневно</div>
   <div id="bsm"></div>
   <div class="warn" id="w8">Ответь на все вопросы</div>
-  <div class="nav"><button class="bb" onclick="pv(8)">←</button><button class="bn" onclick="nx(8)">Далее →</button></div>
+  <div class="nav-wrap"><button class="btn-back" onclick="pv(8)">←</button><button class="btn-next" onclick="nx(8)">Далее →</button></div>
 </div>
 
 <!-- ШАГ 9: ИНФЕКЦИИ -->
 <div class="sec" id="s9">
-  <div class="sbadge">Клинический блок 3 из 6</div>
-  <div class="stitle">Инфекции и инвазии ЖКТ</div>
-  <div class="sdesc">0 — не актуально &nbsp;·&nbsp; 1 — иногда &nbsp;·&nbsp; 2 — часто &nbsp;·&nbsp; 3 — ежедневно</div>
+  <div class="section-badge">Клинический блок 3 из 6</div>
+  <div class="screen-title">Инфекции и инвазии ЖКТ</div>
+  <div class="screen-desc">0 — не актуально &nbsp;·&nbsp; 1 — иногда &nbsp;·&nbsp; 2 — часто &nbsp;·&nbsp; 3 — ежедневно</div>
   <div id="binf"></div>
   <div class="warn" id="w9">Ответь на все вопросы</div>
-  <div class="nav"><button class="bb" onclick="pv(9)">←</button><button class="bn" onclick="nx(9)">Далее →</button></div>
+  <div class="nav-wrap"><button class="btn-back" onclick="pv(9)">←</button><button class="btn-next" onclick="nx(9)">Далее →</button></div>
 </div>
 
 <!-- ШАГ 10: ТОЛСТЫЙ КИШЕЧНИК -->
 <div class="sec" id="s10">
-  <div class="sbadge">Клинический блок 4 из 6</div>
-  <div class="stitle">Толстый кишечник</div>
-  <div class="sdesc">0 — не актуально &nbsp;·&nbsp; 1 — иногда &nbsp;·&nbsp; 2 — часто &nbsp;·&nbsp; 3 — ежедневно</div>
+  <div class="section-badge">Клинический блок 4 из 6</div>
+  <div class="screen-title">Толстый кишечник</div>
+  <div class="screen-desc">0 — не актуально &nbsp;·&nbsp; 1 — иногда &nbsp;·&nbsp; 2 — часто &nbsp;·&nbsp; 3 — ежедневно</div>
   <div id="blg"></div>
   <div class="warn" id="w10">Ответь на все вопросы</div>
-  <div class="nav"><button class="bb" onclick="pv(10)">←</button><button class="bn" onclick="nx(10)">Далее →</button></div>
+  <div class="nav-wrap"><button class="btn-back" onclick="pv(10)">←</button><button class="btn-next" onclick="nx(10)">Далее →</button></div>
 </div>
 
 <!-- ШАГ 11: ПЕЧЕНЬ -->
 <div class="sec" id="s11">
-  <div class="sbadge">Клинический блок 5 из 6</div>
-  <div class="stitle">Печень и желчный пузырь</div>
-  <div class="sdesc">0 — не актуально &nbsp;·&nbsp; 1 — иногда &nbsp;·&nbsp; 2 — часто &nbsp;·&nbsp; 3 — ежедневно</div>
+  <div class="section-badge">Клинический блок 5 из 6</div>
+  <div class="screen-title">Печень и желчный пузырь</div>
+  <div class="screen-desc">0 — не актуально &nbsp;·&nbsp; 1 — иногда &nbsp;·&nbsp; 2 — часто &nbsp;·&nbsp; 3 — ежедневно</div>
   <div id="blv"></div>
   <div class="warn" id="w11">Ответь на все вопросы</div>
-  <div class="nav"><button class="bb" onclick="pv(11)">←</button><button class="bn" onclick="nx(11)">Далее →</button></div>
+  <div class="nav-wrap"><button class="btn-back" onclick="pv(11)">←</button><button class="btn-next" onclick="nx(11)">Далее →</button></div>
 </div>
 
 <!-- ШАГ 12: НУТРИЕНТЫ -->
 <div class="sec" id="s12">
-  <div class="sbadge">Клинический блок 6 из 6</div>
-  <div class="stitle">Эссенциальные нутриенты</div>
-  <div class="sdesc">0 — не актуально / нет &nbsp;·&nbsp; 1 — иногда / да &nbsp;·&nbsp; 2 — часто &nbsp;·&nbsp; 3 — ежедневно / выраженно</div>
+  <div class="section-badge">Клинический блок 6 из 6</div>
+  <div class="screen-title">Эссенциальные нутриенты</div>
+  <div class="screen-desc">0 — не актуально / нет &nbsp;·&nbsp; 1 — иногда / да &nbsp;·&nbsp; 2 — часто &nbsp;·&nbsp; 3 — ежедневно / выраженно</div>
   <div id="bnu"></div>
   <div class="warn" id="w12">Ответь на все вопросы</div>
-  <div class="nav"><button class="bb" onclick="pv(12)">←</button><button class="bn" onclick="nx(12)">Далее →</button></div>
+  <div class="nav-wrap"><button class="btn-back" onclick="pv(12)">←</button><button class="btn-next" onclick="nx(12)">Далее →</button></div>
 </div>
 
 <!-- ШАГ 13: КАНДИДА -->
 <div class="sec" id="s13">
-  <div class="sbadge">Опросник Candida</div>
-  <div class="stitle">Кандида-паттерн</div>
-  <div class="sdesc">Помогает выявить признаки кандидоза. Отвечай по подсказкам к каждому вопросу.</div>
+  <div class="section-badge">Финальный блок</div>
+  <div class="screen-title">Кандида-опросник</div>
+  <div class="screen-desc">Это последний и особенный раздел — он помогает выявить кандида-паттерн.</div>
+
+  <div class="candida-intro">
+    <div class="candida-intro-title">🍄 Что такое кандида-паттерн?</div>
+    <div class="candida-intro-text">
+      <em>Candida albicans</em> — дрожжевой гриб, который живёт в кишечнике у каждого человека. В норме он безвреден. Но при определённых условиях — антибиотики, сахар, стресс, гормональные изменения — он начинает размножаться и вызывать симптомы, которые легко спутать с другими проблемами.<br><br>
+      <strong>Некоторые вопросы могут показаться тебе знакомыми</strong> — они пересекаются с предыдущими разделами. Это сделано намеренно: разные системы могут давать похожие симптомы, и именно их совокупность помогает мне увидеть картину полностью.<br><br>
+      Отвечай по-прежнему честно — нет правильных или неправильных ответов.
+    </div>
+  </div>
+
   <div id="bca"></div>
   <div class="warn" id="w13">Ответь на все вопросы</div>
-  <div class="nav"><button class="bb" onclick="pv(13)">←</button><button class="bn" onclick="nx(13)">Далее →</button></div>
+  <div class="nav-wrap"><button class="btn-back" onclick="pv(13)">← Назад</button><button class="btn-next" onclick="nx(13)">Далее →</button></div>
 </div>
 
 <!-- ШАГ 14: ФИНАЛ -->
 <div class="sec" id="s14">
-  <div class="sbadge">Финал</div>
-  <div class="stitle">Последний шаг</div>
-  <div class="sdesc">Если есть что добавить — напиши.</div>
+  <div class="section-badge">Финал</div>
+  <div class="screen-title">Последний шаг</div>
+  <div class="screen-desc">Если есть что добавить — напиши.</div>
   <div class="card">
     <span class="ql">Что тебя беспокоит в работе ЖКТ больше всего?</span>
-    <textarea class="fi" id="fex" rows="4" placeholder="Напиши своими словами..." style="resize:none;line-height:1.5;"></textarea>
+    <textarea class="field-input" id="fex" rows="4" placeholder="Напиши своими словами..." style="resize:none;line-height:1.5;"></textarea>
   </div>
-  <div class="nav"><button class="bb" onclick="pv(14)">←</button><button class="bn" onclick="sub()">Отправить анкету 🌿</button></div>
+  <div class="nav-wrap"><button class="btn-back" onclick="pv(14)">←</button><button class="btn-next" onclick="sub()">Отправить анкету 🌿</button></div>
 </div>
 
 <div class="ov" id="ov"><div class="spin"></div><div class="ovt">Сохраняю данные…</div></div>
 
-<div id="thanks">
-  <div class="fn" id="fn2">⚠️ Ты отметил(а) тревожные симптомы. Сделай скриншот и сообщи мне в Telegram до встречи.</div>
-  <div id="rc"></div>
-  <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--tl);line-height:1.6;">Это не диагноз — предварительная оценка для подготовки к консультации.<br>Я изучу результаты и разберём их вместе.</div>
+<div id="thanks" style="display:none">
+  <div class="thanks-wrap">
+    <div class="thanks-icon">🌿</div>
+    <div class="thanks-title">Спасибо, что доверяешь</div>
+    <div class="thanks-text">Я изучу результаты до нашей встречи — это поможет сразу перейти к тому, что важно именно тебе.</div>
+    <div class="save-notice" id="save-notice" style="display:none"></div>
+  </div>
+  <div style="padding:0 16px 16px">
+    <div id="rc"></div>
+    <div style="text-align:center;margin-top:10px;font-size:12px;color:var(--text-light);line-height:1.6;">Это не диагноз — предварительная оценка для подготовки к консультации.<br>Разберём результаты вместе.</div>
+  </div>
 </div>
 
 <script>
@@ -399,9 +442,10 @@ function mk(key,label,hint,max){
   else{lset=SYMP;}
   
   const btns=Array.from({length:max+1},(_,i)=>`<button class="sb" data-v="${i}" onclick="sa('${key}',${i},this)">${lset[i]||i}</button>`).join('');
-  const h=hint?`<div class="qh">${hint}</div>`:'';
-  const labs='';
-  return `<div class="sw"><div class="sq">${label}</div>${h}<div class="srow" id="r_${key}">${btns}</div>${labs}</div>`;
+  // Показывать hint только если кнопки дефолтные (SYMP) — в остальных случаях кнопки уже подписаны словами
+  const isDefaultLabels = lset===SYMP;
+  const h=(hint&&isDefaultLabels)?`<div class="qh">${hint}</div>`:'';
+  return `<div class="sw"><div class="sq">${label}</div>${h}<div class="srow" id="r_${key}">${btns}</div></div>`;
 }
 
 function rBlock(items,cid,pfx){
@@ -416,20 +460,20 @@ function rBlock(items,cid,pfx){
 
 function rNu(){
   const c=document.getElementById('bnu');if(!c)return;
-  let h=`<div class="card"><div style="font-weight:600;color:var(--deep);font-size:12px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--cdark);">Часть 1 — Кости, мышцы, кожа</div>`;
+  let h=`<div class="card"><div style="font-weight:600;color:var(--deep);font-size:12px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--cream-dark);">Часть 1 — Кости, мышцы, кожа</div>`;
   NUA.forEach((it,i)=>h+=mk(`na${i}`,typeof it==='string'?it:it.q,typeof it==='object'?it.h||'':'',typeof it==='object'&&it.m?it.m:3));
-  h+=`</div><div class="card"><div style="font-weight:600;color:var(--deep);font-size:12px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--cdark);">Часть 2 — Жирорастворимые витамины, жирные кислоты</div>`;
+  h+=`</div><div class="card"><div style="font-weight:600;color:var(--deep);font-size:12px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--cream-dark);">Часть 2 — Жирорастворимые витамины, жирные кислоты</div>`;
   NUB.forEach((it,i)=>h+=mk(`nb${i}`,typeof it==='string'?it:it.q,typeof it==='object'?it.h||'':'',typeof it==='object'&&it.m?it.m:3));
   h+=`</div>`;c.innerHTML=h;
 }
 
 function rCa(){
   const c=document.getElementById('bca');if(!c)return;
-  let h=`<div class="card"><div style="font-weight:600;color:var(--deep);font-size:12px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--cdark);">А. История</div>`;
+  let h=`<div class="card"><div class="candida-section-divider">📋 А. История — факторы риска</div><div class="q-hint" style="margin-bottom:10px">Эти вопросы помогают оценить, были ли в твоей жизни факторы, которые могли нарушить баланс грибковой флоры.</div>`;
   CAA.forEach((it,i)=>h+=mk(`ca${i}`,it.q,it.h,it.sc.length-1));
-  h+=`</div><div class="card"><div style="font-weight:600;color:var(--deep);font-size:12px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--cdark);">Б. Главные симптомы</div><div class="qh">0 — не актуально, 1 — слабые, 2 — средние, 3 — сильные</div>`;
+  h+=`</div><div class="card"><div style="font-weight:600;color:var(--deep);font-size:12px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--cream-dark);">Б. Главные симптомы</div><div class="qh">0 — не актуально, 1 — слабые, 2 — средние, 3 — сильные</div>`;
   CAB.forEach((it,i)=>h+=mk(`cb${i}`,it,'',3));
-  h+=`</div><div class="card"><div style="font-weight:600;color:var(--deep);font-size:12px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--cdark);">В. Прочие симптомы</div><div class="qh">0 — не актуально, 1 — слабые, 2 — средние, 3 — сильные</div>`;
+  h+=`</div><div class="card"><div style="font-weight:600;color:var(--deep);font-size:12px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--cream-dark);">В. Прочие симптомы</div><div class="qh">0 — не актуально, 1 — слабые, 2 — средние, 3 — сильные</div>`;
   CAC.forEach((it,i)=>h+=mk(`cc${i}`,it,'',3));
   h+=`</div>`;c.innerHTML=h;
 }
@@ -478,7 +522,7 @@ function ss(n){
   document.getElementById('pf').style.width=pct+'%';
   document.getElementById('sl').textContent=`Шаг ${n} из ${T}`;
   document.getElementById('sp').textContent=pct+'%';
-  for(let i=1;i<=T;i++){const d=document.getElementById('d'+i);if(d)d.className='sd'+(i<n?' done':i===n?' active':'');}
+  for(let i=1;i<=T;i++){const d=document.getElementById('d'+i);if(d)d.className='step-dot'+(i<n?' done':i===n?' active':'');}
 }
 
 // ПОДСЧЁТ
@@ -558,16 +602,26 @@ function sub(){
     ...fds
   };
   document.getElementById('ov').classList.add('on');
-  fetch(URL_,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
-    .then(()=>showT(sc)).catch(()=>showT(sc));
+  fetch(URL_,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    .then(r=>r.json())
+    .then(json=>{
+      if(json&&json.status==='ok') showT(sc,true);
+      else showT(sc,false);
+    })
+    .catch(()=>showT(sc,false));
 }
 
-function showT(sc){
+function showT(sc,saved){
   document.getElementById('ov').classList.remove('on');
   document.getElementById('pw').style.display='none';
   document.querySelectorAll('.sec').forEach(s=>s.style.display='none');
   const t=document.getElementById('thanks');t.style.display='block';
-  if(sc.red.length>0)document.getElementById('fn2').style.display='block';
+  if(!saved){
+    const n=document.getElementById('save-notice');
+    n.className='save-notice save-err';
+    n.innerHTML='<strong>⚠️ Не удалось сохранить данные.</strong> Пожалуйста, напиши мне в Telegram.';
+    n.style.display='block';
+  }
   document.getElementById('rc').innerHTML=buildRes(sc);
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -575,7 +629,7 @@ function showT(sc){
 // INIT
 function init(){
   const sr=document.getElementById('sr');
-  for(let i=1;i<=T;i++){const d=document.createElement('div');d.id='d'+i;d.className='sd'+(i===1?' active':'');sr.appendChild(d);}
+  for(let i=1;i<=T;i++){const d=document.createElement('div');d.id='d'+i;d.className='step-dot'+(i===1?' active':'');sr.appendChild(d);}
   // Питание A
   let h='';FA.forEach((q,i)=>h+=mk('fa'+i,q,'',3));document.getElementById('bfa').innerHTML=h;
   // Питание B

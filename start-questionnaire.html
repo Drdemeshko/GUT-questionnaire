@@ -7,77 +7,58 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
 :root{
   --deep:#2D4A2D;--cream:#F7F3EC;--cream-dark:#E8E0D0;
   --text:#2C2C2C;--text-light:#7A7A6E;
   --green:#5B8C5A;--accent-light:#EDF3EC;
   --yellow:#C4924A;--red:#A84040;
 }
-html{scroll-behavior:smooth;}
 body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;}
-
-/* HEADER */
-.hero{width:100%;height:160px;display:block;}
-.header{background:var(--deep);padding:24px 20px 28px;text-align:center;position:relative;}
-.brand{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px;}
-.header h1{font-family:'Playfair Display',serif;font-size:clamp(22px,5vw,32px);color:#fff;line-height:1.3;margin-bottom:8px;}
-.header p{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.6;max-width:480px;margin:0 auto;}
-.time-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(91,140,90,0.2);border:1px solid rgba(91,140,90,0.4);border-radius:99px;padding:6px 14px;font-size:12px;color:rgba(255,255,255,0.8);margin-top:12px;}
-
-/* PROGRESS */
-.progress-wrap{padding:16px 16px 0;}
-.progress-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--text-light);margin-bottom:8px;}
-.progress-bar{height:6px;background:var(--cream-dark);border-radius:99px;overflow:hidden;}
+.hero{width:100%;height:150px;display:block;}
+.header{background:var(--deep);padding:20px 20px 24px;text-align:center;}
+.brand{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--green);margin-bottom:6px;}
+.header h1{font-family:'Playfair Display',serif;font-size:clamp(20px,5vw,28px);color:#fff;line-height:1.3;margin-bottom:6px;}
+.header p{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.6;max-width:480px;margin:0 auto;}
+.time-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(91,140,90,0.2);border:1px solid rgba(91,140,90,0.4);border-radius:99px;padding:5px 13px;font-size:12px;color:rgba(255,255,255,0.8);margin-top:10px;}
+.progress-wrap{padding:14px 16px 0;}
+.progress-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--text-light);margin-bottom:6px;}
+.progress-bar{height:5px;background:var(--cream-dark);border-radius:99px;overflow:hidden;}
 .progress-fill{height:100%;background:linear-gradient(90deg,#8FBC8E,var(--green));border-radius:99px;transition:width 0.4s ease;width:0%;}
-.steps-row{display:flex;gap:4px;margin-top:8px;}
+.steps-row{display:flex;gap:3px;margin-top:7px;}
 .step-dot{flex:1;height:3px;border-radius:99px;background:var(--cream-dark);transition:background 0.3s;}
 .step-dot.done{background:var(--green);}
 .step-dot.active{background:var(--yellow);}
-
-/* SECTIONS */
-.section{display:none;padding:16px;}
+.section{display:none;padding:14px 16px 28px;}
 .section.active{display:block;}
-.section-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--deep);margin-bottom:4px;font-weight:600;}
-.section-desc{font-size:13px;color:var(--text-light);line-height:1.6;margin-bottom:20px;}
-.card{background:#fff;border-radius:16px;padding:20px;border:1px solid var(--cream-dark);margin-bottom:12px;}
-.field-label{font-size:13px;font-weight:600;color:var(--deep);display:block;margin-bottom:6px;letter-spacing:0.2px;}
-.field-label .req{color:var(--red);}
-.field-input,.field-select,.field-textarea{
-  width:100%;padding:14px 16px;border:1.5px solid var(--cream-dark);border-radius:12px;
-  font-family:'Inter',sans-serif;font-size:15px;color:var(--text);background:var(--cream);
-  outline:none;transition:border-color 0.2s,background 0.2s;
-}
+.section-badge{display:inline-block;background:rgba(45,74,45,0.1);color:var(--deep);font-size:11px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;padding:3px 10px;border-radius:99px;margin-bottom:8px;}
+.section-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--deep);margin-bottom:3px;font-weight:600;}
+.section-desc{font-size:13px;color:var(--text-light);line-height:1.6;margin-bottom:14px;}
+.card{background:#fff;border-radius:14px;padding:16px 18px;border:1px solid var(--cream-dark);margin-bottom:10px;}
+.q-label{font-size:14px;font-weight:600;color:var(--deep);display:block;margin-bottom:7px;line-height:1.4;}
+.q-hint{font-size:12px;color:var(--text-light);margin-bottom:8px;font-style:italic;line-height:1.5;}
+.field-label{font-size:13px;font-weight:600;color:var(--deep);display:block;margin-bottom:5px;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.field-input,.field-select,.field-textarea{width:100%;padding:12px 14px;border:1.5px solid var(--cream-dark);border-radius:10px;font-family:'Inter',sans-serif;font-size:15px;color:var(--text);background:var(--cream);outline:none;transition:border-color 0.2s;}
 .field-input:focus,.field-select:focus,.field-textarea:focus{border-color:var(--green);background:#fff;}
 .field-input.error,.field-select.error,.field-textarea.error{border-color:var(--red);}
-.field-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237A7A6E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;}
 .field-textarea{resize:vertical;min-height:80px;line-height:1.5;}
 .field-note{font-size:11px;color:var(--text-light);margin-top:4px;line-height:1.5;}
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-
-/* CHOICE BUTTONS */
-.choices{display:flex;flex-direction:column;gap:8px;}
-.choice{background:var(--cream);border:1.5px solid var(--cream-dark);border-radius:12px;padding:14px 16px;cursor:pointer;font-size:14px;color:var(--text);line-height:1.45;transition:all 0.15s;text-align:left;-webkit-tap-highlight-color:transparent;}
+.field-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237A7A6E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;}
+.choices{display:flex;flex-direction:column;gap:7px;}
+.choice{background:var(--cream);border:1.5px solid var(--cream-dark);border-radius:11px;padding:12px 15px;cursor:pointer;font-size:13.5px;color:var(--text);line-height:1.4;transition:all 0.15s;text-align:left;width:100%;font-family:'Inter',sans-serif;-webkit-tap-highlight-color:transparent;}
 .choice:hover{background:var(--accent-light);border-color:var(--green);}
 .choice.selected{background:var(--accent-light);border-color:var(--deep);font-weight:500;color:var(--deep);}
 .choice.selected::before{content:'✓ ';color:var(--green);font-weight:700;}
-.multi-hint{font-size:11px;color:var(--text-light);margin-bottom:8px;font-style:italic;}
-
+.multi-hint{font-size:11px;color:var(--text-light);margin-bottom:7px;font-style:italic;}
 /* SCALE */
 .scale-wrap{display:flex;gap:6px;margin-top:8px;}
 .scale-btn{flex:1;aspect-ratio:1;border-radius:10px;border:1.5px solid var(--cream-dark);background:var(--cream);cursor:pointer;font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--deep);transition:all 0.15s;-webkit-tap-highlight-color:transparent;}
 .scale-btn:hover{border-color:var(--green);background:var(--accent-light);}
-.scale-btn.selected{border-color:var(--deep);background:var(--accent-light);color:var(--deep);}
+.scale-btn.selected{border-color:var(--deep);background:var(--accent-light);}
 .scale-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--text-light);margin-top:4px;}
-
-/* NAVIGATION */
-.nav-wrap{display:flex;gap:10px;padding:4px 0 20px;}
-.btn-back{flex:1;padding:14px;background:#fff;border:1.5px solid var(--cream-dark);border-radius:12px;font-family:'Inter',sans-serif;font-size:15px;color:var(--text-light);cursor:pointer;transition:all 0.15s;}
-.btn-back:hover{background:var(--cream-dark);}
-.btn-next{flex:2;padding:14px;background:var(--deep);color:#fff;border:none;border-radius:12px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:all 0.15s;}
-.btn-next:hover{background:var(--green);}
-.btn-next:disabled{opacity:0.5;cursor:default;}
-.warn{background:rgba(168,64,64,0.08);border:1px solid rgba(168,64,64,0.25);border-radius:8px;padding:10px 14px;font-size:12.5px;color:var(--red);margin-bottom:12px;display:none;}
-.consent-block{background:#fff;border-radius:16px;padding:18px 20px;border:1px solid var(--cream-dark);margin-bottom:12px;}
+/* CONSENT */
+.consent-block{background:#fff;border-radius:14px;padding:15px 17px;border:1px solid var(--cream-dark);margin-bottom:10px;}
 .consent-item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--cream-dark);}
 .consent-item:last-child{border-bottom:none;}
 .consent-check{width:22px;height:22px;flex-shrink:0;border:2px solid var(--cream-dark);border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;margin-top:1px;}
@@ -85,38 +66,55 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
 .consent-check.checked::after{content:"✓";color:#fff;font-size:13px;font-weight:700;}
 .consent-check.error-check{border-color:var(--red);}
 .consent-text{font-size:13px;color:var(--text);line-height:1.55;}
-.consent-text a{color:var(--green);text-decoration:underline;}
-
-/* SENDING */
-.overlay{display:none;position:fixed;inset:0;background:rgba(45,74,45,0.6);z-index:100;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
-.overlay.active{display:flex;}
-.spinner{width:44px;height:44px;border:3px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg);}}
-.overlay-text{color:#fff;font-size:14px;font-weight:500;}
-
-/* THANK YOU */
-#screen-thanks{display:none;padding:32px 20px;text-align:center;}
-.thanks-icon{font-size:56px;margin-bottom:16px;}
-.thanks-title{font-family:'Playfair Display',serif;font-size:24px;color:var(--deep);margin-bottom:12px;}
-.thanks-text{font-size:14px;color:var(--text-light);line-height:1.7;max-width:360px;margin:0 auto 24px;}
-.thanks-card{background:#fff;border-radius:16px;padding:20px;border:1px solid var(--cream-dark);text-align:left;margin-bottom:16px;}
-.thanks-card h4{font-family:'Playfair Display',serif;font-size:15px;color:var(--deep);margin-bottom:12px;}
-.archetype-name{font-size:20px;font-weight:700;color:var(--green);margin-bottom:4px;}
+/* NAV */
+.nav-wrap{display:flex;gap:10px;margin-top:14px;}
+.btn-back{flex:1;padding:13px;background:#fff;border:1.5px solid var(--cream-dark);border-radius:11px;font-family:'Inter',sans-serif;font-size:15px;color:var(--text-light);cursor:pointer;transition:background 0.15s;}
+.btn-back:hover{background:var(--cream-dark);}
+.btn-next{flex:2;padding:13px;background:var(--deep);color:#fff;border:none;border-radius:11px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:background 0.15s;}
+.btn-next:hover{background:#3d6b3d;}
+.warn{background:rgba(168,64,64,0.07);border:1px solid rgba(168,64,64,0.2);border-radius:8px;padding:9px 13px;font-size:12.5px;color:var(--red);margin-top:10px;display:none;}
+/* THANKS */
+.thanks-wrap{padding:36px 20px;text-align:center;}
+.thanks-icon{font-size:54px;margin-bottom:14px;}
+.thanks-title{font-family:'Playfair Display',serif;font-size:22px;color:var(--deep);margin-bottom:10px;}
+.thanks-text{font-size:14px;color:var(--text-light);line-height:1.7;max-width:360px;margin:0 auto 18px;}
+.thanks-card{background:#fff;border-radius:14px;padding:16px 18px;border:1px solid var(--cream-dark);text-align:left;margin-bottom:10px;}
+.thanks-card h4{font-family:'Playfair Display',serif;font-size:14px;color:var(--deep);margin-bottom:10px;}
+.archetype-name{font-size:19px;font-weight:700;color:var(--green);margin-bottom:4px;}
 .archetype-desc{font-size:13px;color:var(--text-light);line-height:1.6;}
-
+.save-notice{background:#fff;border:1.5px solid var(--cream-dark);border-radius:13px;padding:14px 16px;max-width:400px;margin:0 auto 14px;font-size:13px;color:var(--text-light);line-height:1.6;text-align:left;}
+.save-notice strong{color:var(--deep);display:block;margin-bottom:4px;}
+.save-err{background:rgba(168,64,64,0.06);border-color:rgba(168,64,64,0.2);}
+.save-err strong{color:var(--red);}
+/* ARCHETYPE RESULT CARD */
+.archetype-result-card{border-radius:16px;overflow:hidden;margin:0 auto 14px;max-width:440px;border:1.5px solid var(--cream-dark);}
+.arch-header{padding:20px 18px 16px;display:flex;align-items:center;gap:14px;}
+.arch-emoji{font-size:40px;flex-shrink:0;}
+.arch-label{font-size:11px;text-transform:uppercase;letter-spacing:1px;opacity:0.75;margin-bottom:3px;font-weight:600;}
+.arch-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;line-height:1.2;}
+.arch-quote{font-size:13px;font-style:italic;padding:0 18px 14px;opacity:0.8;line-height:1.6;}
+.arch-desc{font-size:13.5px;line-height:1.7;padding:14px 18px;border-top:1px solid rgba(255,255,255,0.2);}
+.arch-how{padding:14px 18px;margin-top:2px;}
+.arch-how-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px;opacity:0.7;}
+.arch-how-text{font-size:13px;line-height:1.7;}
+.overlay.active{display:flex;}
+.spinner{width:42px;height:42px;border:3px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.overlay-text{color:#fff;font-size:14px;}
+/* HIGHLIGHT */
+.needs-answer{outline:2px solid rgba(168,64,64,0.35);border-radius:10px;}
 @media(max-width:380px){.field-row{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 
-<!-- HERO -->
-<svg class="hero" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 160" preserveAspectRatio="xMidYMid slice">
-  <rect width="800" height="160" fill="#2D4A2D"/>
-  <g fill="#3a7a32" opacity="0.7"><circle cx="80" cy="80" r="45"/><circle cx="125" cy="80" r="45"/><circle cx="102" cy="48" r="45"/><circle cx="102" cy="112" r="45"/></g>
-  <g fill="#4a9a42" opacity="0.5"><circle cx="280" cy="65" r="38"/><circle cx="318" cy="65" r="38"/><circle cx="299" cy="38" r="38"/><circle cx="299" cy="92" r="38"/></g>
-  <g fill="#5ab050" opacity="0.4"><circle cx="480" cy="90" r="42"/><circle cx="522" cy="90" r="42"/><circle cx="501" cy="58" r="42"/><circle cx="501" cy="122" r="42"/></g>
-  <g fill="#3a7a32" opacity="0.35"><circle cx="660" cy="55" r="35"/><circle cx="695" cy="55" r="35"/><circle cx="677" cy="30" r="35"/><circle cx="677" cy="80" r="35"/></g>
-  <g fill="#7acc70" opacity="0.2"><circle cx="760" cy="120" r="28"/><circle cx="788" cy="120" r="28"/><circle cx="774" cy="96" r="28"/><circle cx="774" cy="144" r="28"/></g>
+<svg class="hero" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 150" preserveAspectRatio="xMidYMid slice">
+  <rect width="800" height="150" fill="#2D4A2D"/>
+  <g fill="#3a7a32" opacity="0.7"><circle cx="80" cy="75" r="42"/><circle cx="122" cy="75" r="42"/><circle cx="101" cy="45" r="42"/><circle cx="101" cy="105" r="42"/></g>
+  <g fill="#4a9a42" opacity="0.5"><circle cx="280" cy="62" r="36"/><circle cx="316" cy="62" r="36"/><circle cx="298" cy="34" r="36"/><circle cx="298" cy="90" r="36"/></g>
+  <g fill="#5ab050" opacity="0.4"><circle cx="480" cy="85" r="40"/><circle cx="520" cy="85" r="40"/><circle cx="500" cy="54" r="40"/><circle cx="500" cy="116" r="40"/></g>
+  <g fill="#3a7a32" opacity="0.3"><circle cx="660" cy="52" r="33"/><circle cx="693" cy="52" r="33"/><circle cx="676" cy="27" r="33"/><circle cx="676" cy="77" r="33"/></g>
+  <g fill="#7acc70" opacity="0.18"><circle cx="762" cy="115" r="26"/><circle cx="788" cy="115" r="26"/><circle cx="775" cy="92" r="26"/></g>
 </svg>
 
 <div class="header">
@@ -127,51 +125,28 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
 </div>
 
 <div class="progress-wrap" id="progress-wrap">
-  <div class="progress-meta">
-    <span id="step-label">Шаг 1 из 6</span>
-    <span id="step-pct">0%</span>
-  </div>
+  <div class="progress-meta"><span id="step-label">Шаг 1 из 6</span><span id="step-pct">0%</span></div>
   <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
   <div class="steps-row" id="steps-row"></div>
 </div>
 
-<!-- ═══ STEP 1: ЛИЧНЫЕ ДАННЫЕ ═══ -->
+<!-- ШАГ 1: ДАННЫЕ -->
 <div class="section active" id="step-1">
-  <div style="height:12px"></div>
+  <div style="height:10px"></div>
+  <div class="section-badge">Шаг 1 из 6</div>
   <div class="section-title">Давай познакомимся</div>
   <div class="section-desc">Эти данные нужны чтобы создать твой клинический профиль. Всё конфиденциально.</div>
-
   <div class="card">
     <div class="field-row">
-      <div>
-        <label class="field-label">Имя <span class="req">*</span></label>
-        <input class="field-input" id="f-name" type="text" placeholder="Имя" autocomplete="given-name">
-      </div>
-      <div>
-        <label class="field-label">Фамилия <span class="req">*</span></label>
-        <input class="field-input" id="f-lastname" type="text" placeholder="Фамилия" autocomplete="family-name">
-      </div>
+      <div><label class="field-label">Имя *</label><input class="field-input" id="f-name" type="text" placeholder="Имя" autocomplete="given-name"></div>
+      <div><label class="field-label">Фамилия *</label><input class="field-input" id="f-lastname" type="text" placeholder="Фамилия" autocomplete="family-name"></div>
     </div>
-    <div style="margin-top:12px">
-      <label class="field-label">Email <span class="req">*</span></label>
-      <input class="field-input" id="f-email" type="email" placeholder="ваш@email.com">
-    </div>
-    <div style="margin-top:12px">
-      <label class="field-label">Телефон <span class="req">*</span></label>
-      <input class="field-input" id="f-phone" type="tel" placeholder="+380 (99) 000-00-00">
-    </div>
-    <div style="margin-top:12px">
-      <label class="field-label">Telegram username</label>
-      <input class="field-input" id="f-tg" type="text" placeholder="@username">
-      <div class="field-note">Сюда придут следующие шаги после анкеты</div>
-    </div>
-    <div class="field-row" style="margin-top:12px">
-      <div>
-        <label class="field-label">Возраст <span class="req">*</span></label>
-        <input class="field-input" id="f-age" type="number" placeholder="Лет" min="16" max="90">
-      </div>
-      <div>
-        <label class="field-label">Пол <span class="req">*</span></label>
+    <div style="margin-top:11px"><label class="field-label">Email *</label><input class="field-input" id="f-email" type="email" placeholder="ваш@email.com"></div>
+    <div style="margin-top:11px"><label class="field-label">Телефон *</label><input class="field-input" id="f-phone" type="tel" placeholder="+380 (99) 000-00-00"></div>
+    <div style="margin-top:11px"><label class="field-label">Telegram username</label><input class="field-input" id="f-tg" type="text" placeholder="@username"><div class="field-note">Сюда придут следующие шаги после анкеты</div></div>
+    <div class="field-row" style="margin-top:11px">
+      <div><label class="field-label">Возраст *</label><input class="field-input" id="f-age" type="number" placeholder="Лет" min="16" max="90"></div>
+      <div><label class="field-label">Пол *</label>
         <select class="field-select" id="f-sex">
           <option value="">Выбери</option>
           <option value="female">Женский</option>
@@ -180,74 +155,81 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
         </select>
       </div>
     </div>
-    <div class="field-row" style="margin-top:12px">
-      <div>
-        <label class="field-label">Страна</label>
-        <input class="field-input" id="f-country" type="text" placeholder="Страна">
-      </div>
-      <div>
-        <label class="field-label">Город</label>
-        <input class="field-input" id="f-city" type="text" placeholder="Город">
-      </div>
+    <div class="field-row" style="margin-top:11px">
+      <div><label class="field-label">Страна</label><input class="field-input" id="f-country" type="text" placeholder="Страна"></div>
+      <div><label class="field-label">Город</label><input class="field-input" id="f-city" type="text" placeholder="Город"></div>
+    </div>
+    <div style="margin-top:11px">
+      <label class="field-label">Часовой пояс</label>
+      <select class="field-select" id="f-timezone">
+        <option value="">Выбери...</option>
+        <option value="UTC-12">UTC−12</option><option value="UTC-11">UTC−11</option><option value="UTC-10">UTC−10 (Гавайи)</option>
+        <option value="UTC-9">UTC−9</option><option value="UTC-8">UTC−8 (Лос-Анджелес)</option>
+        <option value="UTC-7">UTC−7 (Денвер)</option><option value="UTC-6">UTC−6 (Чикаго)</option>
+        <option value="UTC-5">UTC−5 (Нью-Йорк)</option><option value="UTC-4">UTC−4</option>
+        <option value="UTC-3">UTC−3 (Бразилия)</option><option value="UTC-2">UTC−2</option>
+        <option value="UTC-1">UTC−1</option><option value="UTC+0">UTC+0 (Лондон)</option>
+        <option value="UTC+1">UTC+1 (Варшава, Берлин)</option>
+        <option value="UTC+2">UTC+2 (Киев, Хельсинки)</option>
+        <option value="UTC+3">UTC+3 (Москва, Стамбул)</option>
+        <option value="UTC+4">UTC+4 (Дубай)</option><option value="UTC+5">UTC+5</option>
+        <option value="UTC+5:30">UTC+5:30 (Индия)</option><option value="UTC+6">UTC+6</option>
+        <option value="UTC+7">UTC+7 (Бангкок)</option><option value="UTC+8">UTC+8 (Пекин, Сингапур)</option>
+        <option value="UTC+9">UTC+9 (Токио)</option><option value="UTC+10">UTC+10 (Сидней)</option>
+        <option value="UTC+11">UTC+11</option><option value="UTC+12">UTC+12</option>
+      </select>
     </div>
   </div>
   <div class="warn" id="warn-1">Пожалуйста, заполни обязательные поля</div>
-  <div class="nav-wrap">
-    <button class="btn-next" onclick="nextStep(1)">Продолжить →</button>
-  </div>
+  <div class="nav-wrap"><button class="btn-next" onclick="nextStep(1)" style="flex:1">Продолжить →</button></div>
 </div>
 
-<!-- ═══ STEP 2: ЗАПРОС И ЦЕЛИ ═══ -->
+<!-- ШАГ 2: ЗАПРОС И ЦЕЛИ -->
 <div class="section" id="step-2">
-  <div style="height:12px"></div>
+  <div style="height:10px"></div>
+  <div class="section-badge">Шаг 2 из 6</div>
   <div class="section-title">Зачем ты здесь?</div>
   <div class="section-desc">Расскажи о своём главном запросе — что привело тебя сюда именно сейчас.</div>
-
   <div class="card">
-    <label class="field-label">Главная жалоба или запрос <span class="req">*</span></label>
+    <label class="q-label">Главная жалоба или запрос *</label>
     <textarea class="field-textarea" id="f-complaint" placeholder="Опиши своими словами что беспокоит больше всего..."></textarea>
   </div>
-
   <div class="card">
-    <label class="field-label">Топ-3 цели — чего хочешь достичь <span class="req">*</span></label>
+    <label class="q-label">Топ-3 цели — чего хочешь достичь *</label>
     <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">
-      <input class="field-input" id="f-goal1" type="text" placeholder="Цель 1">
+      <input class="field-input" id="f-goal1" type="text" placeholder="Цель 1 *">
       <input class="field-input" id="f-goal2" type="text" placeholder="Цель 2">
       <input class="field-input" id="f-goal3" type="text" placeholder="Цель 3 (необязательно)">
     </div>
   </div>
-
   <div class="card">
-    <label class="field-label">Что уже пробовала для решения этих вопросов?</label>
+    <label class="q-label">Что уже пробовал(а) для решения этих вопросов?</label>
     <textarea class="field-textarea" id="f-tried" placeholder="Диеты, добавки, врачи, методики — что угодно..."></textarea>
   </div>
-
   <div class="card">
-    <label class="field-label">Сколько времени в неделю готовы уделять здоровью?</label>
+    <label class="q-label">Сколько времени в неделю готов(а) уделять здоровью? *</label>
     <div class="choices" id="q-time">
       <button class="choice" data-val="less1h">Меньше 1 часа — хочу минимум усилий</button>
-      <button class="choice" data-val="1-3h">1–3 часа — умеренные изменения — это реально</button>
+      <button class="choice" data-val="1-3h">1–3 часа — умеренные изменения, это реально</button>
       <button class="choice" data-val="3-5h">3–5 часов — серьёзный подход</button>
       <button class="choice" data-val="5h+">Столько сколько нужно — полная готовность</button>
     </div>
   </div>
-
-  <div class="warn" id="warn-2">Пожалуйста, заполни обязательные поля</div>
+  <div class="warn" id="warn-2">Пожалуйста, заполни обязательные поля и ответь на все вопросы</div>
   <div class="nav-wrap">
     <button class="btn-back" onclick="prevStep(2)">← Назад</button>
     <button class="btn-next" onclick="nextStep(2)">Продолжить →</button>
   </div>
 </div>
 
-<!-- ═══ STEP 3: АРХЕТИП ═══ -->
+<!-- ШАГ 3: АРХЕТИП -->
 <div class="section" id="step-3">
-  <div style="height:12px"></div>
+  <div style="height:10px"></div>
+  <div class="section-badge">Шаг 3 из 6</div>
   <div class="section-title">Как ты принимаешь решения</div>
   <div class="section-desc">Эти вопросы помогают мне понять твой стиль — как с тобой лучше работать. Нет правильных ответов.</div>
-
-  <!-- A1 -->
   <div class="card">
-    <label class="field-label">Тебе дают список из 10 рекомендаций по питанию. Как ты с ним работаешь?</label>
+    <label class="q-label">Тебе дают список из 10 рекомендаций по питанию. Как ты с ним работаешь? *</label>
     <div class="choices" id="q-a1">
       <button class="choice" data-type="rebel">Выбираю те что кажутся мне разумными и начинаю с них</button>
       <button class="choice" data-type="skeptic">Хочу понять смысл каждой — почему именно это, что за этим стоит</button>
@@ -255,10 +237,8 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
       <button class="choice" data-type="rebel">Скорее всего отложу — список ощущается как давление</button>
     </div>
   </div>
-
-  <!-- A2 -->
   <div class="card">
-    <label class="field-label">Через месяц мы созваниваемся и ты рассказываешь как всё прошло. Что тебя больше всего замотивирует подготовиться к этому звонку?</label>
+    <label class="q-label">Через месяц мы созваниваемся и ты рассказываешь как всё прошло. Что тебя больше всего замотивирует подготовиться к этому звонку? *</label>
     <div class="choices" id="q-a2">
       <button class="choice" data-type="upholder">Желание увидеть свой прогресс и понять что изменилось</button>
       <button class="choice" data-type="skeptic">Понимание того как работает моё тело</button>
@@ -266,10 +246,8 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
       <button class="choice" data-type="rebel">Если я сама решу что этот звонок важен для меня — тогда подготовлюсь</button>
     </div>
   </div>
-
-  <!-- A3 -->
   <div class="card">
-    <label class="field-label">Началась работа над здоровьем. Что больше всего помогает тебе не бросить?</label>
+    <label class="q-label">Началась работа над здоровьем. Что больше всего помогает тебе не бросить? *</label>
     <div class="choices" id="q-a3">
       <button class="choice" data-type="upholder">Когда вижу результат или понимаю что двигаюсь в правильном направлении</button>
       <button class="choice" data-type="skeptic">Когда понимаю логику и смысл того что делаю</button>
@@ -277,10 +255,8 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
       <button class="choice" data-type="rebel">Когда это моё собственное решение и никто меня не заставляет</button>
     </div>
   </div>
-
-  <!-- A4 -->
   <div class="card">
-    <label class="field-label">Врач говорит тебе: «Нужно снизить стресс — иначе через 5 лет будут проблемы с сердцем». Как ты реагируешь?</label>
+    <label class="q-label">Врач говорит тебе: «Нужно снизить стресс — иначе через 5 лет будут проблемы с сердцем». Как ты реагируешь? *</label>
     <div class="choices" id="q-a4">
       <button class="choice" data-type="upholder">Принимаю к сведению и начинаю разбираться что именно делать</button>
       <button class="choice" data-type="skeptic">Хочу понять механизм — как именно стресс влияет на сердце, какие именно риски</button>
@@ -288,10 +264,8 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
       <button class="choice" data-type="rebel">Скептически — у всех стресс, и ничего. Хочу сама разобраться стоит ли беспокоиться</button>
     </div>
   </div>
-
-  <!-- A5 -->
   <div class="card">
-    <label class="field-label">Когда тебе нужно внедрить что-то новое — как тебе лучше всего?</label>
+    <label class="q-label">Когда тебе нужно внедрить что-то новое — как тебе лучше всего? *</label>
     <div class="choices" id="q-a5">
       <button class="choice" data-type="upholder">Чёткий план с конкретными шагами — я выполняю и мне спокойно</button>
       <button class="choice" data-type="skeptic">Понять принцип и почему это работает — тогда сама придумаю как</button>
@@ -300,10 +274,8 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
       <button class="choice" data-type="obliger">Мне нужно чтобы кто-то был рядом и поддерживал</button>
     </div>
   </div>
-
-  <!-- A6 -->
   <div class="card">
-    <label class="field-label">Что тебе важнее в поддержке во время работы над здоровьем?</label>
+    <label class="q-label">Что тебе важнее в поддержке во время работы над здоровьем? *</label>
     <div class="choices" id="q-a6">
       <button class="choice" data-type="upholder">Чёткая структура и конкретные задания на неделю</button>
       <button class="choice" data-type="skeptic">Объяснение механизмов — хочу понимать почему</button>
@@ -312,7 +284,6 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
       <button class="choice" data-type="rebel">Гибкость — чтобы план подстраивался под мою жизнь</button>
     </div>
   </div>
-
   <div class="warn" id="warn-3">Пожалуйста, ответь на все вопросы этого раздела</div>
   <div class="nav-wrap">
     <button class="btn-back" onclick="prevStep(3)">← Назад</button>
@@ -320,14 +291,14 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
   </div>
 </div>
 
-<!-- ═══ STEP 4: СОН ═══ -->
+<!-- ШАГ 4: СОН -->
 <div class="section" id="step-4">
-  <div style="height:12px"></div>
+  <div style="height:10px"></div>
+  <div class="section-badge">Шаг 4 из 6</div>
   <div class="section-title">Как ты спишь</div>
   <div class="section-desc">Сон — это первое, на что я смотрю. Он влияет на всё остальное: еду, стресс, вес, настроение. Ответь честно — не как «должно быть».</div>
-
   <div class="card">
-    <label class="field-label">Сколько часов ты в среднем спишь?</label>
+    <label class="q-label">Сколько часов ты в среднем спишь? *</label>
     <div class="choices" id="q-sleep-hours">
       <button class="choice" data-val="less6">Меньше 6 часов</button>
       <button class="choice" data-val="6-7">6–7 часов</button>
@@ -336,9 +307,8 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
       <button class="choice" data-val="unstable">По-разному, стабильности нет</button>
     </div>
   </div>
-
   <div class="card">
-    <label class="field-label">Как ты просыпаешься большинство утром?</label>
+    <label class="q-label">Как ты просыпаешься большинство утром? *</label>
     <div class="choices" id="q-wake">
       <button class="choice" data-val="great">Чувствую себя отдохнувшим(ей), встаю без усилий</button>
       <button class="choice" data-val="ok">Встаю нормально, но нужно время разогнаться</button>
@@ -347,10 +317,9 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
       <button class="choice" data-val="varies">По-разному</button>
     </div>
   </div>
-
   <div class="card">
-    <label class="field-label">Что из этого есть у тебя регулярно? <span style="font-weight:400;color:var(--text-light)">(выбери все подходящее)</span></label>
-    <div class="multi-hint">Можно выбрать несколько</div>
+    <label class="q-label">Что из этого есть у тебя регулярно?</label>
+    <div class="q-hint">Можно выбрать несколько</div>
     <div class="choices" id="q-sleep-issues">
       <button class="choice multi" data-val="cant-sleep">Трудно засыпаю — мысли не останавливаются</button>
       <button class="choice multi" data-val="night-wake">Просыпаюсь ночью (особенно в 3–5 утра)</button>
@@ -361,9 +330,8 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
       <button class="choice multi" data-val="none-sleep">Ничего из этого</button>
     </div>
   </div>
-
   <div class="card">
-    <label class="field-label">Насколько ты доволен(а) качеством своего сна прямо сейчас?</label>
+    <label class="q-label">Насколько ты доволен(а) качеством своего сна прямо сейчас? *</label>
     <div class="scale-wrap" id="q-sleep-score">
       <button class="scale-btn" data-val="1">1</button>
       <button class="scale-btn" data-val="2">2</button>
@@ -373,21 +341,21 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
     </div>
     <div class="scale-labels"><span>Совсем не доволен(а)</span><span>Полностью доволен(а)</span></div>
   </div>
-
+  <div class="warn" id="warn-4">Пожалуйста, ответь на все вопросы этого раздела</div>
   <div class="nav-wrap">
     <button class="btn-back" onclick="prevStep(4)">← Назад</button>
     <button class="btn-next" onclick="nextStep(4)">Продолжить →</button>
   </div>
 </div>
 
-<!-- ═══ STEP 5: ЕДА ═══ -->
+<!-- ШАГ 5: ЕДА -->
 <div class="section" id="step-5">
-  <div style="height:12px"></div>
+  <div style="height:10px"></div>
+  <div class="section-badge">Шаг 5 из 6</div>
   <div class="section-title">Как ты ешь</div>
   <div class="section-desc">Не диеты и не правила — мне интересно как реально выглядит твоя еда. Что происходит в обычный день.</div>
-
   <div class="card">
-    <label class="field-label">Сколько раз в день ты обычно ешь (включая перекусы)?</label>
+    <label class="q-label">Сколько раз в день ты обычно ешь (включая перекусы)? *</label>
     <div class="choices" id="q-meals">
       <button class="choice" data-val="1-2">1–2 раза, часто пропускаю приёмы пищи</button>
       <button class="choice" data-val="3">3 раза, достаточно регулярно</button>
@@ -396,13 +364,12 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
       <button class="choice" data-val="varies">По-разному каждый день</button>
     </div>
   </div>
-
   <div class="card">
-    <label class="field-label">Что из этого ты замечаешь у себя? <span style="font-weight:400;color:var(--text-light)">(выбери все подходящее)</span></label>
-    <div class="multi-hint">Можно выбрать несколько</div>
+    <label class="q-label">Что из этого ты замечаешь у себя?</label>
+    <div class="q-hint">Можно выбрать несколько</div>
     <div class="choices" id="q-food-patterns">
       <button class="choice multi" data-val="sweet-craving">Тяга к сладкому — особенно после еды или вечером</button>
-      <button class="choice multi" data-val="hunger-irritable">Сильный голод и раздражительность, если задержала еду</button>
+      <button class="choice multi" data-val="hunger-irritable">Сильный голод и раздражительность, если задержал(а) еду</button>
       <button class="choice multi" data-val="sleepy-after">Слабость или сонливость после еды</button>
       <button class="choice multi" data-val="eat-fast">Ем быстро, часто на ходу или за экраном</button>
       <button class="choice multi" data-val="boredom-eating">Ем «за компанию» или от скуки, не от голода</button>
@@ -411,9 +378,8 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
       <button class="choice multi" data-val="none-food">Ничего из этого</button>
     </div>
   </div>
-
   <div class="card">
-    <label class="field-label">Как бы ты описала своё отношение к еде прямо сейчас?</label>
+    <label class="q-label">Как бы ты описал(а) своё отношение к еде прямо сейчас? *</label>
     <div class="choices" id="q-food-attitude">
       <button class="choice" data-val="calm">Спокойное — ем когда голоден(на), не думаю об этом много</button>
       <button class="choice" data-val="tense">Напряжённое — много правил, ограничений или тревоги вокруг еды</button>
@@ -422,27 +388,27 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
       <button class="choice" data-val="obsessive">Еда занимает много места в голове — думаю об этом часто</button>
     </div>
   </div>
-
   <div class="card">
-    <label class="field-label">Опиши свой вчерашний день в еде — завтрак, обед, ужин, всё что было между. Просто как есть, без прикрас.</label>
+    <label class="q-label">Опиши свой вчерашний день в еде</label>
+    <div class="q-hint">Завтрак, обед, ужин, всё что было между. Просто как есть, без прикрас.</div>
     <textarea class="field-textarea" id="f-food-diary" placeholder="Стакан воды утром, потом..."></textarea>
     <div class="field-note">Это помогает мне увидеть реальную картину, а не идеальную версию питания</div>
   </div>
-
+  <div class="warn" id="warn-5">Пожалуйста, ответь на обязательные вопросы этого раздела</div>
   <div class="nav-wrap">
     <button class="btn-back" onclick="prevStep(5)">← Назад</button>
     <button class="btn-next" onclick="nextStep(5)">Продолжить →</button>
   </div>
 </div>
 
-<!-- ═══ STEP 6: ТЕЛО, СТРЕСС, ФИНАЛ ═══ -->
+<!-- ШАГ 6: ТЕЛО, СТРЕСС, ФИНАЛ -->
 <div class="section" id="step-6">
-  <div style="height:12px"></div>
+  <div style="height:10px"></div>
+  <div class="section-badge">Шаг 6 из 6</div>
   <div class="section-title">Тело, стресс и последний вопрос</div>
   <div class="section-desc">Ещё немного — и готово!</div>
-
   <div class="card">
-    <label class="field-label">Как ты двигаешься в течение недели?</label>
+    <label class="q-label">Как ты двигаешься в течение недели? *</label>
     <div class="choices" id="q-movement">
       <button class="choice" data-val="intense">Интенсивные тренировки 4–6 раз в неделю</button>
       <button class="choice" data-val="moderate">Тренировки 2–3 раза в неделю + прогулки</button>
@@ -451,9 +417,8 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
       <button class="choice" data-val="irregular">По-разному, нет системы</button>
     </div>
   </div>
-
   <div class="card">
-    <label class="field-label">Как ты чувствуешь себя после тренировок или физической нагрузки?</label>
+    <label class="q-label">Как ты чувствуешь себя после тренировок или физической нагрузки? *</label>
     <div class="choices" id="q-recovery">
       <button class="choice" data-val="great">Хорошо восстанавливаюсь, чувствую себя лучше</button>
       <button class="choice" data-val="tired">Устаю сильнее, чем хотелось бы</button>
@@ -461,12 +426,11 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
       <button class="choice" data-val="no-data">Не тренируюсь регулярно, сложно оценить</button>
     </div>
   </div>
-
   <div class="card">
-    <label class="field-label">Что из этого описывает твоё типичное состояние? <span style="font-weight:400;color:var(--text-light)">(выбери все подходящее)</span></label>
-    <div class="multi-hint">Можно выбрать несколько</div>
+    <label class="q-label">Что из этого описывает твоё типичное состояние?</label>
+    <div class="q-hint">Можно выбрать несколько</div>
     <div class="choices" id="q-body-state">
-      <button class="choice multi" data-val="cant-switch-off">Трудно «выключиться» и просто отдыхать — хочется что-то делать</button>
+      <button class="choice multi" data-val="cant-switch-off">Трудно «выключиться» и просто отдыхать</button>
       <button class="choice multi" data-val="tension">Тело напряжено — шея, плечи, челюсть</button>
       <button class="choice multi" data-val="racing-mind">Голова занята постоянно — планирование, прокрутка, беспокойство</button>
       <button class="choice multi" data-val="sleep-exhaustion">Засыпаю только «в усталость», а не потому что расслабился(ась)</button>
@@ -476,439 +440,411 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
       <button class="choice multi" data-val="none-body">Ничего из этого</button>
     </div>
   </div>
-
   <div class="card">
-    <label class="field-label">Как бы ты оценила уровень стресса в своей жизни прямо сейчас?</label>
+    <label class="q-label">Как бы ты оценил(а) уровень стресса прямо сейчас? *</label>
     <div class="scale-wrap" id="q-stress-level">
-      <button class="scale-btn" data-val="1">1</button>
-      <button class="scale-btn" data-val="2">2</button>
-      <button class="scale-btn" data-val="3">3</button>
-      <button class="scale-btn" data-val="4">4</button>
+      <button class="scale-btn" data-val="1">1</button><button class="scale-btn" data-val="2">2</button>
+      <button class="scale-btn" data-val="3">3</button><button class="scale-btn" data-val="4">4</button>
       <button class="scale-btn" data-val="5">5</button>
     </div>
     <div class="scale-labels"><span>Всё спокойно</span><span>Хронически высокий</span></div>
   </div>
-
   <div class="card">
-    <label class="field-label">Как обычно справляешься со стрессом? Что реально помогает прийти в себя?</label>
+    <label class="q-label">Как обычно справляешься со стрессом? Что реально помогает прийти в себя?</label>
     <textarea class="field-textarea" id="f-stress-coping" placeholder="Напиши честно — что реально работает для тебя..."></textarea>
   </div>
-
   <div class="card">
-    <label class="field-label">Как ты относишься к себе, когда что-то не получается?</label>
+    <label class="q-label">Как ты относишься к себе, когда что-то не получается? *</label>
     <div class="choices" id="q-self-attitude">
-      <button class="choice" data-val="kind">Стараюсь быть к себе доброй — все иногда ошибаются</button>
+      <button class="choice" data-val="kind">Стараюсь быть к себе доброй(ым) — все иногда ошибаются</button>
       <button class="choice" data-val="let-go">Расстраиваюсь, но быстро отпускаю</button>
       <button class="choice" data-val="ruminate">Долго переживаю и корю себя</button>
       <button class="choice" data-val="harsh">Критикую себя жёстко — это меня «мотивирует»</button>
       <button class="choice" data-val="avoid">Стараюсь не думать об этом</button>
     </div>
   </div>
-
   <div class="card">
-    <label class="field-label">Насколько ты сейчас готов(а) реально что-то менять — не просто узнавать, а делать?</label>
+    <label class="q-label">Насколько ты сейчас готов(а) реально что-то менять? *</label>
     <div class="scale-wrap" id="q-readiness">
-      <button class="scale-btn" data-val="1">1</button>
-      <button class="scale-btn" data-val="2">2</button>
-      <button class="scale-btn" data-val="3">3</button>
-      <button class="scale-btn" data-val="4">4</button>
+      <button class="scale-btn" data-val="1">1</button><button class="scale-btn" data-val="2">2</button>
+      <button class="scale-btn" data-val="3">3</button><button class="scale-btn" data-val="4">4</button>
       <button class="scale-btn" data-val="5">5</button>
     </div>
-    <div class="scale-labels"><span>Пока только изучаю</span><span>Готова полностью</span></div>
+    <div class="scale-labels"><span>Пока только изучаю</span><span>Готов(а) полностью</span></div>
   </div>
-
   <div class="card">
-    <label class="field-label">Есть ли что-то важное о себе, что я должна знать — то, что не вписалось ни в один из вопросов выше?</label>
+    <label class="q-label">Есть ли что-то важное о себе, что не вошло ни в один из вопросов выше?</label>
     <textarea class="field-textarea" id="f-extra" placeholder="Необязательно, но если есть — напиши..."></textarea>
   </div>
-
   <div class="consent-block">
     <div style="font-size:13px;font-weight:600;color:var(--deep);margin-bottom:10px;">Прежде чем отправить</div>
     <div class="consent-item">
       <div class="consent-check" id="consent-1" onclick="toggleConsent('consent-1')"></div>
-      <div class="consent-text">Я даю согласие на обработку моих персональных данных и клинической информации в целях оказания консультационных услуг Dr. Diana Demeshko <span style="color:var(--red)">*</span></div>
+      <div class="consent-text">Я даю согласие на обработку моих персональных данных и клинической информации в целях оказания консультационных услуг Dr. Diana Demeshko *</div>
     </div>
     <div class="consent-item">
       <div class="consent-check" id="consent-2" onclick="toggleConsent('consent-2')"></div>
-      <div class="consent-text">Я понимаю, что мои данные и результаты анкет хранятся в защищённой клинической базе и не передаются третьим лицам <span style="color:var(--red)">*</span></div>
+      <div class="consent-text">Я понимаю, что мои данные и результаты анкет хранятся в защищённой клинической базе и не передаются третьим лицам *</div>
     </div>
-
   </div>
-  <div class="warn" id="warn-6">Пожалуйста, ответь на обязательные вопросы и подтверди согласие</div>
+  <div class="warn" id="warn-6">Пожалуйста, ответь на все вопросы и подтверди согласие</div>
   <div class="nav-wrap">
     <button class="btn-back" onclick="prevStep(6)">← Назад</button>
-    <button class="btn-next" onclick="submitForm()">Отправить анкету ✓</button>
+    <button class="btn-next" onclick="submitForm()">Отправить анкету 🌿</button>
   </div>
 </div>
 
-<!-- THANK YOU -->
-<div id="screen-thanks">
-  <div class="thanks-icon">🌿</div>
-  <div class="thanks-title">Спасибо!</div>
-  <div class="thanks-text">Я внимательно прочитаю твои ответы до нашей встречи. Следующий шаг придёт тебе в Telegram.</div>
-  <div class="thanks-card" id="archetype-card" style="display:none">
-    <h4>Твой стиль работы над здоровьем</h4>
-    <div class="archetype-name" id="archetype-name"></div>
-    <div class="archetype-desc" id="archetype-desc"></div>
-  </div>
-  <div class="thanks-card">
-    <h4>Что дальше?</h4>
-    <div style="font-size:13px;color:var(--text-light);line-height:1.7;">
-      В ближайшее время в Telegram придут ссылки на следующие анкеты — клиническая по здоровью, ЖКТ и ДСТ. Там тоже нет правильных ответов — только честных.<br><br>
-      <strong style="color:var(--deep)">— Диана</strong>
+<!-- THANKS -->
+<div id="screen-thanks" style="display:none">
+  <div class="thanks-wrap">
+    <div class="thanks-icon">🌿</div>
+    <div class="thanks-title">Спасибо, что доверяешь</div>
+    <div class="thanks-text">Я внимательно прочитаю твои ответы до нашей встречи — это поможет сразу работать с тем, что важно именно тебе.</div>
+    <div class="save-notice" id="save-notice" style="display:none"></div>
+
+    <!-- КАРТОЧКА АРХЕТИПА -->
+    <div class="archetype-result-card" id="archetype-card" style="display:none">
+      <div class="arch-header" id="arch-header">
+        <div class="arch-emoji" id="arch-emoji"></div>
+        <div>
+          <div class="arch-label">Твой стиль работы над здоровьем</div>
+          <div class="arch-name" id="arch-name"></div>
+        </div>
+      </div>
+      <div class="arch-quote" id="arch-quote"></div>
+      <div class="arch-desc" id="arch-desc"></div>
+      <div class="arch-how">
+        <div class="arch-how-title">Как это влияет на нашу работу</div>
+        <div class="arch-how-text" id="arch-how-text"></div>
+      </div>
+    </div>
+
+    <div class="thanks-card">
+      <h4>Что дальше?</h4>
+      <div style="font-size:13px;color:var(--text-light);line-height:1.7;">
+        В ближайшее время я напишу тебе в Telegram — и мы договоримся о следующем шаге.<br><br>
+        <strong style="color:var(--deep)">— Диана</strong>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- OVERLAY -->
-<div class="overlay" id="overlay">
-  <div class="spinner"></div>
-  <div class="overlay-text">Сохраняем твои ответы…</div>
-</div>
+<div class="overlay" id="overlay"><div class="spinner"></div><div class="overlay-text">Сохраняем твои ответы…</div></div>
 
 <script>
-// ══════════════════════════════════════════════════
-// CONFIG
-// ══════════════════════════════════════════════════
 const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzusjqVQWAFi2VTI6_Ex2_SjufTDqe-l0RL3Eeas4iwXwYNhLil0nWCBikmYYQSaD84/exec';
-const SHOW_ARCHETYPE_TO_CLIENT = false; // true = показать клиенту, false = только в Sheets
+const SHOW_ARCHETYPE_TO_CLIENT = true;
 const TOTAL_STEPS = 6;
-
-// ══════════════════════════════════════════════════
-// STATE
-// ══════════════════════════════════════════════════
 let currentStep = 1;
 const answers = {};
 
-// ══════════════════════════════════════════════════
-// INIT
-// ══════════════════════════════════════════════════
+// ── INIT ──
 function init() {
-  // Build step dots
   const row = document.getElementById('steps-row');
-  for (let i = 1; i <= TOTAL_STEPS; i++) {
-    const d = document.createElement('div');
-    d.className = 'step-dot' + (i === 1 ? ' active' : '');
-    d.id = 'dot-' + i;
+  for(let i=1;i<=TOTAL_STEPS;i++){
+    const d=document.createElement('div');
+    d.className='step-dot'+(i===1?' active':'');
+    d.id='dot-'+i;
     row.appendChild(d);
   }
-
-  // Single choice buttons
-  document.querySelectorAll('.choices:not(.multi-parent) .choice:not(.multi)').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const group = btn.closest('.choices');
-      group.querySelectorAll('.choice').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-      const qId = group.id;
-      answers[qId] = btn.dataset.val || btn.dataset.type || btn.textContent.trim().substring(0,50);
-    });
-  });
-
-  // Multi-choice buttons
-  document.querySelectorAll('.choice.multi').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const noneVal = btn.dataset.val && (btn.dataset.val.startsWith('none'));
-      const group = btn.closest('.choices');
-      const qId = group.id;
-
-      if (noneVal) {
-        group.querySelectorAll('.choice.multi').forEach(b => b.classList.remove('selected'));
+  // Single choice
+  document.querySelectorAll('.choices').forEach(group=>{
+    group.querySelectorAll('.choice:not(.multi)').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        group.querySelectorAll('.choice:not(.multi)').forEach(b=>b.classList.remove('selected'));
         btn.classList.add('selected');
-        answers[qId] = [btn.dataset.val];
-      } else {
-        const noneBtn = group.querySelector('[data-val^="none"]');
-        if (noneBtn) noneBtn.classList.remove('selected');
-        btn.classList.toggle('selected');
-        const selected = [...group.querySelectorAll('.choice.multi.selected')].map(b => b.dataset.val || b.textContent.trim().substring(0,40));
-        answers[qId] = selected;
-      }
-    });
-  });
-
-  // Scale buttons
-  document.querySelectorAll('.scale-wrap').forEach(wrap => {
-    wrap.querySelectorAll('.scale-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        wrap.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-        answers[wrap.id] = btn.dataset.val;
+        answers[group.id]=btn.dataset.val||btn.dataset.type||btn.textContent.trim().substring(0,60);
+        group.classList.remove('needs-answer');
       });
     });
   });
-
-  // Restore progress
-  const saved = localStorage.getItem('dr_demeshko_start_progress');
-  if (saved) {
-    try {
-      const parsed = JSON.parse(saved);
-      if (parsed.step && parsed.answers) {
-        Object.assign(answers, parsed.answers);
-        // Restore UI would be complex — skip for MVP
+  // Multi choice
+  document.querySelectorAll('.choice.multi').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const group=btn.closest('.choices');
+      const isNone=btn.dataset.val&&btn.dataset.val.startsWith('none');
+      if(isNone){
+        group.querySelectorAll('.choice.multi').forEach(b=>b.classList.remove('selected'));
+        btn.classList.add('selected');
+        answers[group.id]=[btn.dataset.val];
+      } else {
+        const noneBtn=group.querySelector('[data-val^="none"]');
+        if(noneBtn)noneBtn.classList.remove('selected');
+        btn.classList.toggle('selected');
+        answers[group.id]=[...group.querySelectorAll('.choice.multi.selected')].map(b=>b.dataset.val||b.textContent.trim().substring(0,40));
       }
-    } catch(e) {}
-  }
-
+      group.classList.remove('needs-answer');
+    });
+  });
+  // Scale
+  document.querySelectorAll('.scale-wrap').forEach(wrap=>{
+    wrap.querySelectorAll('.scale-btn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        wrap.querySelectorAll('.scale-btn').forEach(b=>b.classList.remove('selected'));
+        btn.classList.add('selected');
+        answers[wrap.id]=btn.dataset.val;
+        wrap.classList.remove('needs-answer');
+      });
+    });
+  });
   updateProgress();
 }
 
-// ══════════════════════════════════════════════════
-// NAVIGATION
-// ══════════════════════════════════════════════════
-function updateProgress() {
-  const pct = Math.round(((currentStep - 1) / TOTAL_STEPS) * 100);
-  document.getElementById('progress-fill').style.width = pct + '%';
-  document.getElementById('step-label').textContent = 'Шаг ' + currentStep + ' из ' + TOTAL_STEPS;
-  document.getElementById('step-pct').textContent = pct + '%';
-  for (let i = 1; i <= TOTAL_STEPS; i++) {
-    const d = document.getElementById('dot-' + i);
-    d.className = 'step-dot' + (i < currentStep ? ' done' : i === currentStep ? ' active' : '');
+function updateProgress(){
+  const pct=Math.round(((currentStep-1)/TOTAL_STEPS)*100);
+  document.getElementById('progress-fill').style.width=pct+'%';
+  document.getElementById('step-label').textContent='Шаг '+currentStep+' из '+TOTAL_STEPS;
+  document.getElementById('step-pct').textContent=pct+'%';
+  for(let i=1;i<=TOTAL_STEPS;i++){
+    const d=document.getElementById('dot-'+i);
+    if(d)d.className='step-dot'+(i<currentStep?' done':i===currentStep?' active':'');
   }
-  saveProgress();
 }
 
-function saveProgress() {
-  localStorage.setItem('dr_demeshko_start_progress', JSON.stringify({ step: currentStep, answers }));
-}
-
-function showStep(n) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  const el = document.getElementById('step-' + n);
-  if (el) el.classList.add('active');
-  currentStep = n;
+function showStep(n){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  const el=document.getElementById('step-'+n);
+  if(el)el.classList.add('active');
+  currentStep=n;
   updateProgress();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({top:0,behavior:'smooth'});
 }
+function prevStep(from){if(from>1)showStep(from-1);}
+function nextStep(from){if(!validateStep(from))return;if(from<TOTAL_STEPS)showStep(from+1);}
 
-function prevStep(from) {
-  if (from > 1) showStep(from - 1);
-}
+// ── VALIDATION ──
+function validateStep(step){
+  let ok=true;
+  const w=document.getElementById('warn-'+step);
 
-function nextStep(from) {
-  if (!validateStep(from)) return;
-  if (from < TOTAL_STEPS) showStep(from + 1);
-}
-
-// ══════════════════════════════════════════════════
-// VALIDATION
-// ══════════════════════════════════════════════════
-function validateStep(step) {
-  let ok = true;
-  if (step === 1) {
-    const fields = ['f-name','f-lastname','f-email','f-phone','f-age','f-sex'];
-    fields.forEach(id => {
-      const el = document.getElementById(id);
-      if (!el.value.trim()) { el.classList.add('error'); ok = false; }
+  if(step===1){
+    ['f-name','f-lastname','f-email','f-phone','f-age','f-sex'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(!el.value.trim()){el.classList.add('error');ok=false;}
       else el.classList.remove('error');
     });
-    if (!ok) { document.getElementById('warn-1').style.display = 'block'; }
-    else document.getElementById('warn-1').style.display = 'none';
   }
-  if (step === 2) {
-    const c = document.getElementById('f-complaint').value.trim();
-    const g1 = document.getElementById('f-goal1').value.trim();
-    if (!c) { document.getElementById('f-complaint').classList.add('error'); ok = false; }
-    else document.getElementById('f-complaint').classList.remove('error');
-    if (!g1) { document.getElementById('f-goal1').classList.add('error'); ok = false; }
-    else document.getElementById('f-goal1').classList.remove('error');
-    if (!ok) document.getElementById('warn-2').style.display = 'block';
-    else document.getElementById('warn-2').style.display = 'none';
-  }
-  if (step === 3) {
-    const archQs = ['q-a1','q-a2','q-a3','q-a4','q-a5','q-a6'];
-    archQs.forEach(id => {
-      if (!document.querySelector(`#${id} .choice.selected`)) ok = false;
+
+  if(step===2){
+    ['f-complaint','f-goal1'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(!el.value.trim()){el.classList.add('error');ok=false;}
+      else el.classList.remove('error');
     });
-    if (!ok) document.getElementById('warn-3').style.display = 'block';
-    else document.getElementById('warn-3').style.display = 'none';
+    if(!answers['q-time']){
+      document.getElementById('q-time').classList.add('needs-answer');ok=false;
+    }
+  }
+
+  if(step===3){
+    ['q-a1','q-a2','q-a3','q-a4','q-a5','q-a6'].forEach(id=>{
+      if(!document.querySelector(`#${id} .choice.selected`)){
+        document.getElementById(id).classList.add('needs-answer');ok=false;
+      }
+    });
+  }
+
+  if(step===4){
+    ['q-sleep-hours','q-wake'].forEach(id=>{
+      if(!answers[id]){document.getElementById(id).classList.add('needs-answer');ok=false;}
+    });
+    if(!answers['q-sleep-score']){
+      document.getElementById('q-sleep-score').classList.add('needs-answer');ok=false;
+    }
+    // q-sleep-issues — мульти, не обязательно
+  }
+
+  if(step===5){
+    ['q-meals','q-food-attitude'].forEach(id=>{
+      if(!answers[id]){document.getElementById(id).classList.add('needs-answer');ok=false;}
+    });
+  }
+
+  if(step===6){
+    ['q-movement','q-recovery','q-self-attitude'].forEach(id=>{
+      if(!answers[id]){document.getElementById(id).classList.add('needs-answer');ok=false;}
+    });
+    ['q-stress-level','q-readiness'].forEach(id=>{
+      if(!answers[id]){document.getElementById(id).classList.add('needs-answer');ok=false;}
+    });
+    const c1=document.getElementById('consent-1');
+    const c2=document.getElementById('consent-2');
+    if(!c1.classList.contains('checked')){c1.classList.add('error-check');ok=false;}
+    if(!c2.classList.contains('checked')){c2.classList.add('error-check');ok=false;}
+  }
+
+  if(w){
+    w.textContent='Пожалуйста, ответь на все обязательные вопросы этого шага';
+    w.style.display=ok?'none':'block';
   }
   return ok;
 }
 
-// ══════════════════════════════════════════════════
-// ARCHETYPE CALCULATION
-// ══════════════════════════════════════════════════
-const ARCHETYPE_META = {
-  upholder: {
-    name: 'Поборник',
-    emoji: '🎯',
-    desc: 'Ты легко выполняешь и внешние, и внутренние ожидания. Протоколы работают хорошо — главное не перегружать себя.',
-    work: 'Чёткие шаги, конкретный план на неделю, маркеры прогресса.'
+// ── CONSENT ──
+function toggleConsent(id){
+  const el=document.getElementById(id);
+  el.classList.toggle('checked');
+  el.classList.remove('error-check');
+}
+
+// ── ARCHETYPE ──
+const ARCHETYPE_META={
+  upholder:{
+    name:"Поборник",emoji:"🎯",
+    quote:"«Я выполняю — и внешние, и внутренние ожидания»",
+    desc:"Ты легко начинаешь и редко бросаешь. Рекомендации выполняешь без сопротивления — это большая сила. Главное, на что я обращу внимание: не перегружать тебя. Поборники часто берут слишком много и выгорают от самодисциплины.",
+    how:"Буду давать чёткие протоколы с конкретными шагами. Добавлю маркеры самонаблюдения — чтобы ты делала не механически, а с пониманием что происходит в теле."
   },
-  skeptic: {
-    name: 'Скептик',
-    emoji: '🔍',
-    desc: 'Делаешь только то, в чём видишь смысл. Важно понимать механизм — тогда действуешь самостоятельно и уверенно.',
-    work: 'Объяснение механизмов, данные, трекеры. Не список — принцип.'
+  skeptic:{
+    name:"Скептик",emoji:"🔍",
+    quote:"«Я делаю только то, в чём вижу смысл»",
+    desc:"Ты задаёшь вопросы «почему именно так?» — и это правильно. Ты хорошо работаешь самостоятельно когда понимаешь логику. Авторитет сам по себе тебя не убеждает — нужны аргументы и данные.",
+    how:"Буду объяснять механизмы — не просто «что делать», а «почему это работает физиологически». Дам принципы, а не списки. Доверяю твоей автономии."
   },
-  obliger: {
-    name: 'Обязанный',
-    emoji: '🤝',
-    desc: 'Лучше всего работается когда есть внешняя подотчётность. Делаешь ради других — и это нормально, просто важно постепенно строить внутреннюю мотивацию.',
-    work: 'Регулярные встречи как якорь, конкретные задания с отчётом.'
+  obliger:{
+    name:"Обязанный",emoji:"🤝",
+    quote:"«Я делаю — потому что важно не подвести»",
+    desc:"Ты лучше всего работаешь когда есть внешняя подотчётность. Делать «только для себя» — сложнее. Это не слабость — это просто твоя природа. Наши встречи станут важным якорем.",
+    how:"Буду регулярно спрашивать как идёт процесс — это не контроль, а поддержка. Дам конкретные небольшие задания между встречами. Постепенно будем строить и внутреннюю мотивацию."
   },
-  rebel: {
-    name: 'Бунтарь',
-    emoji: '🦋',
-    desc: 'Делаешь только то, что сам(а) выбираешь. Любое давление вызывает сопротивление. Свобода выбора — ключ к прогрессу.',
-    work: 'Меню опций вместо протокола. Информация, а не инструкции.'
+  rebel:{
+    name:"Бунтарь",emoji:"🦋",
+    quote:"«Я делаю только то, что выбираю сама»",
+    desc:"Любое давление — даже внутреннее — вызывает сопротивление. Ты можешь знать что надо сделать, но не делать именно потому что надо. Слово протокол тебя скорее остановит, чем поможет.",
+    how:"Никаких протоколов — только меню опций. Буду давать информацию и доверять твоему выбору. Ты сама решаешь что и когда попробовать."
   }
 };
 
-function calcArchetype() {
-  const scores = { upholder: 0, skeptic: 0, obliger: 0, rebel: 0 };
-  ['q-a1','q-a2','q-a3','q-a4','q-a5','q-a6'].forEach(id => {
-    const btn = document.querySelector(`#${id} .choice.selected`);
-    if (btn && btn.dataset.type) {
-      scores[btn.dataset.type] = (scores[btn.dataset.type] || 0) + 1;
-    }
+function calcArchetype(){
+  const scores={upholder:0,skeptic:0,obliger:0,rebel:0};
+  ['q-a1','q-a2','q-a3','q-a4','q-a5','q-a6'].forEach(id=>{
+    const btn=document.querySelector(`#${id} .choice.selected`);
+    if(btn&&btn.dataset.type)scores[btn.dataset.type]=(scores[btn.dataset.type]||0)+1;
   });
-  const sorted = Object.entries(scores).sort((a,b) => b[1]-a[1]);
-  return {
-    scores,
-    primary: sorted[0][0],
-    secondary: sorted[1][0],
-    primary_score: sorted[0][1],
-    secondary_score: sorted[1][1]
-  };
+  const sorted=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  return{scores,primary:sorted[0][0],secondary:sorted[1][0],primary_score:sorted[0][1],secondary_score:sorted[1][1]};
+}
+function genClientId(){
+  return 'CL-'+Date.now().toString(36).toUpperCase()+Math.random().toString(36).substring(2,5).toUpperCase();
 }
 
-// ══════════════════════════════════════════════════
-// GENERATE CLIENT ID
-// ══════════════════════════════════════════════════
-function genClientId() {
-  const ts = Date.now().toString(36).toUpperCase();
-  const rand = Math.random().toString(36).substring(2,5).toUpperCase();
-  return 'CL-' + ts + rand;
-}
+// ── HELPERS ──
+const getMulti=id=>[...document.querySelectorAll(`#${id} .choice.multi.selected`)].map(b=>b.dataset.val||b.textContent.trim().substring(0,40)).join('; ')||'';
+const getSingle=id=>{const b=document.querySelector(`#${id} .choice.selected`);return b?(b.dataset.val||b.textContent.trim().substring(0,60)):'';}
+const getScale=id=>{const b=document.querySelector(`#${id} .scale-btn.selected`);return b?b.dataset.val:'';}
 
-// ══════════════════════════════════════════════════
-// SUBMIT
-// ══════════════════════════════════════════════════
-function submitForm() {
-  if (!validateStep(6)) return;
-
-  const arch = calcArchetype();
-  const clientId = genClientId();
-  const now = new Date();
-
-  // Collect all multi-select answers as strings
-  const getMulti = id => {
-    const vals = [...document.querySelectorAll(`#${id} .choice.multi.selected`)].map(b => b.dataset.val || b.textContent.trim().substring(0,40));
-    return vals.join('; ') || '';
+// ── SUBMIT ──
+function submitForm(){
+  if(!validateStep(6))return;
+  const arch=calcArchetype();
+  const payload={
+    questionnaire_type:'start',
+    client_id:genClientId(),
+    timestamp:new Date().toLocaleString('ru-RU'),
+    first_name:document.getElementById('f-name').value.trim(),
+    last_name:document.getElementById('f-lastname').value.trim(),
+    email:document.getElementById('f-email').value.trim(),
+    phone:document.getElementById('f-phone').value.trim(),
+    telegram:document.getElementById('f-tg').value.trim(),
+    age:document.getElementById('f-age').value.trim(),
+    sex:document.getElementById('f-sex').value,
+    country:document.getElementById('f-country').value.trim(),
+    city:document.getElementById('f-city').value.trim(),
+    timezone:document.getElementById('f-timezone').value,
+    main_complaint:document.getElementById('f-complaint').value.trim(),
+    goal_1:document.getElementById('f-goal1').value.trim(),
+    goal_2:document.getElementById('f-goal2').value.trim(),
+    goal_3:document.getElementById('f-goal3').value.trim(),
+    tried_before:document.getElementById('f-tried').value.trim(),
+    time_commitment:getSingle('q-time'),
+    archetype_primary:arch.primary,
+    archetype_secondary:arch.secondary,
+    archetype_upholder_score:arch.scores.upholder,
+    archetype_skeptic_score:arch.scores.skeptic,
+    archetype_obliger_score:arch.scores.obliger,
+    archetype_rebel_score:arch.scores.rebel,
+    archetype_name:ARCHETYPE_META[arch.primary].name,
+    archetype_work_style:ARCHETYPE_META[arch.primary].work,
+    sleep_hours:getSingle('q-sleep-hours'),
+    wake_quality:getSingle('q-wake'),
+    sleep_issues:getMulti('q-sleep-issues'),
+    sleep_satisfaction:getScale('q-sleep-score'),
+    meals_per_day:getSingle('q-meals'),
+    food_patterns:getMulti('q-food-patterns'),
+    food_attitude:getSingle('q-food-attitude'),
+    food_diary:document.getElementById('f-food-diary').value.trim(),
+    movement:getSingle('q-movement'),
+    recovery:getSingle('q-recovery'),
+    body_state:getMulti('q-body-state'),
+    stress_level:getScale('q-stress-level'),
+    stress_coping:document.getElementById('f-stress-coping').value.trim(),
+    self_attitude:getSingle('q-self-attitude'),
+    readiness:getScale('q-readiness'),
+    extra_info:document.getElementById('f-extra').value.trim(),
+    consent_data:'yes',consent_storage:'yes',
+    consent_date:new Date().toLocaleString('ru-RU'),
   };
-  const getSingle = id => {
-    const btn = document.querySelector(`#${id} .choice.selected`);
-    return btn ? (btn.dataset.val || btn.textContent.trim().substring(0,60)) : '';
-  };
-  const getScale = id => {
-    const btn = document.querySelector(`#${id} .scale-btn.selected`);
-    return btn ? btn.dataset.val : '';
-  };
-
-  const payload = {
-    questionnaire_type: 'start',
-    // Identity
-    client_id: clientId,
-    timestamp: now.toLocaleString('ru-RU'),
-    first_name: document.getElementById('f-name').value.trim(),
-    last_name: document.getElementById('f-lastname').value.trim(),
-    email: document.getElementById('f-email').value.trim(),
-    phone: document.getElementById('f-phone').value.trim(),
-    telegram: document.getElementById('f-tg').value.trim(),
-    age: document.getElementById('f-age').value.trim(),
-    sex: document.getElementById('f-sex').value,
-    country: document.getElementById('f-country').value.trim(),
-    city: document.getElementById('f-city').value.trim(),
-    // Goals
-    main_complaint: document.getElementById('f-complaint').value.trim(),
-    goal_1: document.getElementById('f-goal1').value.trim(),
-    goal_2: document.getElementById('f-goal2').value.trim(),
-    goal_3: document.getElementById('f-goal3').value.trim(),
-    tried_before: document.getElementById('f-tried').value.trim(),
-    time_commitment: getSingle('q-time'),
-    // Archetype
-    archetype_primary: arch.primary,
-    archetype_secondary: arch.secondary,
-    archetype_upholder_score: arch.scores.upholder,
-    archetype_skeptic_score: arch.scores.skeptic,
-    archetype_obliger_score: arch.scores.obliger,
-    archetype_rebel_score: arch.scores.rebel,
-    archetype_name: ARCHETYPE_META[arch.primary].name,
-    archetype_work_style: ARCHETYPE_META[arch.primary].work,
-    // Sleep
-    sleep_hours: getSingle('q-sleep-hours'),
-    wake_quality: getSingle('q-wake'),
-    sleep_issues: getMulti('q-sleep-issues'),
-    sleep_satisfaction: getScale('q-sleep-score'),
-    // Food
-    meals_per_day: getSingle('q-meals'),
-    food_patterns: getMulti('q-food-patterns'),
-    food_attitude: getSingle('q-food-attitude'),
-    food_diary: document.getElementById('f-food-diary').value.trim(),
-    // Body & Stress
-    movement: getSingle('q-movement'),
-    recovery: getSingle('q-recovery'),
-    body_state: getMulti('q-body-state'),
-    stress_level: getScale('q-stress-level'),
-    stress_coping: document.getElementById('f-stress-coping').value.trim(),
-    self_attitude: getSingle('q-self-attitude'),
-    readiness: getScale('q-readiness'),
-    extra_info: document.getElementById('f-extra').value.trim(),
-    consent_data: 'yes',
-    consent_storage: 'yes',
-    consent_date: new Date().toLocaleString('ru-RU'),
-  };
-
   document.getElementById('overlay').classList.add('active');
-
-  fetch(SHEETS_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
-  })
-  .then(() => {
-    document.getElementById('overlay').classList.remove('active');
-    showThanks(arch);
-    localStorage.removeItem('dr_demeshko_start_progress');
-  })
-  .catch(() => {
-    document.getElementById('overlay').classList.remove('active');
-    showThanks(arch); // still show thanks even if network fails
-  });
+  fetch(SHEETS_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    .then(r=>r.json())
+    .then(json=>{
+      if(json&&json.status==='ok') showThanks(arch,true);
+      else showThanks(arch,false);
+    })
+    .catch(()=>showThanks(arch,false));
 }
 
-function showThanks(arch) {
-  document.getElementById('progress-wrap').style.display = 'none';
-  document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
-  const thanks = document.getElementById('screen-thanks');
-  thanks.style.display = 'block';
+function showThanks(arch,saved){
+  document.getElementById('overlay').classList.remove('active');
+  document.getElementById('progress-wrap').style.display='none';
+  document.querySelectorAll('.section').forEach(s=>s.style.display='none');
+  document.getElementById('screen-thanks').style.display='block';
 
-  if (SHOW_ARCHETYPE_TO_CLIENT) {
-    const meta = ARCHETYPE_META[arch.primary];
-    document.getElementById('archetype-name').textContent = meta.emoji + ' ' + meta.name;
-    document.getElementById('archetype-desc').textContent = meta.desc;
-    document.getElementById('archetype-card').style.display = 'block';
+  // Уведомление о сохранении
+  if(!saved){
+    const n=document.getElementById('save-notice');
+    n.className='save-notice save-err';
+    n.innerHTML='<strong>⚠️ Данные не сохранились автоматически</strong>Пожалуйста, сделай скриншот этой страницы и отправь мне. Так я точно ничего не пропущу.';
+    n.style.display='block';
   }
 
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Карточка архетипа
+  const meta=ARCHETYPE_META[arch.primary];
+  const colors={
+    upholder:{bg:'linear-gradient(135deg,#2D5A27,#4A8A3A)',color:'#fff'},
+    skeptic:{bg:'linear-gradient(135deg,#1A3A5C,#2E6A9A)',color:'#fff'},
+    obliger:{bg:'linear-gradient(135deg,#5C3A1A,#9A6A2E)',color:'#fff'},
+    rebel:{bg:'linear-gradient(135deg,#4A1A5C,#7A3A9A)',color:'#fff'},
+  };
+  const c=colors[arch.primary];
+  const card=document.getElementById('archetype-card');
+  const hdr=document.getElementById('arch-header');
+  hdr.style.background=c.bg;
+  hdr.style.color=c.color;
+  document.getElementById('arch-emoji').textContent=meta.emoji;
+  document.getElementById('arch-name').textContent=meta.name;
+
+  const quote=document.getElementById('arch-quote');
+  quote.textContent=meta.quote;
+  quote.style.background=c.bg.replace('135deg','180deg').replace(')',',0.08)').replace('linear-gradient','linear-gradient');
+  quote.style.background='rgba(45,74,45,0.04)';
+  quote.style.color='var(--text-light)';
+
+  document.getElementById('arch-desc').textContent=meta.desc;
+  document.getElementById('arch-how-text').textContent=meta.how;
+
+  // Если смешанный тип — показать подсказку
+  if(arch.primary_score<=2){
+    const mix=document.createElement('div');
+    mix.style.cssText='font-size:12px;color:var(--text-light);padding:10px 18px 14px;font-style:italic;';
+    mix.textContent=`Твои ответы распределились между несколькими типами — это значит смешанный стиль. Разберём это на консультации.`;
+    card.appendChild(mix);
+  }
+  card.style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// ══════════════════════════════════════════════════
-// ALSO handle choice clicks for single-choice
-// ══════════════════════════════════════════════════
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.choices').forEach(group => {
-    group.querySelectorAll('.choice:not(.multi)').forEach(btn => {
-      btn.addEventListener('click', () => {
-        group.querySelectorAll('.choice:not(.multi)').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-        answers[group.id] = btn.dataset.val || btn.dataset.type || btn.textContent.trim().substring(0,60);
-      });
-    });
-  });
-  init();
-});
+document.addEventListener('DOMContentLoaded',init);
 </script>
 </body>
 </html>
