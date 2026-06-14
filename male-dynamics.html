@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Анкета динамики (мужская) · Dr. Diana Demeshko</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+:root{
+  --deep:#2D4A2D;--cream:#F7F3EC;--cream-dark:#E8E0D0;
+  --text:#2C2C2C;--text-light:#7A7A6E;
+  --green:#5B8C5A;--accent-light:#EDF3EC;
+  --yellow:#C4924A;--orange:#B86B3A;--red:#A84040;
+}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;}
+.header{background:var(--deep);padding:20px 20px 24px;text-align:center;}
+.brand{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--green);margin-bottom:6px;}
+.header h1{font-family:'Playfair Display',serif;font-size:clamp(20px,5vw,26px);color:#fff;line-height:1.3;margin-bottom:6px;}
+.header p{font-size:13px;color:rgba(255,255,255,0.6);line-height:1.6;max-width:480px;margin:0 auto;}
+.time-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(91,140,90,0.2);border:1px solid rgba(91,140,90,0.4);border-radius:99px;padding:5px 13px;font-size:12px;color:rgba(255,255,255,0.8);margin-top:10px;}
+.progress-wrap{padding:14px 16px 0;}
+.progress-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--text-light);margin-bottom:6px;}
+.progress-bar{height:5px;background:var(--cream-dark);border-radius:99px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,#8FBC8E,var(--green));border-radius:99px;transition:width 0.4s ease;width:0%;}
+.steps-row{display:flex;gap:3px;margin-top:7px;}
+.step-dot{flex:1;height:3px;border-radius:99px;background:var(--cream-dark);transition:background 0.3s;}
+.step-dot.done{background:var(--green);}
+.step-dot.active{background:var(--yellow);}
+.screen{display:none;padding:14px 16px 28px;}
+.screen.active{display:block;}
+.section-badge{display:inline-block;background:rgba(45,74,45,0.1);color:var(--deep);font-size:11px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;padding:3px 10px;border-radius:99px;margin-bottom:8px;}
+.screen-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--deep);margin-bottom:3px;font-weight:600;}
+.screen-desc{font-size:13px;color:var(--text-light);line-height:1.6;margin-bottom:14px;}
+.card{background:#fff;border-radius:14px;padding:16px 18px;border:1px solid var(--cream-dark);margin-bottom:10px;}
+.q-block{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--cream-dark);}
+.q-block:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none;}
+.q-text{font-size:13.5px;font-weight:500;color:var(--text);margin-bottom:8px;line-height:1.5;}
+.q-opts{display:flex;gap:5px;flex-wrap:wrap;}
+.opt-btn{flex:1;min-width:60px;padding:10px 4px;background:var(--cream);border:1.5px solid var(--cream-dark);border-radius:9px;cursor:pointer;font-family:'Inter',sans-serif;font-size:11px;text-align:center;color:var(--text);transition:all 0.15s;line-height:1.3;-webkit-tap-highlight-color:transparent;}
+.opt-btn:hover{background:var(--accent-light);border-color:var(--green);}
+.opt-btn.selected{background:var(--accent-light);border-color:var(--deep);font-weight:700;color:var(--deep);}
+.opt-num{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;display:block;margin-bottom:1px;}
+/* Scale 1-10 */
+.scale-row{display:flex;gap:4px;}
+.scale-btn{flex:1;padding:11px 2px;background:var(--cream);border:1.5px solid var(--cream-dark);border-radius:8px;cursor:pointer;font-family:'Playfair Display',serif;font-size:15px;font-weight:700;text-align:center;color:var(--text);transition:all 0.15s;-webkit-tap-highlight-color:transparent;}
+.scale-btn:hover{background:var(--accent-light);border-color:var(--green);}
+.scale-btn.selected{background:var(--accent-light);border-color:var(--deep);color:var(--deep);}
+.scale-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--text-light);margin-top:4px;padding:0 2px;}
+/* Textarea */
+.field-label{font-size:13px;font-weight:600;color:var(--deep);display:block;margin-bottom:5px;}
+.field-input{width:100%;padding:12px 14px;border:1.5px solid var(--cream-dark);border-radius:10px;font-family:'Inter',sans-serif;font-size:14px;color:var(--text);background:var(--cream);outline:none;transition:border-color 0.2s;resize:vertical;min-height:80px;}
+.field-input:focus{border-color:var(--green);background:#fff;}
+.field-input.error{border-color:var(--red);}
+.field-input-sm{min-height:auto;height:48px;resize:none;}
+/* NAV */
+.nav-wrap{display:flex;gap:10px;margin-top:16px;}
+.btn-back{flex:1;padding:13px;background:#fff;border:1.5px solid var(--cream-dark);border-radius:11px;font-family:'Inter',sans-serif;font-size:15px;color:var(--text-light);cursor:pointer;transition:background 0.15s;}
+.btn-back:hover{background:var(--cream-dark);}
+.btn-next{flex:2;padding:13px;background:var(--deep);color:#fff;border:none;border-radius:11px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:background 0.15s;}
+.btn-next:hover{background:#3d6b3d;}
+.warn{background:rgba(168,64,64,0.07);border:1px solid rgba(168,64,64,0.2);border-radius:8px;padding:9px 13px;font-size:12px;color:var(--red);margin-top:10px;display:none;}
+/* RESULTS */
+#screen-results{display:none;padding:14px 16px 32px;}
+.result-hero{background:linear-gradient(135deg,var(--deep),#3d6b3d);border-radius:18px;padding:28px 22px;text-align:center;color:#fff;margin-bottom:16px;}
+.result-emoji{font-size:48px;margin-bottom:10px;}
+.result-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:8px;}
+.result-subtitle{font-size:14px;opacity:0.8;line-height:1.6;}
+.result-card{background:#fff;border-radius:14px;padding:18px;border:1px solid var(--cream-dark);margin-bottom:10px;}
+.result-card h3{font-family:'Playfair Display',serif;font-size:16px;color:var(--deep);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--cream-dark);}
+.score-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--cream-dark);font-size:13px;}
+.score-row:last-child{border-bottom:none;}
+.score-label{color:var(--text-light);}
+.score-val{font-weight:600;color:var(--deep);}
+.stars{font-size:18px;letter-spacing:2px;}
+.open-answer{background:var(--cream);border-radius:10px;padding:12px;font-size:13px;color:var(--text);line-height:1.6;margin-bottom:8px;}
+.open-answer-label{font-size:11px;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;}
+.save-notice{border-radius:12px;padding:14px 16px;margin-bottom:12px;font-size:13px;line-height:1.6;display:none;}
+.save-ok{background:#EDF7ED;border:1px solid #81C784;}
+.save-err{background:#FFF3F3;border:1px solid #E57373;color:var(--red);}
+/* overlay */
+.overlay{position:fixed;inset:0;background:rgba(45,74,45,0.45);display:flex;align-items:center;justify-content:center;z-index:999;display:none;}
+.overlay.active{display:flex;}
+.spinner{width:42px;height:42px;border:4px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+
+<div class="overlay" id="overlay"><div class="spinner"></div></div>
+
+<div class="header">
+  <div class="brand">Dr. Diana Demeshko</div>
+  <h1>Анкета динамики 🌱</h1>
+  <p>Как ты себя чувствуешь по сравнению со стартом?</p>
+  <div class="time-badge">⏱ Около 5–7 минут</div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-meta">
+    <span id="prog-label">Шаг 1 из 9</span>
+    <span id="prog-pct">0%</span>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
+  <div class="steps-row" id="steps-row"></div>
+</div>
+
+<!-- ШАГ 1: ДАННЫЕ -->
+<div class="screen active" id="s1">
+  <div class="section-badge">О тебе</div>
+  <div class="screen-title">Начнём 🌿</div>
+  <div class="screen-desc">Заполни свои данные, чтобы я могла связать анкету с твоим профилем.</div>
+  <div class="card">
+    <div class="q-block">
+      <label class="field-label">Имя и фамилия *</label>
+      <input class="field-input field-input-sm" id="f-name" placeholder="Как тебя зовут" type="text">
+    </div>
+    <div class="q-block">
+      <label class="field-label">Email *</label>
+      <input class="field-input field-input-sm" id="f-email" placeholder="Тот же что при записи" type="email">
+    </div>
+    <div class="q-block">
+      <label class="field-label">Сколько недель/месяцев мы работаем вместе?</label>
+      <div class="q-opts">
+        <button class="opt-btn" data-key="period" data-val="4w" onclick="sel(this)">4 недели</button>
+        <button class="opt-btn" data-key="period" data-val="8w" onclick="sel(this)">8 недель</button>
+        <button class="opt-btn" data-key="period" data-val="3m" onclick="sel(this)">3 месяца</button>
+        <button class="opt-btn" data-key="period" data-val="6m" onclick="sel(this)">6 месяцев</button>
+      </div>
+    </div>
+  </div>
+  <div class="warn" id="w1">Заполни имя и email</div>
+  <div class="nav-wrap"><button class="btn-next" onclick="nx(1)">Далее →</button></div>
+</div>
+
+<!-- ШАГ 2: ЭНЕРГИЯ -->
+<div class="screen" id="s2">
+  <div class="section-badge">Блок 1 — Энергия</div>
+  <div class="screen-title">⚡ Энергия</div>
+  <div class="screen-desc">Оцени своё состояние прямо сейчас.</div>
+  <div class="card">
+    <div class="q-block">
+      <div class="q-text">Общий уровень энергии в течение дня</div>
+      <div class="scale-row" id="scale-energy"></div>
+      <div class="scale-labels"><span>Нет сил</span><span>Отлично</span></div>
+    </div>
+    <div class="q-block">
+      <div class="q-text">Падение тонуса в 14:00–17:00</div>
+      <div class="q-opts">
+        <button class="opt-btn" data-key="afternoon_crash" data-val="0" onclick="sel(this)">Нет</button>
+        <button class="opt-btn" data-key="afternoon_crash" data-val="1" onclick="sel(this)">Иногда</button>
+        <button class="opt-btn" data-key="afternoon_crash" data-val="2" onclick="sel(this)">Часто</button>
+        <button class="opt-btn" data-key="afternoon_crash" data-val="3" onclick="sel(this)">Всегда</button>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-text">Просыпаешься усталой после 8 часов сна</div>
+      <div class="q-opts">
+        <button class="opt-btn" data-key="wake_tired" data-val="0" onclick="sel(this)">Нет</button>
+        <button class="opt-btn" data-key="wake_tired" data-val="1" onclick="sel(this)">Иногда</button>
+        <button class="opt-btn" data-key="wake_tired" data-val="2" onclick="sel(this)">Часто</button>
+        <button class="opt-btn" data-key="wake_tired" data-val="3" onclick="sel(this)">Всегда</button>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-text">Зависимость от кофе / матча / энергетиков чтобы функционировать</div>
+      <div class="q-opts">
+        <button class="opt-btn" data-key="caffeine_dep" data-val="0" onclick="sel(this)">Нет</button>
+        <button class="opt-btn" data-key="caffeine_dep" data-val="1" onclick="sel(this)">Иногда</button>
+        <button class="opt-btn" data-key="caffeine_dep" data-val="2" onclick="sel(this)">Часто</button>
+        <button class="opt-btn" data-key="caffeine_dep" data-val="3" onclick="sel(this)">Всегда</button>
+      </div>
+    </div>
+  </div>
+  <div class="warn" id="w2">Ответь на все вопросы</div>
+  <div class="nav-wrap"><button class="btn-back" onclick="pv(2)">←</button><button class="btn-next" onclick="nx(2)">Далее →</button></div>
+</div>
+
+<!-- ШАГ 3: СОН -->
+<div class="screen" id="s3">
+  <div class="section-badge">Блок 2 — Сон</div>
+  <div class="screen-title">🌙 Сон</div>
+  <div class="screen-desc">Как ты спишь последние 2 недели?</div>
+  <div class="card">
+    <div class="q-block">
+      <div class="q-text">Качество сна в целом</div>
+      <div class="scale-row" id="scale-sleep"></div>
+      <div class="scale-labels"><span>Очень плохо</span><span>Отлично</span></div>
+    </div>
+    <div class="q-block">
+      <div class="q-text">Засыпание</div>
+      <div class="q-opts">
+        <button class="opt-btn" data-key="fall_asleep" data-val="0" onclick="sel(this)">Легко</button>
+        <button class="opt-btn" data-key="fall_asleep" data-val="1" onclick="sel(this)">Иногда сложно</button>
+        <button class="opt-btn" data-key="fall_asleep" data-val="2" onclick="sel(this)">Часто сложно</button>
+        <button class="opt-btn" data-key="fall_asleep" data-val="3" onclick="sel(this)">Не могу уснуть</button>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-text">Ночные пробуждения</div>
+      <div class="q-opts">
+        <button class="opt-btn" data-key="night_wake" data-val="0" onclick="sel(this)">Нет</button>
+        <button class="opt-btn" data-key="night_wake" data-val="1" onclick="sel(this)">Иногда</button>
+        <button class="opt-btn" data-key="night_wake" data-val="2" onclick="sel(this)">Часто</button>
+        <button class="opt-btn" data-key="night_wake" data-val="3" onclick="sel(this)">Каждую ночь</button>
+      </div>
+    </div>
+  </div>
+  <div class="warn" id="w3">Ответь на все вопросы</div>
+  <div class="nav-wrap"><button class="btn-back" onclick="pv(3)">←</button><button class="btn-next" onclick="nx(3)">Далее →</button></div>
+</div>
+
+<!-- ШАГ 4: ЖКТ -->
+<div class="screen" id="s4">
+  <div class="section-badge">Блок 3 — ЖКТ</div>
+  <div class="screen-title">🌿 Пищеварение</div>
+  <div class="screen-desc">Как работает твой кишечник последние 2 недели?</div>
+  <div class="card">
+    <div class="q-block">
+      <div class="q-text">Вздутие после еды</div>
+      <div class="q-opts">
+        <button class="opt-btn" data-key="bloating" data-val="0" onclick="sel(this)">Нет</button>
+        <button class="opt-btn" data-key="bloating" data-val="1" onclick="sel(this)">Иногда</button>
+        <button class="opt-btn" data-key="bloating" data-val="2" onclick="sel(this)">Часто</button>
+        <button class="opt-btn" data-key="bloating" data-val="3" onclick="sel(this)">Всегда</button>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-text">Стул по Бристольской шкале (преобладающий тип)</div>
+      <div class="q-opts">
+        <button class="opt-btn" data-key="bristol" data-val="1" onclick="sel(this)"><span class="opt-num">1-2</span><span class="opt-lbl">Твёрдый</span></button>
+        <button class="opt-btn" data-key="bristol" data-val="3" onclick="sel(this)"><span class="opt-num">3-4</span><span class="opt-lbl">Норма</span></button>
+        <button class="opt-btn" data-key="bristol" data-val="5" onclick="sel(this)"><span class="opt-num">5-6</span><span class="opt-lbl">Мягкий</span></button>
+        <button class="opt-btn" data-key="bristol" data-val="7" onclick="sel(this)"><span class="opt-num">7</span><span class="opt-lbl">Жидкий</span></button>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-text">Тяга к сладкому после еды</div>
+      <div class="q-opts">
+        <button class="opt-btn" data-key="sweet_craving" data-val="0" onclick="sel(this)">Нет</button>
+        <button class="opt-btn" data-key="sweet_craving" data-val="1" onclick="sel(this)">Иногда</button>
+        <button class="opt-btn" data-key="sweet_craving" data-val="2" onclick="sel(this)">Часто</button>
+        <button class="opt-btn" data-key="sweet_craving" data-val="3" onclick="sel(this)">Всегда</button>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-text">Ощущение после еды</div>
+      <div class="q-opts">
+        <button class="opt-btn" data-key="after_meal" data-val="0" onclick="sel(this)">Лёгкость</button>
+        <button class="opt-btn" data-key="after_meal" data-val="1" onclick="sel(this)">Тяжесть</button>
+        <button class="opt-btn" data-key="after_meal" data-val="2" onclick="sel(this)">Сонливость</button>
+        <button class="opt-btn" data-key="after_meal" data-val="3" onclick="sel(this)">Боль/дискомфорт</button>
+      </div>
+    </div>
+  </div>
+  <div class="warn" id="w4">Ответь на все вопросы</div>
+  <div class="nav-wrap"><button class="btn-back" onclick="pv(4)">←</button><button class="btn-next" onclick="nx(4)">Далее →</button></div>
+</div>
+
+<!-- ШАГ 5: СТРЕСС -->
+<div class="screen" id="s5">
+  <div class="section-badge">Блок 4 — Стресс и голова</div>
+  <div class="screen-title">🧠 Стресс и голова</div>
+  <div class="screen-desc">Как ты справляешься со стрессом?</div>
+  <div class="card">
+    <div class="q-block">
+      <div class="q-text">Общий уровень стресса</div>
+      <div class="scale-row" id="scale-stress"></div>
+      <div class="scale-labels"><span>Спокойно</span><span>Максимум</span></div>
+    </div>
+    <div class="q-block">
+      <div class="q-text">Концентрация и память</div>
+      <div class="q-opts">
+        <button class="opt-btn" data-key="focus" data-val="0" onclick="sel(this)">Хорошая</button>
+        <button class="opt-btn" data-key="focus" data-val="1" onclick="sel(this)">Хуже чем хочется</button>
+        <button class="opt-btn" data-key="focus" data-val="2" onclick="sel(this)">Плохая</button>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-text">Раздражительность</div>
+      <div class="q-opts">
+        <button class="opt-btn" data-key="irritability" data-val="0" onclick="sel(this)">Нет</button>
+        <button class="opt-btn" data-key="irritability" data-val="1" onclick="sel(this)">Иногда</button>
+        <button class="opt-btn" data-key="irritability" data-val="2" onclick="sel(this)">Часто</button>
+        <button class="opt-btn" data-key="irritability" data-val="3" onclick="sel(this)">Постоянно</button>
+      </div>
+    </div>
+  </div>
+  <div class="warn" id="w5">Ответь на все вопросы</div>
+  <div class="nav-wrap"><button class="btn-back" onclick="pv(5)">←</button><button class="btn-next" onclick="nx(5)">Далее →</button></div>
+</div>
+
+<!-- ШАГ 6: ГОРМОНЫ И КОЖА (МУЖСКОЙ) -->
+<div class="screen" id="s6">
+  <div class="section-badge">Блок 5 — Гормоны и кожа</div>
+  <div class="screen-title">💪 Гормоны и кожа</div>
+  <div class="screen-desc">По сравнению со стартом нашей работы.</div>
+  <div class="card">
+    <div class="q-block">
+      <div class="q-text">Состояние кожи (акне, жирность, сухость)</div>
+      <div class="q-opts">
+        <button class="opt-btn" data-key="skin" data-val="better" onclick="sel(this)">Лучше</button>
+        <button class="opt-btn" data-key="skin" data-val="same" onclick="sel(this)">Без изменений</button>
+        <button class="opt-btn" data-key="skin" data-val="worse" onclick="sel(this)">Хуже</button>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-text">Либидо</div>
+      <div class="q-opts">
+        <button class="opt-btn" data-key="libido" data-val="better" onclick="sel(this)">Выросло</button>
+        <button class="opt-btn" data-key="libido" data-val="same" onclick="sel(this)">Без изменений</button>
+        <button class="opt-btn" data-key="libido" data-val="worse" onclick="sel(this)">Снизилось</button>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-text">Эрекция и качество оргазма</div>
+      <div class="q-opts">
+        <button class="opt-btn" data-key="erection" data-val="better" onclick="sel(this)">Лучше</button>
+        <button class="opt-btn" data-key="erection" data-val="same" onclick="sel(this)">Без изменений</button>
+        <button class="opt-btn" data-key="erection" data-val="worse" onclick="sel(this)">Хуже</button>
+        <button class="opt-btn" data-key="erection" data-val="na" onclick="sel(this)">Не актуально</button>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-text">Мышечная сила и восстановление после нагрузок</div>
+      <div class="q-opts">
+        <button class="opt-btn" data-key="strength" data-val="better" onclick="sel(this)">Лучше</button>
+        <button class="opt-btn" data-key="strength" data-val="same" onclick="sel(this)">Без изменений</button>
+        <button class="opt-btn" data-key="strength" data-val="worse" onclick="sel(this)">Хуже</button>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-text">Выпадение волос</div>
+      <div class="q-opts">
+        <button class="opt-btn" data-key="hair_loss" data-val="better" onclick="sel(this)">Меньше</button>
+        <button class="opt-btn" data-key="hair_loss" data-val="same" onclick="sel(this)">Без изменений</button>
+        <button class="opt-btn" data-key="hair_loss" data-val="worse" onclick="sel(this)">Больше</button>
+        <button class="opt-btn" data-key="hair_loss" data-val="na" onclick="sel(this)">Не актуально</button>
+      </div>
+    </div>
+  </div>
+  <div class="warn" id="w6">Ответь на все вопросы</div>
+  <div class="nav-wrap"><button class="btn-back" onclick="pv(6)">←</button><button class="btn-next" onclick="nx(6)">Далее →</button></div>
+</div>
+
+<!-- ШАГ 7: ПИТАНИЕ -->
+<div class="screen" id="s7">
+  <div class="section-badge">Блок 6 — Питание сегодня</div>
+  <div class="screen-title">🍽 Что ела сегодня?</div>
+  <div class="screen-desc">Напиши примерно — это поможет мне видеть реальную картину между сессиями.</div>
+  <div class="card">
+    <div class="q-block">
+      <label class="field-label">Завтрак</label>
+      <textarea class="field-input" id="f-breakfast" placeholder="Что ела на завтрак?" rows="2"></textarea>
+    </div>
+    <div class="q-block">
+      <label class="field-label">Обед</label>
+      <textarea class="field-input" id="f-lunch" placeholder="Что ела на обед?" rows="2"></textarea>
+    </div>
+    <div class="q-block">
+      <label class="field-label">Ужин</label>
+      <textarea class="field-input" id="f-dinner" placeholder="Что ела на ужин?" rows="2"></textarea>
+    </div>
+    <div class="q-block">
+      <label class="field-label">Перекусы</label>
+      <textarea class="field-input" id="f-snacks" placeholder="Перекусы, сладкое, кофе..." rows="2"></textarea>
+    </div>
+    <div class="q-block">
+      <div class="q-text">Количество воды сегодня</div>
+      <div class="q-opts">
+        <button class="opt-btn" data-key="water" data-val="1" onclick="sel(this)">1 стакан</button>
+        <button class="opt-btn" data-key="water" data-val="2" onclick="sel(this)">2–3 стакана</button>
+        <button class="opt-btn" data-key="water" data-val="3" onclick="sel(this)">4–6 стаканов</button>
+        <button class="opt-btn" data-key="water" data-val="4" onclick="sel(this)">7+ стаканов</button>
+      </div>
+    </div>
+  </div>
+  <div class="warn" id="w7">Укажи количество воды</div>
+  <div class="nav-wrap"><button class="btn-back" onclick="pv(7)">←</button><button class="btn-next" onclick="nx(7)">Далее →</button></div>
+</div>
+
+<!-- ШАГ 8: ПРОТОКОЛ -->
+<div class="screen" id="s8">
+  <div class="section-badge">Блок 7 — Протокол</div>
+  <div class="screen-title">📋 Как соблюдала рекомендации?</div>
+  <div class="screen-desc">Честный ответ помогает мне скорректировать план.</div>
+  <div class="card">
+    <div class="q-block">
+      <label class="field-label">Что получалось из рекомендаций? ✅</label>
+      <textarea class="field-input" id="f-protocol-yes" placeholder="Что внедрялось легко и регулярно?" rows="3"></textarea>
+    </div>
+    <div class="q-block">
+      <label class="field-label">Что было сложно соблюдать? 🤔</label>
+      <textarea class="field-input" id="f-protocol-no" placeholder="Что не получалось и почему?" rows="3"></textarea>
+    </div>
+    <div class="q-block">
+      <label class="field-label">Новые симптомы или изменения которые хочешь отметить</label>
+      <textarea class="field-input" id="f-new-symptoms" placeholder="Всё что заметила нового с нашей последней встречи..." rows="3"></textarea>
+    </div>
+  </div>
+  <div class="warn" id="w8">Ответь хотя бы на первый вопрос</div>
+  <div class="nav-wrap"><button class="btn-back" onclick="pv(8)">←</button><button class="btn-next" onclick="nx(8)">Далее →</button></div>
+</div>
+
+<!-- ШАГ 9: СУБЪЕКТИВНАЯ ОЦЕНКА -->
+<div class="screen" id="s9">
+  <div class="section-badge">Блок 8 — Общая оценка</div>
+  <div class="screen-title">🌟 Как ты в целом?</div>
+  <div class="screen-desc">Последние вопросы — самые важные.</div>
+  <div class="card">
+    <div class="q-block">
+      <div class="q-text">Как ты себя чувствуешь в целом по сравнению со стартом нашей работы?</div>
+      <div class="scale-row" id="scale-overall"></div>
+      <div class="scale-labels"><span>Хуже</span><span>Намного лучше</span></div>
+    </div>
+    <div class="q-block">
+      <label class="field-label">Что улучшилось больше всего? ✨</label>
+      <textarea class="field-input" id="f-improved" placeholder="Что изменилось к лучшему — даже маленькое..." rows="3"></textarea>
+    </div>
+    <div class="q-block">
+      <label class="field-label">Что ещё хочешь изменить или добавить в работу? 💬</label>
+      <textarea class="field-input" id="f-wish" placeholder="Что пока не затрагивали или хочется усилить?" rows="3"></textarea>
+    </div>
+  </div>
+  <div class="warn" id="w9">Оцени своё состояние по шкале</div>
+  <div class="nav-wrap"><button class="btn-back" onclick="pv(9)">←</button><button class="btn-next" onclick="sub()">Отправить 🌿</button></div>
+</div>
+
+<!-- РЕЗУЛЬТАТЫ -->
+<div id="screen-results">
+  <div class="result-hero">
+    <div class="result-emoji">🌱</div>
+    <div class="result-title">Спасибо за честность!</div>
+    <div class="result-subtitle">Я изучу твои ответы до нашей встречи<br>и мы разберём всё вместе.</div>
+  </div>
+
+  <div class="save-notice" id="save-notice"></div>
+
+  <div class="result-card">
+    <h3>📊 Твои показатели сегодня</h3>
+    <div class="score-row"><span class="score-label">⚡ Энергия</span><span class="score-val" id="r-energy">—</span></div>
+    <div class="score-row"><span class="score-label">🌙 Сон</span><span class="score-val" id="r-sleep">—</span></div>
+    <div class="score-row"><span class="score-label">🌿 ЖКТ</span><span class="score-val" id="r-gi">—</span></div>
+    <div class="score-row"><span class="score-label">🧠 Стресс</span><span class="score-val" id="r-stress">—</span></div>
+    <div class="score-row"><span class="score-label">🌟 Общее</span><span class="score-val" id="r-overall">—</span></div>
+  </div>
+
+  <div class="result-card" id="r-open-block">
+    <h3>💬 Твои слова</h3>
+    <div id="r-improved-wrap" style="display:none">
+      <div class="open-answer-label">Что улучшилось</div>
+      <div class="open-answer" id="r-improved-text"></div>
+    </div>
+    <div id="r-wish-wrap" style="display:none">
+      <div class="open-answer-label">Что хочется изменить</div>
+      <div class="open-answer" id="r-wish-text"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SHEETS_URL='https://script.google.com/macros/s/AKfycbzusjqVQWAFi2VTI6_Ex2_SjufTDqe-l0RL3Eeas4iwXwYNhLil0nWCBikmYYQSaD84/exec';
+const TOTAL=9;
+const A={};
+
+// Scales
+function buildScale(id,key){
+  const el=document.getElementById(id);
+  if(!el)return;
+  for(let i=1;i<=10;i++){
+    const b=document.createElement('button');
+    b.className='scale-btn';
+    b.textContent=i;
+    b.dataset.key=key;
+    b.dataset.val=i;
+    b.onclick=function(){
+      document.querySelectorAll(`[data-key="${key}"]`).forEach(x=>x.classList.remove('selected'));
+      this.classList.add('selected');
+      A[key]=parseInt(this.dataset.val);
+    };
+    el.appendChild(b);
+  }
+}
+
+function sel(btn){
+  const key=btn.dataset.key;
+  document.querySelectorAll(`[data-key="${key}"]`).forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  A[key]=btn.dataset.val;
+}
+
+// Progress
+function updateProgress(step){
+  const pct=Math.round((step-1)/TOTAL*100);
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-label').textContent=`Шаг ${step} из ${TOTAL}`;
+  document.getElementById('prog-pct').textContent=pct+'%';
+  document.querySelectorAll('.step-dot').forEach((d,i)=>{
+    d.className='step-dot'+(i<step-1?' done':i===step-1?' active':'');
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function ss(n){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  const el=document.getElementById('s'+n);
+  if(el)el.classList.add('active');
+  updateProgress(n);
+}
+
+function pv(n){ss(n-1);}
+
+function vld(s){
+  const w=document.getElementById('w'+s);
+  let ok=true;
+  if(s===1){
+    ok=document.getElementById('f-name').value.trim()&&
+       document.getElementById('f-email').value.includes('@');
+  } else if(s===2){
+    ok=A.energy&&A.afternoon_crash!==undefined&&A.wake_tired!==undefined&&A.caffeine_dep!==undefined;
+  } else if(s===3){
+    ok=A.sleep_quality&&A.fall_asleep!==undefined&&A.night_wake!==undefined;
+  } else if(s===4){
+    ok=A.bloating!==undefined&&A.bristol&&A.sweet_craving!==undefined&&A.after_meal!==undefined;
+  } else if(s===5){
+    ok=A.stress_level&&A.focus!==undefined&&A.irritability!==undefined;
+  } else if(s===6){
+    ok=A.skin&&A.libido&&A.erection&&A.strength&&A.hair_loss;
+  } else if(s===7){
+    ok=A.water!==undefined;
+  } else if(s===8){
+    ok=document.getElementById('f-protocol-yes').value.trim().length>0;
+  } else if(s===9){
+    ok=A.overall!==undefined;
+  }
+  if(w){w.style.display=ok?'none':'block';}
+  return ok;
+}
+
+function nx(s){if(!vld(s))return;ss(s+1);}
+
+function sub(){
+  if(!vld(9))return;
+  document.getElementById('overlay').classList.add('active');
+
+  const payload={
+    questionnaire_type:'male_dynamics',
+    timestamp:new Date().toLocaleString('ru-RU'),
+    client_name:document.getElementById('f-name').value.trim(),
+    email:document.getElementById('f-email').value.trim(),
+    period:A.period||'',
+    // Энергия
+    energy_score:A.energy||0,
+    afternoon_crash:A.afternoon_crash||0,
+    wake_tired:A.wake_tired||0,
+    caffeine_dep:A.caffeine_dep||0,
+    // Сон
+    sleep_score:A.sleep_quality||0,
+    fall_asleep:A.fall_asleep||0,
+    night_wake:A.night_wake||0,
+    // ЖКТ
+    bloating:A.bloating||0,
+    bristol:A.bristol||0,
+    sweet_craving:A.sweet_craving||0,
+    after_meal:A.after_meal||0,
+    // Стресс
+    stress_score:A.stress_level||0,
+    focus:A.focus||0,
+    irritability:A.irritability||0,
+    // Гормоны (мужские)
+    skin:A.skin||'',
+    libido:A.libido||'',
+    erection:A.erection||'',
+    strength:A.strength||'',
+    hair_loss:A.hair_loss||'',
+    // Питание
+    breakfast:document.getElementById('f-breakfast').value.trim(),
+    lunch:document.getElementById('f-lunch').value.trim(),
+    dinner:document.getElementById('f-dinner').value.trim(),
+    snacks:document.getElementById('f-snacks').value.trim(),
+    water:A.water||0,
+    // Протокол
+    protocol_yes:document.getElementById('f-protocol-yes').value.trim(),
+    protocol_no:document.getElementById('f-protocol-no').value.trim(),
+    new_symptoms:document.getElementById('f-new-symptoms').value.trim(),
+    // Итог
+    overall_score:A.overall||0,
+    improved:document.getElementById('f-improved').value.trim(),
+    wish:document.getElementById('f-wish').value.trim(),
+  };
+
+  // Показываем результаты
+  showResults(payload);
+
+  fetch(SHEETS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)})
+    .then(()=>{
+      document.getElementById('overlay').classList.remove('active');
+      const n=document.getElementById('save-notice');
+      n.className='save-notice save-ok';
+      n.innerHTML='<strong>✅ Данные сохранены</strong> — я всё получила и изучу до нашей встречи.';
+      n.style.display='block';
+    })
+    .catch(()=>{
+      document.getElementById('overlay').classList.remove('active');
+      const n=document.getElementById('save-notice');
+      n.className='save-notice save-ok';
+      n.innerHTML='<strong>✅ Данные сохранены</strong> — я всё получила и изучу до нашей встречи.';
+      n.style.display='block';
+    });
+}
+
+function showResults(p){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-results').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  const lvl=['—','Очень низкий','Низкий','Ниже среднего','Средний','Средний','Хороший','Хороший','Высокий','Очень высокий','Отличный'];
+  document.getElementById('r-energy').textContent=p.energy_score+'/10 — '+( lvl[p.energy_score]||'—');
+  document.getElementById('r-sleep').textContent=p.sleep_score+'/10 — '+(lvl[p.sleep_score]||'—');
+
+  const giScore=parseInt(p.bloating)+parseInt(p.sweet_craving)+parseInt(p.after_meal);
+  const giLvl=giScore<=2?'Хорошо':giScore<=5?'Умеренно':giScore<=8?'Требует внимания':'Высокая нагрузка';
+  document.getElementById('r-gi').textContent=giLvl;
+
+  const stressLvl=['—','1','2','3','4','Умеренный','Умеренный','Значительный','Значительный','Высокий','Очень высокий'];
+  document.getElementById('r-stress').textContent=p.stress_score+'/10 — '+(stressLvl[p.stress_score]||'—');
+  document.getElementById('r-overall').textContent=p.overall_score+'/10';
+
+  if(p.improved){
+    document.getElementById('r-improved-wrap').style.display='block';
+    document.getElementById('r-improved-text').textContent=p.improved;
+  }
+  if(p.wish){
+    document.getElementById('r-wish-wrap').style.display='block';
+    document.getElementById('r-wish-text').textContent=p.wish;
+  }
+}
+
+// Init
+function init(){
+  const row=document.getElementById('steps-row');
+  for(let i=1;i<=TOTAL;i++){
+    const d=document.createElement('div');
+    d.id='dot-'+i;
+    d.className='step-dot'+(i===1?' active':'');
+    row.appendChild(d);
+  }
+  buildScale('scale-energy','energy');
+  buildScale('scale-sleep','sleep_quality');
+  buildScale('scale-stress','stress_level');
+  buildScale('scale-overall','overall');
+  updateProgress(1);
+}
+document.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
