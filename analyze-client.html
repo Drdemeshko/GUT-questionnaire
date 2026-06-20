@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Анализ клиента · Dr. Diana Demeshko</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--deep:#2D4A2D;--cream:#F7F3EC;--green:#5B8C5A;--text:#2C2C2C;--text-light:#7A7A6E;--red:#A84040;}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;padding:20px;}
+.header{background:var(--deep);padding:20px;text-align:center;border-radius:16px;margin-bottom:20px;}
+.header h1{font-family:'Playfair Display',serif;color:#fff;font-size:22px;margin-bottom:4px;}
+.header p{color:rgba(255,255,255,0.6);font-size:13px;}
+.card{background:#fff;border-radius:14px;padding:20px;margin-bottom:16px;border:1px solid #E8E0D0;}
+.label{font-size:13px;font-weight:600;color:var(--deep);margin-bottom:8px;display:block;}
+.input{width:100%;padding:12px 14px;border:1.5px solid #E8E0D0;border-radius:10px;font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color 0.2s;}
+.input:focus{border-color:var(--green);}
+.btn{width:100%;padding:14px;background:var(--deep);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:opacity 0.2s;}
+.btn:hover{opacity:0.9;}
+.btn:disabled{opacity:0.5;cursor:not-allowed;}
+.btn-copy{background:var(--green);margin-top:12px;}
+.status{text-align:center;padding:12px;font-size:13px;color:var(--text-light);display:none;}
+.result-area{display:none;}
+.result-box{width:100%;min-height:300px;padding:14px;border:1.5px solid #E8E0D0;border-radius:10px;font-size:12px;font-family:'Inter',sans-serif;line-height:1.6;resize:vertical;background:#FAFAF8;color:var(--text);}
+.client-info{background:var(--cream);border-radius:10px;padding:14px;margin-bottom:14px;font-size:13px;line-height:1.8;}
+.client-info strong{color:var(--deep);}
+.tag{display:inline-block;background:rgba(45,74,45,0.1);color:var(--deep);font-size:11px;padding:3px 10px;border-radius:99px;margin:2px;}
+.step{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #E8E0D0;font-size:13px;}
+.step:last-child{border-bottom:none;}
+.step-num{width:24px;height:24px;background:var(--deep);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+.error{color:var(--red);font-size:13px;padding:10px;background:#FFF0F0;border-radius:8px;display:none;}
+.copied{color:var(--green);font-size:12px;text-align:center;margin-top:6px;display:none;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🌿 Анализ клиента</h1>
+  <p>Dr. Diana Demeshko · Clinical AI Assistant</p>
+</div>
+
+<div class="card">
+  <div class="step">
+    <div class="step-num">1</div>
+    <div>Введи email клиента и нажми "Получить данные"</div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div>Скопируй готовый промпт</div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div>Вставь в Claude Project → получи анализ → скопируй в Notion</div>
+  </div>
+</div>
+
+<div class="card">
+  <label class="label">Email клиента</label>
+  <input class="input" id="emailInput" type="email" placeholder="client@example.com">
+  <div class="error" id="errorMsg"></div>
+  <br><br>
+  <button class="btn" id="loadBtn" onclick="loadClient()">🔍 Получить данные клиента</button>
+  <div class="status" id="statusMsg">Загружаю данные...</div>
+</div>
+
+<div class="result-area" id="resultArea">
+  <div class="card">
+    <div class="client-info" id="clientInfo"></div>
+    <label class="label">Готовый промпт для Claude Project</label>
+    <textarea class="result-box" id="promptBox" readonly></textarea>
+    <button class="btn btn-copy" onclick="copyPrompt()">📋 Скопировать промпт</button>
+    <div class="copied" id="copiedMsg">✅ Скопировано! Вставь в Claude Project</div>
+  </div>
+</div>
+
+<script>
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzusjqVQWAFi2VTI6_Ex2_SjufTDqe-l0RL3Eeas4iwXwYNhLil0nWCBikmYYQSaD84/exec';
+
+async function loadClient() {
+  const email = document.getElementById('emailInput').value.trim().toLowerCase();
+  if (!email) { showError('Введи email клиента'); return; }
+
+  const btn = document.getElementById('loadBtn');
+  const status = document.getElementById('statusMsg');
+  const error = document.getElementById('errorMsg');
+
+  btn.disabled = true;
+  btn.textContent = '⏳ Загружаю...';
+  status.style.display = 'block';
+  error.style.display = 'none';
+  document.getElementById('resultArea').style.display = 'none';
+
+  try {
+    const url = SHEETS_URL + '?action=getClientData&email=' + encodeURIComponent(email);
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (data.status === 'error') {
+      showError(data.message || 'Клиент не найден');
+      return;
+    }
+
+    displayResult(data);
+  } catch(err) {
+    showError('Ошибка загрузки. Проверь подключение.');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '🔍 Получить данные клиента';
+    status.style.display = 'none';
+  }
+}
+
+function displayResult(data) {
+  const client = data.client || {};
+  const start  = data.start  || {};
+  const stress = data.stress || {};
+  const gi     = data.gi     || {};
+  const dst    = data.dst    || {};
+  const clinical = data.clinical || {};
+
+  // Инфо о клиенте
+  const infoEl = document.getElementById('clientInfo');
+  infoEl.innerHTML = `
+    <strong>${client.first_name || ''} ${client.last_name || ''}</strong> · ${client.age || '?'} лет · ${client.sex === 'female' ? '♀' : '♂'}<br>
+    📧 ${client.email || ''}<br>
+    ${client.main_complaint ? '💬 <em>' + client.main_complaint.substring(0,100) + '</em>' : ''}
+    <br><br>
+    ${start.questionnaire_type ? '<span class="tag">✅ Стартовая</span>' : '<span class="tag" style="opacity:0.4">❌ Стартовая</span>'}
+    ${stress.questionnaire_type ? '<span class="tag">✅ Стресс</span>' : '<span class="tag" style="opacity:0.4">❌ Стресс</span>'}
+    ${gi.questionnaire_type ? '<span class="tag">✅ ЖКТ</span>' : '<span class="tag" style="opacity:0.4">❌ ЖКТ</span>'}
+    ${dst.questionnaire_type ? '<span class="tag">✅ ДСТ</span>' : '<span class="tag" style="opacity:0.4">❌ ДСТ</span>'}
+    ${clinical['Ф.И.О.'] ? '<span class="tag">✅ Клин.анкета</span>' : '<span class="tag" style="opacity:0.4">❌ Клин.анкета</span>'}
+  `;
+
+  // Строим промпт
+  const prompt = buildPrompt(client, start, stress, gi, dst, clinical);
+  document.getElementById('promptBox').value = prompt;
+  document.getElementById('resultArea').style.display = 'block';
+  document.getElementById('resultArea').scrollIntoView({behavior:'smooth'});
+}
+
+function buildPrompt(client, start, stress, gi, dst, clinical) {
+  let p = '';
+  p += '=== ДАННЫЕ КЛИЕНТА ДЛЯ КЛИНИЧЕСКОГО АНАЛИЗА ===\n\n';
+
+  // Основные данные
+  p += '## КЛИЕНТ\n';
+  p += `Имя: ${client.first_name || ''} ${client.last_name || ''}\n`;
+  p += `Возраст: ${client.age || '?'} лет\n`;
+  p += `Пол: ${client.sex === 'female' ? 'Женский' : 'Мужской'}\n`;
+  p += `Email: ${client.email || ''}\n\n`;
+
+  // Стартовая анкета
+  if (start.questionnaire_type) {
+    p += '## СТАРТОВАЯ АНКЕТА\n';
+    p += `Главная жалоба: ${start.main_complaint || '—'}\n`;
+    p += `Цель 1: ${start.goal_1 || '—'}\n`;
+    p += `Цель 2: ${start.goal_2 || '—'}\n`;
+    p += `Цель 3: ${start.goal_3 || '—'}\n`;
+    p += `Пробовала раньше: ${start.tried_before || '—'}\n`;
+    p += `Готовность к изменениям: ${start.readiness || '—'}/10\n\n`;
+
+    p += `СОН: ${start.sleep_hours || '—'} ч | Качество: ${start.wake_quality || '—'}\n`;
+    p += `Проблемы со сном: ${start.sleep_issues || '—'}\n`;
+    p += `Зона СОН: ${start.sleep_level || '—'} — ${start.sleep_interp_doc || '—'}\n\n`;
+
+    p += `Кофе: ${start.coffee_amount || '—'} | Натощак: ${start.coffee_empty || '—'} | Зачем: ${start.coffee_why || '—'}\n`;
+    p += `Алкоголь: ${start.alcohol_freq || '—'} | Зачем: ${start.alcohol_why || '—'}\n`;
+    p += `Зона СТИМУЛЯТОРЫ: ${start.stimulants_level || '—'} — ${start.stimulants_interp_doc || '—'}\n`;
+    p += `Зона ДОФАМИН: ${start.dopamine_level || '—'} — ${start.dopamine_interp_doc || '—'}\n\n`;
+
+    p += `Движение: ${start.movement || '—'}\n`;
+    p += `Восстановление: ${start.recovery || '—'}\n`;
+    p += `Солнце: ${start.sunlight || '—'} | Природа: ${start.nature || '—'}\n`;
+    p += `Зона ВОССТАНОВЛЕНИЕ: ${start.recovery_level || '—'} — ${start.recovery_interp_doc || '—'}\n\n`;
+
+    p += `Питание (приёмов): ${start.meals_per_day || '—'}\n`;
+    p += `Паттерны питания: ${start.food_patterns || '—'}\n`;
+    p += `Отношение к еде: ${start.food_attitude || '—'}\n`;
+    p += `Дневник питания: ${start.food_diary || '—'}\n\n`;
+
+    p += `Стресс: ${start.stress_level || '—'}/10 | Справление: ${start.stress_coping || '—'}\n`;
+    p += `Смысл/цель: ${start.purpose || '—'} | День ощущается: ${start.day_feel || '—'}\n`;
+    p += `Зона СМЫСЛ: ${start.meaning_level || '—'} — ${start.meaning_interp_doc || '—'}\n`;
+    p += `Общий энергетический балл: ${start.energy_score_total || '—'}%\n\n`;
+
+    p += `Архетип: ${start.archetype_name || '—'} (вторичный: ${start.archetype_secondary || '—'})\n\n`;
+  }
+
+  // Стресс анкета
+  if (stress.questionnaire_type) {
+    p += '## СТРЕСС-АНКЕТА\n';
+    p += `Общий балл: ${stress.total_score || 0}/${stress.max_score || 160} (${stress.percent || 0}%) — ${stress.level || '—'}\n`;
+    p += `Депрессия DASS: ${stress.depression || 0} — ${stress.depression_severity || '—'}\n`;
+    p += `Тревога DASS: ${stress.anxiety || 0} — ${stress.anxiety_severity || '—'}\n`;
+    p += `Стресс DASS: ${stress.stress || 0} — ${stress.stress_severity || '—'}\n`;
+    if (stress.red_flags && stress.red_flags !== 'нет') p += `🚨 Красные флаги: ${stress.red_flags}\n`;
+    if (stress.specialist_interpretation) p += `Интерпретация: ${stress.specialist_interpretation}\n`;
+    p += '\n';
+  }
+
+  // ЖКТ анкета
+  if (gi.questionnaire_type) {
+    p += '## ЖКТ-АНКЕТА\n';
+    p += `Бристоль: ${gi.bristol_type || '—'}\n`;
+    p += `Питание А: ${gi.food_a_score || 0} | Питание Б: ${gi.food_b_score || 0}\n`;
+    p += `Вредные субстанции: ${gi.substances_score || 0} | Образ жизни: ${gi.lifestyle_score || 0}\n`;
+    p += `Желудок и ПЖ: ${gi.stomach_score || 0}\n`;
+    p += `Тонкий кишечник: ${gi.small_intestine_score || 0}\n`;
+    p += `Инфекции/Инвазии: ${gi.infection_score || 0}\n`;
+    p += `Толстый кишечник: ${gi.large_intestine_score || 0}\n`;
+    p += `Печень/Желчный: ${gi.liver_score || 0}\n`;
+    p += `Нутриенты А: ${gi.nutrients_a_score || 0}\n`;
+    p += `Нутриенты Б: ${gi.nutrients_b_score || 0}\n`;
+    p += `Кандида ИТОГО: ${gi.candida_total || 0}\n`;
+    if (gi.red_flag_gi && gi.red_flag_gi !== 'нет') p += `🚨 Флаги ЖКТ: ${gi.red_flag_gi}\n`;
+    p += '\n';
+  }
+
+  // ДСТ анкета
+  if (dst.questionnaire_type) {
+    p += '## ДСТ-АНКЕТА\n';
+    p += `Общий балл: ${dst.total_score || 0} — ${dst.total_level || '—'}\n`;
+    p += `Beighton: ${dst.beighton_score || 0}/9\n`;
+    p += `Суставы: ${dst.joints_score || 0} | Кожа: ${dst.skin_score || 0} | Сосуды: ${dst.vascular_score || 0}\n`;
+    p += `ЖКТ: ${dst.gi_score || 0} | Кости: ${dst.bones_score || 0} | Нервная: ${dst.neuro_score || 0} | Гин: ${dst.gyn_score || 0}\n\n`;
+  }
+
+  // Клиническая анкета
+  if (clinical['Ф.И.О.']) {
+    p += '## КЛИНИЧЕСКАЯ АНКЕТА\n';
+    const h = parseFloat(clinical['Рост (см)']);
+    const w = parseFloat(clinical['Вес (кг)']);
+    if (h && w) {
+      const bmi = Math.round(w / (h/100 * h/100) * 10) / 10;
+      p += `Рост: ${h} см | Вес: ${w} кг | ИМТ: ${bmi}\n`;
+    }
+
+    // Симптомы ДА
+    const yes = [];
+    Object.keys(clinical).forEach(k => {
+      if (clinical[k] === 'Да' || clinical[k] === 'да') yes.push(k);
+    });
+    if (yes.length > 0) {
+      p += `\nСимптомы ДА (${yes.length}):\n`;
+      yes.forEach(s => { p += `• ${s}\n`; });
+    }
+
+    // Открытые ответы
+    const open = [
+      'Если есть угри или прыщи — укажите в каких зонах',
+      'Если пониженное давление — укажите цифры',
+      'Наблюдаетесь у маммолога, гинеколога или эндокринолога — укажите диагноз (если есть)',
+      'Принимаете гормональные контрацептивы — укажите какие и как долго (если принимаете)',
+      'Насколько правильным вы считаете своё питание?',
+      'Примерное меню на день (завтрак, обед, ужин, перекусы)',
+      'Какие витамины, минералы или комплексы принимаете?',
+      'Сколько стаканов чистой воды в день?',
+      'Хронические заболевания (если есть)',
+      'Физическая активность (йога, фитнес, прогулки и т.д.)',
+      'Чего вы ожидаете от консультации?',
+      'Какой результат хотите получить от работы с нутрициологом?'
+    ];
+    p += '\nОткрытые ответы:\n';
+    open.forEach(k => {
+      const v = clinical[k];
+      if (v && v !== 'Нет' && v !== 'нет' && v !== '') p += `${k}: ${v}\n`;
+    });
+    p += '\n';
+  }
+
+  p += '=== ЗАДАЧА ===\n';
+  p += 'Проанализируй все данные клиента согласно системному промпту. ';
+  p += 'Найди все паттерны, сгруппируй симптомы в синдромы, выдай все гипотезы с цепочками, ';
+  p += 'расставь приоритеты вмешательств по этапам. Начни с ЖКТ.';
+
+  return p;
+}
+
+function copyPrompt() {
+  const box = document.getElementById('promptBox');
+  box.select();
+  document.execCommand('copy');
+  const msg = document.getElementById('copiedMsg');
+  msg.style.display = 'block';
+  setTimeout(() => { msg.style.display = 'none'; }, 3000);
+}
+
+function showError(msg) {
+  const el = document.getElementById('errorMsg');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+document.getElementById('emailInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') loadClient();
+});
+</script>
+</body>
+</html>
