@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Стартовая анкета · Dr. Diana Demeshko</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+:root{
+  --deep:#2D4A2D;--cream:#F7F3EC;--cream-dark:#E8E0D0;
+  --text:#2C2C2C;--text-light:#7A7A6E;
+  --green:#5B8C5A;--accent-light:#EDF3EC;
+  --yellow:#C4924A;--red:#A84040;
+}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;}
+.hero{width:100%;height:130px;display:block;}
+.header{background:var(--deep);padding:18px 20px 22px;text-align:center;}
+.brand{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--green);margin-bottom:5px;}
+.header h1{font-family:'Playfair Display',serif;font-size:clamp(19px,5vw,26px);color:#fff;line-height:1.3;margin-bottom:5px;}
+.header p{font-size:12px;color:rgba(255,255,255,0.6);line-height:1.6;max-width:480px;margin:0 auto;}
+.time-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(91,140,90,0.2);border:1px solid rgba(91,140,90,0.4);border-radius:99px;padding:4px 12px;font-size:11px;color:rgba(255,255,255,0.8);margin-top:9px;}
+.progress-wrap{padding:12px 16px 0;background:#fff;border-bottom:1px solid var(--cream-dark);}
+.progress-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--text-light);margin-bottom:5px;}
+.progress-bar{height:4px;background:var(--cream-dark);border-radius:99px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,#8FBC8E,var(--green));border-radius:99px;transition:width 0.4s ease;width:0%;}
+.steps-row{display:flex;gap:3px;margin-top:6px;padding-bottom:10px;}
+.step-dot{flex:1;height:3px;border-radius:99px;background:var(--cream-dark);transition:background 0.3s;}
+.step-dot.done{background:var(--green);}
+.step-dot.active{background:var(--yellow);}
+.section{display:none;padding:12px 16px 28px;}
+.section.active{display:block;}
+.section-badge{display:inline-block;background:rgba(45,74,45,0.1);color:var(--deep);font-size:10px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;padding:3px 10px;border-radius:99px;margin-bottom:7px;}
+.section-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--deep);margin-bottom:3px;font-weight:600;}
+.section-desc{font-size:12.5px;color:var(--text-light);line-height:1.6;margin-bottom:12px;}
+.card{background:#fff;border-radius:14px;padding:14px 16px;border:1px solid var(--cream-dark);margin-bottom:9px;}
+.q-label{font-size:14px;font-weight:600;color:var(--deep);display:block;margin-bottom:6px;line-height:1.4;}
+.q-hint{font-size:12px;color:var(--text-light);margin-bottom:7px;font-style:italic;line-height:1.5;}
+.field-label{font-size:13px;font-weight:600;color:var(--deep);display:block;margin-bottom:5px;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.field-input,.field-select,.field-textarea{width:100%;padding:11px 13px;border:1.5px solid var(--cream-dark);border-radius:10px;font-family:'Inter',sans-serif;font-size:14px;color:var(--text);background:var(--cream);outline:none;transition:border-color 0.2s;}
+.field-input:focus,.field-select:focus,.field-textarea:focus{border-color:var(--green);background:#fff;}
+.field-input.error,.field-select.error,.field-textarea.error{border-color:var(--red);}
+.field-textarea{resize:vertical;min-height:76px;line-height:1.5;}
+.field-note{font-size:11px;color:var(--text-light);margin-top:4px;line-height:1.5;}
+.field-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237A7A6E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center;}
+.choices{display:flex;flex-direction:column;gap:6px;}
+.choice{background:var(--cream);border:1.5px solid var(--cream-dark);border-radius:11px;padding:11px 14px;cursor:pointer;font-size:13.5px;color:var(--text);line-height:1.4;transition:all 0.15s;text-align:left;width:100%;font-family:'Inter',sans-serif;-webkit-tap-highlight-color:transparent;}
+.choice:hover{background:var(--accent-light);border-color:var(--green);}
+.choice.selected{background:var(--accent-light);border-color:var(--deep);font-weight:500;color:var(--deep);}
+.choice.selected::before{content:'✓ ';color:var(--green);font-weight:700;}
+.scale-wrap{display:flex;gap:5px;margin-top:6px;}
+.scale-btn{flex:1;aspect-ratio:1;border-radius:9px;border:1.5px solid var(--cream-dark);background:var(--cream);cursor:pointer;font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--deep);transition:all 0.15s;-webkit-tap-highlight-color:transparent;}
+.scale-btn:hover{border-color:var(--green);background:var(--accent-light);}
+.scale-btn.selected{border-color:var(--deep);background:var(--accent-light);}
+.scale-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--text-light);margin-top:4px;}
+.scale10-wrap{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap;}
+.scale10-btn{flex:1;min-width:28px;padding:10px 2px;border-radius:9px;border:1.5px solid var(--cream-dark);background:var(--cream);cursor:pointer;font-size:13px;text-align:center;font-family:'Inter',sans-serif;color:var(--text-light);transition:all 0.15s;}
+.scale10-btn:hover{border-color:var(--green);background:var(--accent-light);}
+.scale10-btn.selected{border-color:var(--deep);background:var(--accent-light);font-weight:600;color:var(--deep);}
+.sec-divider{background:var(--deep);color:#fff;border-radius:9px;padding:7px 13px;margin:12px 0 8px;font-size:12px;font-weight:600;letter-spacing:0.3px;}
+.tcm-note{background:rgba(45,74,45,0.06);border-left:3px solid var(--green);border-radius:0 8px 8px 0;padding:10px 13px;font-size:12px;color:var(--text-light);line-height:1.6;margin-top:8px;font-style:italic;}
+.consent-block{background:#fff;border-radius:14px;padding:14px 16px;border:1px solid var(--cream-dark);margin-bottom:9px;}
+.consent-item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--cream-dark);}
+.consent-item:last-child{border-bottom:none;padding-bottom:0;}
+.consent-check{width:22px;height:22px;flex-shrink:0;border:2px solid var(--cream-dark);border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;margin-top:1px;}
+.consent-check.checked{background:var(--deep);border-color:var(--deep);}
+.consent-check.checked::after{content:"✓";color:#fff;font-size:13px;font-weight:700;}
+.consent-check.error-check{border-color:var(--red);}
+.consent-text{font-size:13px;color:var(--text);line-height:1.55;}
+.nav-wrap{display:flex;gap:10px;margin-top:14px;}
+.btn-back{flex:1;padding:13px;background:#fff;border:1.5px solid var(--cream-dark);border-radius:11px;font-family:'Inter',sans-serif;font-size:15px;color:var(--text-light);cursor:pointer;transition:background 0.15s;}
+.btn-back:hover{background:var(--cream-dark);}
+.btn-next{flex:2;padding:13px;background:var(--deep);color:#fff;border:none;border-radius:11px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:background 0.15s;}
+.btn-next:hover{background:#3d6b3d;}
+.warn{background:rgba(168,64,64,0.07);border:1px solid rgba(168,64,64,0.2);border-radius:8px;padding:9px 13px;font-size:12.5px;color:var(--red);margin-top:10px;display:none;}
+.needs-answer{outline:2px solid rgba(168,64,64,0.35);border-radius:10px;}
+/* RESULTS */
+.thanks-wrap{padding:28px 16px 40px;}
+.thanks-icon{font-size:48px;text-align:center;margin-bottom:12px;}
+.thanks-title{font-family:'Playfair Display',serif;font-size:22px;color:var(--deep);margin-bottom:8px;text-align:center;}
+.thanks-text{font-size:13.5px;color:var(--text-light);line-height:1.7;max-width:380px;margin:0 auto 20px;text-align:center;}
+.archetype-result-card{border-radius:16px;overflow:hidden;margin:0 auto 14px;border:1.5px solid var(--cream-dark);}
+.arch-header{padding:20px 18px 14px;display:flex;align-items:center;gap:14px;}
+.arch-emoji{font-size:38px;flex-shrink:0;}
+.arch-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;opacity:0.75;margin-bottom:3px;font-weight:600;}
+.arch-name{font-family:'Playfair Display',serif;font-size:21px;font-weight:700;line-height:1.2;}
+.arch-quote{font-size:13px;font-style:italic;padding:0 18px 12px;color:var(--text-light);line-height:1.6;background:rgba(45,74,45,0.03);}
+.arch-desc{font-size:13px;line-height:1.7;padding:13px 18px;border-top:1px solid var(--cream-dark);color:var(--text);}
+.arch-how{padding:13px 18px;background:var(--accent-light);}
+.arch-how-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:7px;color:var(--deep);opacity:0.7;}
+.arch-how-text{font-size:13px;line-height:1.7;color:var(--text);}
+/* RADAR */
+.radar-card{background:#fff;border-radius:14px;border:1px solid var(--cream-dark);padding:16px;margin-bottom:12px;}
+.radar-card h4{font-family:'Playfair Display',serif;font-size:15px;color:var(--deep);margin-bottom:12px;text-align:center;}
+.radar-wrap{display:flex;justify-content:center;}
+/* ZONE BLOCKS */
+.zone-block{border-radius:12px;padding:13px 15px;margin-bottom:8px;border:1px solid;}
+.zone-block.critical{background:#FCEBEB;border-color:#F09595;}
+.zone-block.warning{background:#FAEEDA;border-color:#EAC97A;}
+.zone-block.good{background:#EAF3DE;border-color:#97C459;}
+.zone-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;}
+.zone-name{font-size:12px;font-weight:600;color:var(--deep);}
+.zone-score{font-size:15px;font-weight:700;}
+.zone-block.critical .zone-score{color:var(--red);}
+.zone-block.warning .zone-score{color:var(--yellow);}
+.zone-block.good .zone-score{color:var(--green);}
+.zone-interp{font-size:12.5px;color:var(--text);line-height:1.6;margin-bottom:4px;}
+.zone-rec{font-size:12px;color:var(--text-light);font-style:italic;line-height:1.5;}
+.overall-card{background:#fff;border-radius:14px;border:1px solid var(--cream-dark);padding:15px 16px;margin-bottom:12px;}
+.overall-label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:5px;}
+.overall-title{font-family:'Playfair Display',serif;font-size:15px;color:var(--deep);margin-bottom:5px;}
+.overall-text{font-size:13px;color:var(--text-light);line-height:1.7;}
+.thanks-card{background:#fff;border-radius:14px;padding:14px 16px;border:1px solid var(--cream-dark);margin-bottom:10px;}
+.thanks-card h4{font-family:'Playfair Display',serif;font-size:14px;color:var(--deep);margin-bottom:8px;}
+.save-notice{border-radius:11px;padding:12px 15px;margin-bottom:12px;font-size:13px;line-height:1.5;display:none;}
+.save-ok{background:#EAF3DE;border:1px solid #97C459;color:#2D4A2D;}
+.save-err{background:rgba(168,64,64,0.06);border:1px solid rgba(168,64,64,0.2);color:var(--red);}
+.overlay{display:none;position:fixed;inset:0;background:rgba(45,74,45,0.6);z-index:999;align-items:center;justify-content:center;flex-direction:column;gap:14px;}
+.overlay.active{display:flex;}
+.spinner{width:40px;height:40px;border:3px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.overlay-text{color:#fff;font-size:14px;}
+@media(max-width:380px){.field-row{grid-template-columns:1fr;}.scale10-btn{min-width:24px;font-size:11px;}}
+</style>
+</head>
+<body>
+
+<svg class="hero" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 130" preserveAspectRatio="xMidYMid slice">
+  <rect width="800" height="130" fill="#2D4A2D"/>
+  <g fill="#3a7a32" opacity="0.7"><circle cx="80" cy="65" r="38"/><circle cx="118" cy="65" r="38"/><circle cx="99" cy="38" r="38"/><circle cx="99" cy="92" r="38"/></g>
+  <g fill="#4a9a42" opacity="0.5"><circle cx="280" cy="54" r="32"/><circle cx="312" cy="54" r="32"/><circle cx="296" cy="28" r="32"/><circle cx="296" cy="80" r="32"/></g>
+  <g fill="#5ab050" opacity="0.4"><circle cx="480" cy="74" r="36"/><circle cx="516" cy="74" r="36"/><circle cx="498" cy="46" r="36"/><circle cx="498" cy="102" r="36"/></g>
+  <g fill="#3a7a32" opacity="0.3"><circle cx="660" cy="44" r="30"/><circle cx="690" cy="44" r="30"/><circle cx="675" cy="20" r="30"/><circle cx="675" cy="68" r="30"/></g>
+  <g fill="#7acc70" opacity="0.18"><circle cx="762" cy="105" r="24"/><circle cx="786" cy="105" r="24"/><circle cx="774" cy="83" r="24"/></g>
+</svg>
+
+<div class="header">
+  <div class="brand">Dr. Diana Demeshko · Integrative Doctor · CNM Student</div>
+  <h1>Стартовая анкета</h1>
+  <p>Первый шаг к персональной стратегии здоровья — рассказать о себе честно</p>
+  <span class="time-badge">⏱ Около 12–15 минут</span>
+</div>
+
+<div class="progress-wrap" id="progress-wrap">
+  <div class="progress-meta"><span id="step-label">Шаг 1 из 8</span><span id="step-pct">0%</span></div>
+  <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+  <div class="steps-row" id="steps-row"></div>
+</div>
+
+<!-- ШАГ 1: ДАННЫЕ -->
+<div class="section active" id="step-1">
+  <div style="height:10px"></div>
+  <div class="section-badge">Шаг 1 из 8</div>
+  <div class="section-title">Давай познакомимся</div>
+  <div class="section-desc">Эти данные нужны чтобы создать твой клинический профиль. Всё конфиденциально.</div>
+  <div class="card">
+    <div class="field-row">
+      <div><label class="field-label">Имя *</label><input class="field-input" id="f-name" type="text" placeholder="Имя" autocomplete="given-name"></div>
+      <div><label class="field-label">Фамилия *</label><input class="field-input" id="f-lastname" type="text" placeholder="Фамилия" autocomplete="family-name"></div>
+    </div>
+    <div style="margin-top:10px"><label class="field-label">Email *</label><input class="field-input" id="f-email" type="email" placeholder="ваш@email.com"></div>
+    <div style="margin-top:10px"><label class="field-label">Телефон *</label><input class="field-input" id="f-phone" type="tel" placeholder="+380 (99) 000-00-00"></div>
+    <div style="margin-top:10px"><label class="field-label">Telegram username</label><input class="field-input" id="f-tg" type="text" placeholder="@username"><div class="field-note">Сюда придут следующие шаги после анкеты</div></div>
+    <div class="field-row" style="margin-top:10px">
+      <div><label class="field-label">Возраст *</label><input class="field-input" id="f-age" type="number" placeholder="Лет" min="16" max="90"></div>
+      <div><label class="field-label">Пол *</label>
+        <select class="field-select" id="f-sex">
+          <option value="">Выбери</option>
+          <option value="female">Женский</option>
+          <option value="male">Мужской</option>
+          <option value="other">Другой</option>
+        </select>
+      </div>
+    </div>
+    <div class="field-row" style="margin-top:10px">
+      <div><label class="field-label">Страна</label><input class="field-input" id="f-country" type="text" placeholder="Страна"></div>
+      <div><label class="field-label">Город</label><input class="field-input" id="f-city" type="text" placeholder="Город"></div>
+    </div>
+    <div style="margin-top:10px">
+      <label class="field-label">Часовой пояс</label>
+      <select class="field-select" id="f-timezone">
+        <option value="">Выбери...</option>
+        <option value="UTC-12">UTC−12</option><option value="UTC-11">UTC−11</option><option value="UTC-10">UTC−10 (Гавайи)</option>
+        <option value="UTC-9">UTC−9</option><option value="UTC-8">UTC−8 (Лос-Анджелес)</option>
+        <option value="UTC-7">UTC−7 (Денвер)</option><option value="UTC-6">UTC−6 (Чикаго)</option>
+        <option value="UTC-5">UTC−5 (Нью-Йорк)</option><option value="UTC-4">UTC−4</option>
+        <option value="UTC-3">UTC−3 (Бразилия)</option><option value="UTC-2">UTC−2</option>
+        <option value="UTC-1">UTC−1</option><option value="UTC+0">UTC+0 (Лондон)</option>
+        <option value="UTC+1">UTC+1 (Варшава, Берлин)</option>
+        <option value="UTC+2">UTC+2 (Киев, Хельсинки)</option>
+        <option value="UTC+3">UTC+3 (Москва, Стамбул)</option>
+        <option value="UTC+4">UTC+4 (Дубай)</option><option value="UTC+5">UTC+5</option>
+        <option value="UTC+5:30">UTC+5:30 (Индия)</option><option value="UTC+6">UTC+6</option>
+        <option value="UTC+7">UTC+7 (Бангкок)</option><option value="UTC+8">UTC+8 (Пекин, Сингапур)</option>
+        <option value="UTC+9">UTC+9 (Токио)</option><option value="UTC+10">UTC+10 (Сидней)</option>
+        <option value="UTC+11">UTC+11</option><option value="UTC+12">UTC+12</option>
+      </select>
+    </div>
+  </div>
+  <div class="warn" id="warn-1">Пожалуйста, заполни обязательные поля</div>
+  <div class="nav-wrap"><button class="btn-next" onclick="nextStep(1)" style="flex:1">Продолжить →</button></div>
+</div>
+
+<!-- ШАГ 2: ЗАПРОС -->
+<div class="section" id="step-2">
+  <div style="height:10px"></div>
+  <div class="section-badge">Шаг 2 из 8</div>
+  <div class="section-title">Зачем ты здесь?</div>
+  <div class="section-desc">Расскажи о своём главном запросе — что привело тебя сюда именно сейчас.</div>
+  <div class="card">
+    <label class="q-label">Главная жалоба или запрос *</label>
+    <textarea class="field-textarea" id="f-complaint" placeholder="Опиши своими словами что беспокоит больше всего..."></textarea>
+  </div>
+  <div class="card">
+    <label class="q-label">Топ-3 цели — чего хочешь достичь *</label>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">
+      <input class="field-input" id="f-goal1" type="text" placeholder="Цель 1 *">
+      <input class="field-input" id="f-goal2" type="text" placeholder="Цель 2">
+      <input class="field-input" id="f-goal3" type="text" placeholder="Цель 3 (необязательно)">
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Что уже пробовал(а) для решения этих вопросов?</label>
+    <textarea class="field-textarea" id="f-tried" placeholder="Диеты, добавки, врачи, методики — что угодно..."></textarea>
+  </div>
+  <div class="card">
+    <label class="q-label">Сколько времени в неделю готов(а) уделять здоровью? *</label>
+    <div class="choices" id="q-time">
+      <button class="choice" data-val="less1h">Меньше 1 часа — хочу минимум усилий</button>
+      <button class="choice" data-val="1-3h">1–3 часа — умеренные изменения, это реально</button>
+      <button class="choice" data-val="3-5h">3–5 часов — серьёзный подход</button>
+      <button class="choice" data-val="5h+">Столько сколько нужно — полная готовность</button>
+    </div>
+  </div>
+  <div class="warn" id="warn-2">Пожалуйста, заполни обязательные поля и ответь на все вопросы</div>
+  <div class="nav-wrap">
+    <button class="btn-back" onclick="prevStep(2)">← Назад</button>
+    <button class="btn-next" onclick="nextStep(2)">Продолжить →</button>
+  </div>
+</div>
+
+<!-- ШАГ 3: АРХЕТИП -->
+<div class="section" id="step-3">
+  <div style="height:10px"></div>
+  <div class="section-badge">Шаг 3 из 8</div>
+  <div class="section-title">Как ты принимаешь решения</div>
+  <div class="section-desc">Эти вопросы помогают понять твой стиль — как с тобой лучше работать. Нет правильных ответов.</div>
+  <div class="card">
+    <label class="q-label">Тебе дают список из 10 рекомендаций по питанию. Как ты с ним работаешь? *</label>
+    <div class="choices" id="q-a1">
+      <button class="choice" data-type="rebel">Выбираю те что кажутся мне разумными и начинаю с них</button>
+      <button class="choice" data-type="skeptic">Хочу понять смысл каждой — почему именно это, что за этим стоит</button>
+      <button class="choice" data-type="upholder">Стараюсь выполнить всё — раз дали список, значит так надо</button>
+      <button class="choice" data-type="rebel">Скорее всего отложу — список ощущается как давление</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Через месяц мы созваниваемся и ты рассказываешь как всё прошло. Что тебя больше всего замотивирует подготовиться к этому звонку? *</label>
+    <div class="choices" id="q-a2">
+      <button class="choice" data-type="upholder">Желание увидеть свой прогресс и понять что изменилось</button>
+      <button class="choice" data-type="skeptic">Понимание того как работает моё тело</button>
+      <button class="choice" data-type="obliger">Не хочу прийти без результата — мне важно что ты вложила в меня время</button>
+      <button class="choice" data-type="rebel">Если я сама решу что этот звонок важен для меня — тогда подготовлюсь</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Началась работа над здоровьем. Что больше всего помогает тебе не бросить? *</label>
+    <div class="choices" id="q-a3">
+      <button class="choice" data-type="upholder">Когда вижу результат или понимаю что двигаюсь в правильном направлении</button>
+      <button class="choice" data-type="skeptic">Когда понимаю логику и смысл того что делаю</button>
+      <button class="choice" data-type="obliger">Когда есть кто-то кто ждёт от меня результата или спросит как дела</button>
+      <button class="choice" data-type="rebel">Когда это моё собственное решение и никто меня не заставляет</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Врач говорит тебе: «Нужно снизить стресс — иначе через 5 лет будут проблемы с сердцем». Как ты реагируешь? *</label>
+    <div class="choices" id="q-a4">
+      <button class="choice" data-type="upholder">Принимаю к сведению и начинаю разбираться что именно делать</button>
+      <button class="choice" data-type="skeptic">Хочу понять механизм — как именно стресс влияет на сердце, какие именно риски</button>
+      <button class="choice" data-type="obliger">Начинаю действовать — если врач сказал, значит надо</button>
+      <button class="choice" data-type="rebel">Скептически — у всех стресс, и ничего. Хочу сама разобраться стоит ли беспокоиться</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Когда тебе нужно внедрить что-то новое — как тебе лучше всего? *</label>
+    <div class="choices" id="q-a5">
+      <button class="choice" data-type="upholder">Чёткий план с конкретными шагами — я выполняю и мне спокойно</button>
+      <button class="choice" data-type="skeptic">Понять принцип и почему это работает — тогда сама придумаю как</button>
+      <button class="choice" data-type="obliger">Маленький первый шаг, почти незаметный — чтобы не перегружаться</button>
+      <button class="choice" data-type="rebel">Попробовать сразу всё и посмотреть что прилипнет</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Что тебе важнее в поддержке во время работы над здоровьем? *</label>
+    <div class="choices" id="q-a6">
+      <button class="choice" data-type="upholder">Чёткая структура и конкретные задания на неделю</button>
+      <button class="choice" data-type="skeptic">Объяснение механизмов — хочу понимать почему</button>
+      <button class="choice" data-type="obliger">Мягкость и отсутствие осуждения, если что-то не получилось</button>
+      <button class="choice" data-type="rebel">Честная прямая обратная связь, даже если неприятно</button>
+    </div>
+  </div>
+  <div class="warn" id="warn-3">Пожалуйста, ответь на все вопросы этого раздела</div>
+  <div class="nav-wrap">
+    <button class="btn-back" onclick="prevStep(3)">← Назад</button>
+    <button class="btn-next" onclick="nextStep(3)">Продолжить →</button>
+  </div>
+</div>
+
+<!-- ШАГ 4: СОН — РАСШИРЕННЫЙ -->
+<div class="section" id="step-4">
+  <div style="height:10px"></div>
+  <div class="section-badge">Шаг 4 из 8</div>
+  <div class="section-title">Как ты спишь</div>
+  <div class="section-desc">Сон — первое, на что я смотрю. Он влияет на всё остальное: еду, стресс, вес, настроение, гормоны.</div>
+
+  <div class="card">
+    <label class="q-label">Сколько часов ты в среднем спишь? *</label>
+    <div class="choices" id="q-sleep-hours">
+      <button class="choice" data-val="less6">Меньше 6 часов</button>
+      <button class="choice" data-val="6-7">6–7 часов</button>
+      <button class="choice" data-val="7-8">7–8 часов</button>
+      <button class="choice" data-val="8+">Больше 8 часов</button>
+      <button class="choice" data-val="unstable">По-разному, стабильности нет</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <label class="q-label">Как ты просыпаешься большинство утром? *</label>
+    <div class="choices" id="q-wake">
+      <button class="choice" data-val="great">Чувствую себя отдохнувшим(ей), встаю без усилий</button>
+      <button class="choice" data-val="ok">Встаю нормально, но нужно время разогнаться</button>
+      <button class="choice" data-val="hard">Тяжело, хочется ещё поспать</button>
+      <button class="choice" data-val="tired">Просыпаюсь уставшим(ей), даже при достаточном сне</button>
+      <button class="choice" data-val="varies">По-разному</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <label class="q-label">Ложишься ли ты спать примерно в одно время — в будни и выходные? *</label>
+    <div class="choices" id="q-sleep-schedule">
+      <button class="choice" data-val="always">Да, примерно в одно время</button>
+      <button class="choice" data-val="mostly">В будни да, в выходные позже на 1–2 часа</button>
+      <button class="choice" data-val="shift">В выходные сильно сдвигаю — на 3+ часа</button>
+      <button class="choice" data-val="chaos">Режима нет, каждый день по-разному</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <label class="q-label">Что из этого есть у тебя регулярно?</label>
+    <div class="q-hint">Можно выбрать несколько</div>
+    <div class="choices" id="q-sleep-issues">
+      <button class="choice multi" data-val="cant-sleep">Трудно засыпаю — мысли не останавливаются</button>
+      <button class="choice multi" data-val="night-wake-regular">Просыпаюсь ночью — примерно в одно и то же время</button>
+      <button class="choice multi" data-val="night-wake-multiple">Просыпаюсь несколько раз, в разное время</button>
+      <button class="choice multi" data-val="no-restore">Засыпаю хорошо, но утром нет ощущения восстановления</button>
+      <button class="choice multi" data-val="phone">Использую телефон в постели перед сном</button>
+      <button class="choice multi" data-val="eat-coffee-late">Ем или пью кофе близко ко сну</button>
+      <button class="choice multi" data-val="none-sleep">Ничего из этого</button>
+    </div>
+  </div>
+
+  <div class="card" id="wake-time-card" style="display:none">
+    <label class="q-label">Примерно в какое время просыпаешься?</label>
+    <div class="q-hint">Время ночного пробуждения нередко связано с конкретным органом</div>
+    <div class="choices" id="q-wake-time">
+      <button class="choice" data-val="1-3am">1–3 ночи</button>
+      <button class="choice" data-val="3-5am">3–5 ночи</button>
+      <button class="choice" data-val="5-7am">5–7 утра</button>
+      <button class="choice" data-val="other-time">В другое время</button>
+    </div>
+    <div class="tcm-note"><strong>По часам органов (TCM):</strong> 1–3 ночи — печень (стресс, алкоголь, токсины, подавленные эмоции). 3–5 ночи — лёгкие (низкий кортизол на рассвете, дыхание, горе). 5–7 утра — толстый кишечник (детокс, выведение).</div>
+  </div>
+
+  <div class="card">
+    <label class="q-label">Условия в спальне: (отметь всё подходящее)</label>
+    <div class="choices" id="q-room">
+      <button class="choice multi" data-val="dark">✓ Полная темнота</button>
+      <button class="choice multi" data-val="cool">✓ Прохладно (18–20°C)</button>
+      <button class="choice multi" data-val="wifi">✗ WiFi роутер в спальне</button>
+      <button class="choice multi" data-val="phone-bed">✗ Телефон рядом с кроватью или на зарядке у кровати</button>
+      <button class="choice multi" data-val="noise">✗ Шум — улица, соседи</button>
+      <button class="choice multi" data-val="light-pollution">✗ Свет с улицы или ночники</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <label class="q-label">Насколько доволен(а) качеством своего сна прямо сейчас? *</label>
+    <div class="scale-wrap" id="q-sleep-score">
+      <button class="scale-btn" data-val="1">1</button>
+      <button class="scale-btn" data-val="2">2</button>
+      <button class="scale-btn" data-val="3">3</button>
+      <button class="scale-btn" data-val="4">4</button>
+      <button class="scale-btn" data-val="5">5</button>
+    </div>
+    <div class="scale-labels"><span>Совсем не доволен(а)</span><span>Полностью доволен(а)</span></div>
+  </div>
+
+  <div class="warn" id="warn-4">Пожалуйста, ответь на все обязательные вопросы</div>
+  <div class="nav-wrap">
+    <button class="btn-back" onclick="prevStep(4)">← Назад</button>
+    <button class="btn-next" onclick="nextStep(4)">Продолжить →</button>
+  </div>
+</div>
+
+<!-- ШАГ 5: ЕДА -->
+<div class="section" id="step-5">
+  <div style="height:10px"></div>
+  <div class="section-badge">Шаг 5 из 8</div>
+  <div class="section-title">Как ты ешь</div>
+  <div class="section-desc">Не диеты и не правила — мне интересно как реально выглядит твоя еда в обычный день.</div>
+  <div class="card">
+    <label class="q-label">Сколько раз в день обычно ешь (включая перекусы)? *</label>
+    <div class="choices" id="q-meals">
+      <button class="choice" data-val="1-2">1–2 раза, часто пропускаю приёмы пищи</button>
+      <button class="choice" data-val="3">3 раза, достаточно регулярно</button>
+      <button class="choice" data-val="3+snacks">3 основных + перекусы</button>
+      <button class="choice" data-val="grazing">Постоянно что-то ем в течение дня — без чёткого режима</button>
+      <button class="choice" data-val="varies">По-разному каждый день</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Что из этого ты замечаешь у себя?</label>
+    <div class="q-hint">Можно выбрать несколько</div>
+    <div class="choices" id="q-food-patterns">
+      <button class="choice multi" data-val="sweet-craving">Тяга к сладкому — особенно после еды или вечером</button>
+      <button class="choice multi" data-val="hunger-irritable">Сильный голод и раздражительность, если задержал(а) еду</button>
+      <button class="choice multi" data-val="sleepy-after">Слабость или сонливость после еды</button>
+      <button class="choice multi" data-val="eat-fast">Ем быстро, часто на ходу или за экраном</button>
+      <button class="choice multi" data-val="boredom-eating">Ем «за компанию» или от скуки, не от голода</button>
+      <button class="choice multi" data-val="stress-eating">Переедаю в стрессе или после напряжённого дня</button>
+      <button class="choice multi" data-val="skip-breakfast">Пропускаю завтрак или завтракаю очень поздно</button>
+      <button class="choice multi" data-val="none-food">Ничего из этого</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Как бы описал(а) своё отношение к еде прямо сейчас? *</label>
+    <div class="choices" id="q-food-attitude">
+      <button class="choice" data-val="calm">Спокойное — ем когда голоден(на), не думаю об этом много</button>
+      <button class="choice" data-val="tense">Напряжённое — много правил, ограничений или тревоги вокруг еды</button>
+      <button class="choice" data-val="chaotic">Хаотичное — то слежу, то срываюсь</button>
+      <button class="choice" data-val="indifferent">Скорее равнодушное — ем что есть, без особого интереса</button>
+      <button class="choice" data-val="obsessive">Еда занимает много места в голове — думаю об этом часто</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Опиши свой вчерашний день в еде</label>
+    <div class="q-hint">Завтрак, обед, ужин, всё что было между. Просто как есть, без прикрас.</div>
+    <textarea class="field-textarea" id="f-food-diary" placeholder="Стакан воды утром, потом..."></textarea>
+    <div class="field-note">Это помогает увидеть реальную картину, а не идеальную версию питания</div>
+  </div>
+  <div class="warn" id="warn-5">Пожалуйста, ответь на обязательные вопросы этого раздела</div>
+  <div class="nav-wrap">
+    <button class="btn-back" onclick="prevStep(5)">← Назад</button>
+    <button class="btn-next" onclick="nextStep(5)">Продолжить →</button>
+  </div>
+</div>
+
+<!-- ШАГ 6: СТИМУЛЯТОРЫ И ЗАВИСИМОСТИ — НОВЫЙ -->
+<div class="section" id="step-6">
+  <div style="height:10px"></div>
+  <div class="section-badge">Шаг 6 из 8</div>
+  <div class="section-title">Стимуляторы и привычки</div>
+  <div class="section-desc">Кофе, алкоголь, телефон — расскажи честно. Это не оценка, а важная клиническая информация.</div>
+
+  <div class="sec-divider">Кофе и кофеин</div>
+  <div class="card">
+    <label class="q-label">Сколько чашек кофе / кофеиносодержащих напитков в день? *</label>
+    <div class="choices" id="q-coffee-amount">
+      <button class="choice" data-val="none">Не пью совсем</button>
+      <button class="choice" data-val="one">1 чашка — только утром</button>
+      <button class="choice" data-val="two3">2–3 чашки в течение дня</button>
+      <button class="choice" data-val="more3">Более 3, иногда после 14:00</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Пьёшь ли кофе натощак? *</label>
+    <div class="choices" id="q-coffee-empty">
+      <button class="choice" data-val="no">Нет, всегда после еды</button>
+      <button class="choice" data-val="sometimes">Иногда</button>
+      <button class="choice" data-val="usually">Да, обычно вместо завтрака</button>
+      <button class="choice" data-val="na">Не пью кофе</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Зачем тебе кофе? (выбери главное) *</label>
+    <div class="choices" id="q-coffee-why">
+      <button class="choice" data-val="pleasure">Просто нравится вкус и ритуал</button>
+      <button class="choice" data-val="wake">Не могу нормально проснуться без него</button>
+      <button class="choice" data-val="energy">Нужен чтобы держаться в течение дня</button>
+      <button class="choice" data-val="focus">Без него не могу сосредоточиться</button>
+      <button class="choice" data-val="na">Не пью кофе</button>
+    </div>
+  </div>
+
+  <div class="sec-divider">Алкоголь</div>
+  <div class="card">
+    <label class="q-label">Как часто употребляешь алкоголь? *</label>
+    <div class="choices" id="q-alcohol-freq">
+      <button class="choice" data-val="none">Не пью</button>
+      <button class="choice" data-val="rare">Редко, по особым случаям</button>
+      <button class="choice" data-val="weekly">1–2 раза в неделю</button>
+      <button class="choice" data-val="daily">Почти каждый вечер</button>
+    </div>
+  </div>
+  <div class="card" id="alc-why-card" style="display:none">
+    <label class="q-label">Зачем? (честно)</label>
+    <div class="choices" id="q-alcohol-why">
+      <button class="choice" data-val="social">Социальные ситуации, не привычка</button>
+      <button class="choice" data-val="relax">Расслабиться после дня</button>
+      <button class="choice" data-val="stress">Снять стресс, «отключиться»</button>
+      <button class="choice" data-val="sleep">Помогает уснуть</button>
+    </div>
+  </div>
+
+  <div class="sec-divider">Телефон и дофамин</div>
+  <div class="card">
+    <label class="q-label">Как часто берёшь телефон без конкретной цели? *</label>
+    <div class="choices" id="q-phone-habit">
+      <button class="choice" data-val="rarely">Редко, только по необходимости</button>
+      <button class="choice" data-val="sometimes">Иногда листаю ленту, не критично</button>
+      <button class="choice" data-val="often">Часто — первое что делаю, берю телефон</button>
+      <button class="choice" data-val="constant">Постоянно, тяжело не трогать</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Что происходит, когда нет интернета или нельзя взять телефон? *</label>
+    <div class="choices" id="q-phone-off">
+      <button class="choice" data-val="fine">Спокойно, даже приятно</button>
+      <button class="choice" data-val="mild">Небольшой дискомфорт, но терплю</button>
+      <button class="choice" data-val="anxious">Тревога, беспокойство</button>
+      <button class="choice" data-val="panic">Очень сложно — раздражение или паника</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Когда тебе скучно или тревожно — что делаешь первым делом? *</label>
+    <div class="choices" id="q-boredom">
+      <button class="choice" data-val="sit">Просто нахожусь, позволяю себе скучать</button>
+      <button class="choice" data-val="move">Двигаюсь — прогулка, спорт</button>
+      <button class="choice" data-val="phone">Беру телефон</button>
+      <button class="choice" data-val="eat">Иду к холодильнику</button>
+      <button class="choice" data-val="drink">Наливаю что-нибудь выпить</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Есть ли другие паттерны? (можно несколько)</label>
+    <div class="choices" id="q-other-habits">
+      <button class="choice multi" data-val="shopping">Импульсивные покупки в стрессе</button>
+      <button class="choice multi" data-val="gaming">Игры / ставки</button>
+      <button class="choice multi" data-val="scrolling">Бесконечный скроллинг новостей</button>
+      <button class="choice multi" data-val="series">Запойный просмотр сериалов</button>
+      <button class="choice multi" data-val="smoking">Курение / вейп</button>
+      <button class="choice multi" data-val="none-habits">Ничего из перечисленного</button>
+    </div>
+  </div>
+
+  <div class="warn" id="warn-6">Пожалуйста, ответь на все обязательные вопросы</div>
+  <div class="nav-wrap">
+    <button class="btn-back" onclick="prevStep(6)">← Назад</button>
+    <button class="btn-next" onclick="nextStep(6)">Продолжить →</button>
+  </div>
+</div>
+
+<!-- ШАГ 7: ТЕЛО, ДВИЖЕНИЕ, ВОССТАНОВЛЕНИЕ — РАСШИРЕННЫЙ -->
+<div class="section" id="step-7">
+  <div style="height:10px"></div>
+  <div class="section-badge">Шаг 7 из 8</div>
+  <div class="section-title">Тело и восстановление</div>
+  <div class="section-desc">Как ты двигаешься, отдыхаешь и восстанавливаешься — это напрямую влияет на энергию и гормоны.</div>
+
+  <div class="card">
+    <label class="q-label">Как двигаешься в течение недели? *</label>
+    <div class="choices" id="q-movement">
+      <button class="choice" data-val="intense">Интенсивные тренировки 4–6 раз в неделю</button>
+      <button class="choice" data-val="moderate">Тренировки 2–3 раза в неделю + прогулки</button>
+      <button class="choice" data-val="light">В основном хожу пешком, лёгкая активность</button>
+      <button class="choice" data-val="sedentary">Очень мало двигаюсь, в основном сижу</button>
+      <button class="choice" data-val="irregular">По-разному, нет системы</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Как чувствуешь себя после тренировок или физической нагрузки? *</label>
+    <div class="choices" id="q-recovery">
+      <button class="choice" data-val="great">Хорошо восстанавливаюсь, чувствую себя лучше</button>
+      <button class="choice" data-val="tired">Устаю сильнее, чем хотелось бы</button>
+      <button class="choice" data-val="crash">Часто переусердствую и потом чувствую себя истощённой</button>
+      <button class="choice" data-val="no-data">Не тренируюсь регулярно, сложно оценить</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <label class="q-label">Как часто бываешь на улице при дневном свете? *</label>
+    <div class="choices" id="q-sunlight">
+      <button class="choice" data-val="daily">Каждый день — хотя бы 20–30 минут</button>
+      <button class="choice" data-val="few">Несколько раз в неделю</button>
+      <button class="choice" data-val="rare">Редко, в основном в помещении</button>
+      <button class="choice" data-val="never">Почти никогда — с машины в офис и обратно</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Как часто бываешь на природе (лес, парк, вода)? *</label>
+    <div class="choices" id="q-nature">
+      <button class="choice" data-val="weekly">Каждую неделю</button>
+      <button class="choice" data-val="monthly">Раз в месяц</button>
+      <button class="choice" data-val="rare">Редко, только в отпуске</button>
+      <button class="choice" data-val="never">Практически никогда</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Можешь ли ты просто ничего не делать — без чувства вины? *</label>
+    <div class="choices" id="q-rest-guilt">
+      <button class="choice" data-val="easy">Да, отдых — часть жизни</button>
+      <button class="choice" data-val="sometimes">Иногда получается, иногда нет</button>
+      <button class="choice" data-val="guilty">Обычно чувствую вину за «безделье»</button>
+      <button class="choice" data-val="impossible">Не могу — всегда должна что-то делать</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Что из этого описывает твоё типичное состояние?</label>
+    <div class="q-hint">Можно выбрать несколько</div>
+    <div class="choices" id="q-body-state">
+      <button class="choice multi" data-val="cant-switch-off">Трудно «выключиться» и просто отдыхать</button>
+      <button class="choice multi" data-val="tension">Тело напряжено — шея, плечи, челюсть</button>
+      <button class="choice multi" data-val="racing-mind">Голова занята постоянно — планирование, прокрутка, беспокойство</button>
+      <button class="choice multi" data-val="sleep-exhaustion">Засыпаю только «в усталость», а не потому что расслабился(ась)</button>
+      <button class="choice multi" data-val="irritable">Раздражаюсь сильнее, чем хотелось бы</button>
+      <button class="choice multi" data-val="energy-crash">Провал энергии в 14:00–17:00</button>
+      <button class="choice multi" data-val="phone-addict">Телефон — первое что беру утром, и последнее вечером</button>
+      <button class="choice multi" data-val="none-body">Ничего из этого</button>
+    </div>
+  </div>
+
+  <div class="warn" id="warn-7">Пожалуйста, ответь на все обязательные вопросы</div>
+  <div class="nav-wrap">
+    <button class="btn-back" onclick="prevStep(7)">← Назад</button>
+    <button class="btn-next" onclick="nextStep(7)">Продолжить →</button>
+  </div>
+</div>
+
+<!-- ШАГ 8: СТРЕСС, СМЫСЛ, ФИНАЛ -->
+<div class="section" id="step-8">
+  <div style="height:10px"></div>
+  <div class="section-badge">Шаг 8 из 8</div>
+  <div class="section-title">Стресс, смысл и последний вопрос</div>
+  <div class="section-desc">Почти готово — осталось самое важное.</div>
+
+  <div class="card">
+    <label class="q-label">Как оценишь уровень стресса прямо сейчас? *</label>
+    <div class="scale-wrap" id="q-stress-level">
+      <button class="scale-btn" data-val="1">1</button><button class="scale-btn" data-val="2">2</button>
+      <button class="scale-btn" data-val="3">3</button><button class="scale-btn" data-val="4">4</button>
+      <button class="scale-btn" data-val="5">5</button>
+    </div>
+    <div class="scale-labels"><span>Всё спокойно</span><span>Хронически высокий</span></div>
+  </div>
+  <div class="card">
+    <label class="q-label">Как обычно справляешься со стрессом? Что реально помогает?</label>
+    <textarea class="field-textarea" id="f-stress-coping" placeholder="Напиши честно — что реально работает для тебя..."></textarea>
+  </div>
+  <div class="card">
+    <label class="q-label">Как относишься к себе, когда что-то не получается? *</label>
+    <div class="choices" id="q-self-attitude">
+      <button class="choice" data-val="kind">Стараюсь быть к себе доброй(ым) — все иногда ошибаются</button>
+      <button class="choice" data-val="let-go">Расстраиваюсь, но быстро отпускаю</button>
+      <button class="choice" data-val="ruminate">Долго переживаю и корю себя</button>
+      <button class="choice" data-val="harsh">Критикую себя жёстко — это меня «мотивирует»</button>
+      <button class="choice" data-val="avoid">Стараюсь не думать об этом</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <label class="q-label">Есть ли у тебя ощущение, что знаешь зачем встаёшь утром? *</label>
+    <div class="choices" id="q-purpose">
+      <button class="choice" data-val="clear">Да, есть чёткое ощущение смысла и направления</button>
+      <button class="choice" data-val="partial">Иногда есть, иногда теряется</button>
+      <button class="choice" data-val="vague">Смутно — скорее нет чёткого понимания</button>
+      <button class="choice" data-val="lost">Нет, живу на автопилоте</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Как часто в конце дня чувствуешь, что день прожит не зря? *</label>
+    <div class="choices" id="q-day-feel">
+      <button class="choice" data-val="often">Часто — есть удовлетворение</button>
+      <button class="choice" data-val="sometimes">Иногда, не каждый день</button>
+      <button class="choice" data-val="rarely">Редко — в основном ощущение пустоты</button>
+      <button class="choice" data-val="never">Не помню когда последний раз</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Есть ли близкие люди, с которыми можешь поговорить честно? *</label>
+    <div class="choices" id="q-connection">
+      <button class="choice" data-val="yes">Да, есть такие люди</button>
+      <button class="choice" data-val="few">Один-два человека</button>
+      <button class="choice" data-val="hard">Сложно открываться даже близким</button>
+      <button class="choice" data-val="alone">Нет, справляюсь одна</button>
+    </div>
+  </div>
+  <div class="card">
+    <label class="q-label">Насколько сейчас готов(а) реально что-то менять? *</label>
+    <div class="scale-wrap" id="q-readiness">
+      <button class="scale-btn" data-val="1">1</button><button class="scale-btn" data-val="2">2</button>
+      <button class="scale-btn" data-val="3">3</button><button class="scale-btn" data-val="4">4</button>
+      <button class="scale-btn" data-val="5">5</button>
+    </div>
+    <div class="scale-labels"><span>Пока только изучаю</span><span>Готов(а) полностью</span></div>
+  </div>
+  <div class="card">
+    <label class="q-label">Есть ли что-то важное о себе, что не вошло ни в один из вопросов выше?</label>
+    <textarea class="field-textarea" id="f-extra" placeholder="Необязательно, но если есть — напиши..."></textarea>
+  </div>
+
+  <div class="consent-block">
+    <div style="font-size:13px;font-weight:600;color:var(--deep);margin-bottom:10px;">Прежде чем отправить</div>
+    <div class="consent-item">
+      <div class="consent-check" id="consent-1" onclick="toggleConsent('consent-1')"></div>
+      <div class="consent-text">Я даю согласие на обработку моих персональных данных и клинической информации в целях оказания консультационных услуг Dr. Diana Demeshko *</div>
+    </div>
+    <div class="consent-item">
+      <div class="consent-check" id="consent-2" onclick="toggleConsent('consent-2')"></div>
+      <div class="consent-text">Я понимаю, что мои данные и результаты анкет хранятся в защищённой клинической базе и не передаются третьим лицам *</div>
+    </div>
+  </div>
+
+  <div class="warn" id="warn-8">Пожалуйста, ответь на все вопросы и подтверди согласие</div>
+  <div class="nav-wrap">
+    <button class="btn-back" onclick="prevStep(8)">← Назад</button>
+    <button class="btn-next" onclick="submitForm()">Отправить анкету 🌿</button>
+  </div>
+</div>
+
+<!-- РЕЗУЛЬТАТЫ -->
+<div id="screen-thanks" style="display:none">
+  <div class="thanks-wrap">
+    <div class="thanks-icon">🌿</div>
+    <div class="thanks-title">Спасибо, что доверяешь</div>
+    <div class="thanks-text">Я внимательно прочитаю твои ответы до нашей встречи — это поможет сразу работать с тем, что важно именно тебе.</div>
+    <div class="save-notice" id="save-notice"></div>
+
+    <!-- КАРТОЧКА АРХЕТИПА -->
+    <div class="archetype-result-card" id="archetype-card" style="display:none">
+      <div class="arch-header" id="arch-header">
+        <div class="arch-emoji" id="arch-emoji"></div>
+        <div>
+          <div class="arch-label">Твой стиль работы над здоровьем</div>
+          <div class="arch-name" id="arch-name"></div>
+        </div>
+      </div>
+      <div class="arch-quote" id="arch-quote"></div>
+      <div class="arch-desc" id="arch-desc"></div>
+      <div class="arch-how">
+        <div class="arch-how-title">Как это влияет на нашу работу</div>
+        <div class="arch-how-text" id="arch-how-text"></div>
+      </div>
+    </div>
+
+    <!-- РАДАР + ЭНЕРГЕТИЧЕСКИЕ ЗОНЫ -->
+    <div class="radar-card" id="energy-radar-card" style="display:none">
+      <h4>Карта энергетических зон</h4>
+      <div class="radar-wrap"><canvas id="radarChart" width="270" height="270"></canvas></div>
+    </div>
+    <div id="zone-blocks"></div>
+    <div class="overall-card" id="overall-card" style="display:none"></div>
+
+    <div class="thanks-card">
+      <h4>Что дальше?</h4>
+      <div style="font-size:13px;color:var(--text-light);line-height:1.7;">
+        В ближайшее время я напишу тебе в Telegram — и мы договоримся о следующем шаге.<br><br>
+        <strong style="color:var(--deep)">— Диана</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="spinner"></div>
+  <div class="overlay-text">Сохраняем твои ответы…</div>
+</div>
+
+<script>
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzusjqVQWAFi2VTI6_Ex2_SjufTDqe-l0RL3Eeas4iwXwYNhLil0nWCBikmYYQSaD84/exec';
+const TOTAL_STEPS = 8;
+let currentStep = 1;
+const answers = {};
+
+// ── INIT ──
+function init() {
+  const row = document.getElementById('steps-row');
+  for(let i=1;i<=TOTAL_STEPS;i++){
+    const d=document.createElement('div');
+    d.className='step-dot'+(i===1?' active':'');
+    d.id='dot-'+i;
+    row.appendChild(d);
+  }
+  // Single choice
+  document.querySelectorAll('.choices').forEach(group=>{
+    group.querySelectorAll('.choice:not(.multi)').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        group.querySelectorAll('.choice:not(.multi)').forEach(b=>b.classList.remove('selected'));
+        btn.classList.add('selected');
+        answers[group.id]=btn.dataset.val||btn.dataset.type||btn.textContent.trim().substring(0,60);
+        group.classList.remove('needs-answer');
+        // Conditionals
+        if(group.id==='q-sleep-issues') checkWakeTime();
+        if(group.id==='q-alcohol-freq') checkAlcWhy();
+      });
+    });
+  });
+  // Multi choice
+  document.querySelectorAll('.choice.multi').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const group=btn.closest('.choices');
+      const isNone=btn.dataset.val&&btn.dataset.val.startsWith('none');
+      if(isNone){
+        group.querySelectorAll('.choice.multi').forEach(b=>b.classList.remove('selected'));
+        btn.classList.add('selected');
+        answers[group.id]=[btn.dataset.val];
+      } else {
+        const noneBtn=group.querySelector('[data-val^="none"]');
+        if(noneBtn)noneBtn.classList.remove('selected');
+        btn.classList.toggle('selected');
+        answers[group.id]=[...group.querySelectorAll('.choice.multi.selected')].map(b=>b.dataset.val||b.textContent.trim().substring(0,40));
+      }
+      if(group.id==='q-sleep-issues') checkWakeTime();
+    });
+  });
+  // Scale
+  document.querySelectorAll('.scale-wrap').forEach(wrap=>{
+    wrap.querySelectorAll('.scale-btn').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        wrap.querySelectorAll('.scale-btn').forEach(b=>b.classList.remove('selected'));
+        btn.classList.add('selected');
+        answers[wrap.id]=btn.dataset.val;
+        wrap.classList.remove('needs-answer');
+      });
+    });
+  });
+  updateProgress();
+}
+
+function checkWakeTime(){
+  const issues=answers['q-sleep-issues']||[];
+  const show=Array.isArray(issues)&&issues.includes('night-wake-regular');
+  document.getElementById('wake-time-card').style.display=show?'block':'none';
+  if(!show)delete answers['q-wake-time'];
+}
+function checkAlcWhy(){
+  const freq=answers['q-alcohol-freq']||'';
+  const show=['weekly','daily'].includes(freq);
+  document.getElementById('alc-why-card').style.display=show?'block':'none';
+  if(!show)delete answers['q-alcohol-why'];
+}
+
+function updateProgress(){
+  const pct=Math.round(((currentStep-1)/TOTAL_STEPS)*100);
+  document.getElementById('progress-fill').style.width=pct+'%';
+  document.getElementById('step-label').textContent='Шаг '+currentStep+' из '+TOTAL_STEPS;
+  document.getElementById('step-pct').textContent=pct+'%';
+  for(let i=1;i<=TOTAL_STEPS;i++){
+    const d=document.getElementById('dot-'+i);
+    if(d)d.className='step-dot'+(i<currentStep?' done':i===currentStep?' active':'');
+  }
+}
+function showStep(n){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  const el=document.getElementById('step-'+n);
+  if(el)el.classList.add('active');
+  currentStep=n;
+  updateProgress();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function prevStep(from){if(from>1)showStep(from-1);}
+function nextStep(from){if(!validateStep(from))return;if(from<TOTAL_STEPS)showStep(from+1);}
+
+// ── VALIDATION ──
+function validateStep(step){
+  let ok=true;
+  const w=document.getElementById('warn-'+step);
+  const req=(ids)=>ids.forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el)return;
+    if(!el.value||!el.value.trim()){el.classList.add('error');ok=false;}
+    else el.classList.remove('error');
+  });
+  const reqChoice=(ids)=>ids.forEach(id=>{
+    if(!answers[id]&&!document.querySelector(`#${id} .choice.selected`)){
+      const el=document.getElementById(id);
+      if(el)el.classList.add('needs-answer');
+      ok=false;
+    }
+  });
+
+  if(step===1) req(['f-name','f-lastname','f-email','f-phone','f-age','f-sex']);
+  if(step===2){req(['f-complaint','f-goal1']);reqChoice(['q-time']);}
+  if(step===3) reqChoice(['q-a1','q-a2','q-a3','q-a4','q-a5','q-a6']);
+  if(step===4){
+    reqChoice(['q-sleep-hours','q-wake','q-sleep-schedule']);
+    if(!answers['q-sleep-score']){document.getElementById('q-sleep-score').classList.add('needs-answer');ok=false;}
+  }
+  if(step===5) reqChoice(['q-meals','q-food-attitude']);
+  if(step===6) reqChoice(['q-coffee-amount','q-coffee-empty','q-coffee-why','q-alcohol-freq','q-phone-habit','q-phone-off','q-boredom']);
+  if(step===7) reqChoice(['q-movement','q-recovery','q-sunlight','q-nature','q-rest-guilt']);
+  if(step===8){
+    reqChoice(['q-self-attitude','q-purpose','q-day-feel','q-connection']);
+    if(!answers['q-stress-level']){document.getElementById('q-stress-level').classList.add('needs-answer');ok=false;}
+    if(!answers['q-readiness']){document.getElementById('q-readiness').classList.add('needs-answer');ok=false;}
+    const c1=document.getElementById('consent-1');
+    const c2=document.getElementById('consent-2');
+    if(!c1.classList.contains('checked')){c1.classList.add('error-check');ok=false;}
+    if(!c2.classList.contains('checked')){c2.classList.add('error-check');ok=false;}
+  }
+  if(w){w.textContent='Пожалуйста, ответь на все обязательные вопросы этого шага';w.style.display=ok?'none':'block';}
+  return ok;
+}
+
+function toggleConsent(id){
+  const el=document.getElementById(id);
+  el.classList.toggle('checked');
+  el.classList.remove('error-check');
+}
+
+// ── ARCHETYPE ──
+const ARCHETYPE_META={
+  upholder:{name:"Поборник",emoji:"🎯",quote:"«Я выполняю — и внешние, и внутренние ожидания»",
+    desc:"Ты легко начинаешь и редко бросаешь. Рекомендации выполняешь без сопротивления — это большая сила. Главное, на что я обращу внимание: не перегружать тебя. Поборники часто берут слишком много и выгорают от самодисциплины.",
+    how:"Буду давать чёткие протоколы с конкретными шагами. Добавлю маркеры самонаблюдения — чтобы ты делала не механически, а с пониманием что происходит в теле.",
+    doc_note:"Клиент-Поборник: высокая комплаентность, риск перегрузки. Давать чёткие протоколы с чекбоксами. Следить за признаками выгорания от самодисциплины. Не перегружать списками.",
+    colors:{bg:'linear-gradient(135deg,#2D5A27,#4A8A3A)',color:'#fff'}
+  },
+  skeptic:{name:"Скептик",emoji:"🔍",quote:"«Я делаю только то, в чём вижу смысл»",
+    desc:"Ты задаёшь вопросы «почему именно так?» — и это правильно. Ты хорошо работаешь самостоятельно когда понимаешь логику. Авторитет сам по себе тебя не убеждает — нужны аргументы и данные.",
+    how:"Буду объяснять механизмы — не просто «что делать», а «почему это работает физиологически». Дам принципы, а не списки. Доверяю твоей автономии.",
+    doc_note:"Клиент-Скептик: нужна доказательная база и объяснение механизмов. Не давать списки без обоснования. Высокая автономия — доверять её решениям. Хорошо работает на принципах, а не правилах.",
+    colors:{bg:'linear-gradient(135deg,#1A3A5C,#2E6A9A)',color:'#fff'}
+  },
+  obliger:{name:"Обязанный",emoji:"🤝",quote:"«Я делаю — потому что важно не подвести»",
+    desc:"Ты лучше всего работаешь когда есть внешняя подотчётность. Делать «только для себя» — сложнее. Это не слабость — это просто твоя природа. Наши встречи станут важным якорем.",
+    how:"Буду регулярно спрашивать как идёт процесс — это не контроль, а поддержка. Дам конкретные небольшие задания между встречами. Постепенно будем строить и внутреннюю мотивацию.",
+    doc_note:"Клиент-Обязанный: ключевой мотиватор — внешняя подотчётность. Регулярные check-in между встречами. Небольшие задания с дедлайнами. Риск: делает всё для врача, но не для себя — постепенно строить внутреннюю мотивацию.",
+    colors:{bg:'linear-gradient(135deg,#5C3A1A,#9A6A2E)',color:'#fff'}
+  },
+  rebel:{name:"Бунтарь",emoji:"🦋",quote:"«Я делаю только то, что выбираю сама»",
+    desc:"Любое давление — даже внутреннее — вызывает сопротивление. Ты можешь знать что надо сделать, но не делать именно потому что надо. Слово «протокол» тебя скорее остановит, чем поможет.",
+    how:"Никаких протоколов — только меню опций. Буду давать информацию и доверять твоему выбору. Ты сама решаешь что и когда попробовать.",
+    doc_note:"Клиент-Бунтарь: избегать слов 'протокол', 'надо', 'должна'. Давать меню выбора, не списки обязательств. Объяснять через идентичность ('как человек, который заботится о здоровье, ты можешь...'). Внешнее давление контрпродуктивно.",
+    colors:{bg:'linear-gradient(135deg,#4A1A5C,#7A3A9A)',color:'#fff'}
+  }
+};
+
+function calcArchetype(){
+  const scores={upholder:0,skeptic:0,obliger:0,rebel:0};
+  ['q-a1','q-a2','q-a3','q-a4','q-a5','q-a6'].forEach(id=>{
+    const btn=document.querySelector(`#${id} .choice.selected`);
+    if(btn&&btn.dataset.type)scores[btn.dataset.type]=(scores[btn.dataset.type]||0)+1;
+  });
+  const sorted=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+  return{scores,primary:sorted[0][0],secondary:sorted[1][0],primary_score:sorted[0][1],secondary_score:sorted[1][1]};
+}
+
+// ── ENERGY SCORING ──
+function scoreZone(zone){
+  let s=100;
+  const g=k=>answers[k]||'';
+  const arr=k=>Array.isArray(answers[k])?answers[k]:(answers[k]||'').split(',').filter(Boolean);
+
+  if(zone==='sleep'){
+    const h=g('q-sleep-hours');
+    if(h==='less6')s-=30;else if(h==='6-7')s-=15;else if(h==='unstable')s-=20;
+    const w=g('q-wake');
+    if(w==='tired')s-=30;else if(w==='hard')s-=20;else if(w==='ok')s-=5;
+    const sc=g('q-sleep-schedule');
+    if(sc==='chaos')s-=15;else if(sc==='shift')s-=8;
+    const si=arr('q-sleep-issues');
+    if(si.includes('cant-sleep'))s-=12;
+    if(si.includes('night-wake-regular'))s-=12;
+    if(si.includes('night-wake-multiple'))s-=18;
+    if(si.includes('no-restore'))s-=15;
+    if(si.includes('phone'))s-=8;
+    const rm=arr('q-room');
+    if(rm.includes('wifi'))s-=8;
+    if(rm.includes('phone-bed'))s-=8;
+    if(rm.includes('light-pollution'))s-=5;
+    const slScore=parseInt(g('q-sleep-score')||'3');
+    if(slScore<=2)s-=15;else if(slScore===3)s-=5;
+  }
+  if(zone==='stimulants'){
+    const ca=g('q-coffee-amount');
+    if(ca==='more3')s-=28;else if(ca==='two3')s-=10;
+    const ce=g('q-coffee-empty');
+    if(ce==='usually')s-=20;else if(ce==='sometimes')s-=8;
+    const cw=g('q-coffee-why');
+    if(['wake','energy'].includes(cw))s-=15;else if(cw==='focus')s-=10;
+    const af=g('q-alcohol-freq');
+    if(af==='daily')s-=35;else if(af==='weekly')s-=15;
+    const aw=g('q-alcohol-why');
+    if(['relax','stress','sleep'].includes(aw))s-=20;
+    const fp=arr('q-food-patterns');
+    if(fp.includes('sweet-craving'))s-=10;
+    if(fp.includes('stress-eating'))s-=8;
+  }
+  if(zone==='dopamine'){
+    const ph=g('q-phone-habit');
+    if(ph==='constant')s-=30;else if(ph==='often')s-=18;
+    const po=g('q-phone-off');
+    if(po==='panic')s-=25;else if(po==='anxious')s-=15;
+    const bo=g('q-boredom');
+    if(bo==='phone')s-=12;else if(['eat','drink'].includes(bo))s-=18;
+    const oh=arr('q-other-habits').filter(h=>h&&h!=='none-habits');
+    s-=oh.length*8;
+    const fp=arr('q-food-patterns');
+    if(fp.includes('boredom-eating'))s-=10;
+    const bs=arr('q-body-state');
+    if(bs.includes('phone-addict'))s-=10;
+  }
+  if(zone==='recovery'){
+    const sun=g('q-sunlight');
+    if(sun==='never')s-=25;else if(sun==='rare')s-=15;
+    const ex=g('q-movement');
+    if(ex==='sedentary')s-=25;else if(ex==='irregular')s-=12;
+    const rec=g('q-recovery');
+    if(rec==='crash')s-=20;else if(rec==='tired')s-=10;
+    const rg=g('q-rest-guilt');
+    if(rg==='impossible')s-=20;else if(rg==='guilty')s-=12;
+    const nat=g('q-nature');
+    if(nat==='never')s-=15;else if(nat==='rare')s-=8;
+    const bs=arr('q-body-state');
+    if(bs.includes('cant-switch-off'))s-=8;
+    if(bs.includes('sleep-exhaustion'))s-=10;
+  }
+  if(zone==='meaning'){
+    const pur=g('q-purpose');
+    if(pur==='lost')s-=30;else if(pur==='vague')s-=18;
+    const df=g('q-day-feel');
+    if(df==='never')s-=25;else if(df==='rarely')s-=15;
+    const con=g('q-connection');
+    if(con==='alone')s-=20;else if(con==='hard')s-=10;
+    const sl=parseInt(g('q-stress-level')||'3');
+    if(sl>=5)s-=25;else if(sl>=4)s-=12;
+    const sa=g('q-self-attitude');
+    if(sa==='harsh')s-=15;else if(sa==='ruminate')s-=10;
+  }
+  return Math.max(5,Math.min(100,s));
+}
+
+function getLevel(score){return score>=70?'good':score>=45?'warning':'critical';}
+
+function getZoneInterpretation(zone,score){
+  const level=getLevel(score);
+  // Для клиента
+  const client={
+    sleep:{
+      good:'Сон — твой ресурс. Митохондрии успевают восстановиться. Это фундамент, на котором держится всё остальное.',
+      warning:'Есть зоны риска в качестве сна. Митохондрии не успевают полностью восстановиться — отсюда хроническая усталость и сниженный ресурс.',
+      critical:'Сон — критическая зона. Тело не восстанавливается ночью и работает в режиме постоянного стресса. Это приоритет №1 — без нормализации сна эффект от всего остального будет минимальным.'
+    },
+    stimulants:{
+      good:'Стимуляторы не управляют твоей энергией. Это хороший знак — значит, тело умеет вырабатывать собственный ресурс.',
+      warning:'Стимуляторы частично берут на себя функцию энергии. Кофе или алкоголь стали заменой сну или восстановлению. Это займы у завтрашнего дня.',
+      critical:'Стимуляторы стали основным источником энергии. Кофе → ↑ кортизол → плохой сон → усталость → снова кофе. Алкоголь разрушает REM-фазу — ту самую, которая восстанавливает. Замкнутый круг.'
+    },
+    dopamine:{
+      good:'Дофаминовые паттерны здоровые. Ты управляешь вниманием, а не оно тобой.',
+      warning:'Есть паттерны автоматического поиска дофамина — телефон, еда, скроллинг. Вопрос не «зачем я так делаю», а «чего не хватает».',
+      critical:'Дофаминовые зависимости активно управляют поведением. Мозг потерял чувствительность к малым наградам — нужны всё большие дозы стимуляции. Это физиология, не слабость характера.'
+    },
+    recovery:{
+      good:'Ты умеешь восстанавливаться. Природа, движение, отдых без вины — это в твоей жизни есть. Это редкость в современном ритме.',
+      warning:'Восстановление есть, но не системное. Тело не получает того отдыха, который возможен только в тишине и природе.',
+      critical:'Восстановления практически нет. Тело давно в режиме выживания — прямой путь к истощению надпочечников. Это структурная проблема.'
+    },
+    meaning:{
+      good:'Есть ощущение смысла и направления. Это мощнейший источник жизненной энергии — часто недооценённый.',
+      warning:'Смысл есть, но неустойчивый. Жизнь заполнена задачами, но не всегда тем, что по-настоящему важно. Незаметный, но постоянный источник стресса.',
+      critical:'Жизнь на автопилоте или отсутствие смысла — один из сильнейших и незаметных источников хронического стресса. Тело реагирует так же, как на внешние угрозы.'
+    }
+  };
+  // Для врача
+  const doc={
+    sleep:{
+      good:'Сон адекватный, режим соблюдён. Нет критических нарушений гигиены сна.',
+      warning:'Нарушения сна: обратить внимание на режим, гигиену, возможный дефицит магния. Исключить нарушение кортизолового ритма (кортизол слюна). Рассмотреть: магний глицинат вечером, ашваганда, мелатонин.',
+      critical:'Критические нарушения сна. Приоритет протокола. Исследовать: кортизол слюна (ритм), ТТГ/T3/T4, ферритин, D3. Протокол: гигиена сна + магний глицинат + адаптогены. Возможный ГГНО-дисбаланс.'
+    },
+    stimulants:{
+      good:'Стимуляторы не используются как костыли. Нет зависимостей.',
+      warning:'Умеренное использование стимуляторов. Кофе и/или алкоголь как инструмент регуляции состояния. Обсудить механизм кофеинового цикла и алкоголь → REM. Постепенное снижение.',
+      critical:'Кофеин и/или алкоголь — основной инструмент регуляции энергии. Приоритет: разорвать замкнутый круг. Поддержать нервную систему (B5, B6, Mg, ашваганда). Обсудить зависимость без осуждения.'
+    },
+    dopamine:{
+      good:'Дофаминовые паттерны в норме. Нет признаков зависимого поведения.',
+      warning:'Умеренные дофаминовые паттерны (телефон, еда, скроллинг). Обсудить природу дофаминовой зависимости. Найти «чего не хватает» — смысл, связь, отдых.',
+      critical:'Выраженные дофаминовые зависимости. Рассмотреть роль L-тирозина, магния, омега-3 в нейромедиаторном балансе. Обсудить поведенческую составляющую. Возможная сниженная дофаминовая чувствительность.'
+    },
+    recovery:{
+      good:'Адекватное восстановление. Физическая активность регулярная.',
+      warning:'Недостаточное восстановление. Мало солнца, природы или есть вина за отдых. Рискованная зона — протокол включить прогулки, выход на свет, разрешение отдыхать. Проверить D3.',
+      critical:'Критически недостаточное восстановление. Признаки надпочечникового истощения. Проверить кортизол/ДГЭА, D3. Нагрузки только восстановительные. Природа, свет — приоритет в протоколе.'
+    },
+    meaning:{
+      good:'Хорошая жизненная наполненность, есть смысл и связи.',
+      warning:'Сниженная жизненная наполненность. Использовать инструменты коучинга: колесо жизни, икигаи. Обсудить источники смысла.',
+      critical:'Выраженная пустота / жизнь на автопилоте. Это хронический стрессор. Коучинговая работа обязательна. При признаках депрессии — направить к специалисту. Магний, B6, омега-3 как нутрициологическая поддержка.'
+    }
+  };
+  const zoneNames={sleep:'Сон',stimulants:'Стимуляторы',dopamine:'Дофамин',recovery:'Восстановление',meaning:'Смысл'};
+  const emojis={good:'🟢',warning:'🟡',critical:'🔴'};
+  return{
+    name:zoneNames[zone],
+    emoji:emojis[level],
+    level,
+    client_interp:client[zone][level],
+    doc_interp:doc[zone][level]
+  };
+}
+
+// ── RADAR ──
+function drawRadar(scores){
+  const canvas=document.getElementById('radarChart');
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width,H=canvas.height;
+  const cx=W/2,cy=H/2,r=Math.min(W,H)*0.34;
+  const n=5;
+  const vals=scores.map(s=>s/100);
+  ctx.clearRect(0,0,W,H);
+  for(let ring=1;ring<=4;ring++){
+    ctx.beginPath();
+    for(let i=0;i<n;i++){
+      const a=(i/n)*Math.PI*2-Math.PI/2;
+      const x=cx+Math.cos(a)*r*(ring/4);
+      const y=cy+Math.sin(a)*r*(ring/4);
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.closePath();
+    ctx.strokeStyle='rgba(45,74,45,0.12)';ctx.lineWidth=1;ctx.stroke();
+  }
+  for(let i=0;i<n;i++){
+    const a=(i/n)*Math.PI*2-Math.PI/2;
+    ctx.beginPath();ctx.moveTo(cx,cy);
+    ctx.lineTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r);
+    ctx.strokeStyle='rgba(45,74,45,0.1)';ctx.lineWidth=1;ctx.stroke();
+  }
+  ctx.beginPath();
+  for(let i=0;i<n;i++){
+    const a=(i/n)*Math.PI*2-Math.PI/2;
+    const x=cx+Math.cos(a)*r*vals[i];
+    const y=cy+Math.sin(a)*r*vals[i];
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  }
+  ctx.closePath();
+  ctx.fillStyle='rgba(91,140,90,0.15)';ctx.fill();
+  ctx.strokeStyle='#5B8C5A';ctx.lineWidth=2;ctx.stroke();
+  for(let i=0;i<n;i++){
+    const a=(i/n)*Math.PI*2-Math.PI/2;
+    const x=cx+Math.cos(a)*r*vals[i];
+    const y=cy+Math.sin(a)*r*vals[i];
+    ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);
+    ctx.fillStyle='#2D4A2D';ctx.fill();
+  }
+  const labels=['Сон','Стимуляторы','Дофамин','Восстановление','Смысл'];
+  ctx.font='11px Inter';ctx.fillStyle='#7A7A6E';ctx.textAlign='center';
+  for(let i=0;i<n;i++){
+    const a=(i/n)*Math.PI*2-Math.PI/2;
+    const lx=cx+Math.cos(a)*(r+20);
+    const ly=cy+Math.sin(a)*(r+20);
+    ctx.fillText(labels[i],lx,ly+4);
+  }
+}
+
+// ── HELPERS ──
+const getMulti=id=>[...document.querySelectorAll(`#${id} .choice.multi.selected`)].map(b=>b.dataset.val||b.textContent.trim().substring(0,40)).join('; ')||'';
+const getSingle=id=>{const b=document.querySelector(`#${id} .choice.selected`);return b?(b.dataset.val||b.textContent.trim().substring(0,60)):'';}
+const getScale=id=>{const b=document.querySelector(`#${id} .scale-btn.selected`);return b?b.dataset.val:'';}
+function genClientId(){return 'CL-'+Date.now().toString(36).toUpperCase()+Math.random().toString(36).substring(2,5).toUpperCase();}
+
+// ── SUBMIT ──
+function submitForm(){
+  if(!validateStep(8))return;
+
+  const arch=calcArchetype();
+  const zones=['sleep','stimulants','dopamine','recovery','meaning'];
+  const scores=zones.map(z=>scoreZone(z));
+  const zoneInfos=zones.map((z,i)=>getZoneInterpretation(z,scores[i]));
+  const avg=Math.round(scores.reduce((a,b)=>a+b,0)/scores.length);
+
+  const payload={
+    questionnaire_type:'start_v2',
+    client_id:genClientId(),
+    timestamp:new Date().toLocaleString('ru-RU'),
+    // Контакты
+    first_name:document.getElementById('f-name').value.trim(),
+    last_name:document.getElementById('f-lastname').value.trim(),
+    email:document.getElementById('f-email').value.trim(),
+    phone:document.getElementById('f-phone').value.trim(),
+    telegram:document.getElementById('f-tg').value.trim(),
+    age:document.getElementById('f-age').value.trim(),
+    sex:document.getElementById('f-sex').value,
+    country:document.getElementById('f-country').value.trim(),
+    city:document.getElementById('f-city').value.trim(),
+    timezone:document.getElementById('f-timezone').value,
+    // Запрос
+    main_complaint:document.getElementById('f-complaint').value.trim(),
+    goal_1:document.getElementById('f-goal1').value.trim(),
+    goal_2:document.getElementById('f-goal2').value.trim(),
+    goal_3:document.getElementById('f-goal3').value.trim(),
+    tried_before:document.getElementById('f-tried').value.trim(),
+    time_commitment:getSingle('q-time'),
+    // Архетип
+    archetype_primary:arch.primary,
+    archetype_secondary:arch.secondary,
+    archetype_name:ARCHETYPE_META[arch.primary].name,
+    archetype_primary_score:arch.primary_score,
+    archetype_scores:JSON.stringify(arch.scores),
+    archetype_work_style:ARCHETYPE_META[arch.primary].how,
+    archetype_doc_note:ARCHETYPE_META[arch.primary].doc_note,
+    // Сон
+    sleep_hours:getSingle('q-sleep-hours'),
+    wake_quality:getSingle('q-wake'),
+    sleep_schedule:getSingle('q-sleep-schedule'),
+    sleep_issues:getMulti('q-sleep-issues'),
+    wake_time_tcm:getSingle('q-wake-time'),
+    room_conditions:getMulti('q-room'),
+    sleep_satisfaction:getScale('q-sleep-score'),
+    sleep_score:scores[0],
+    sleep_level:zoneInfos[0].level,
+    sleep_interp_client:zoneInfos[0].client_interp,
+    sleep_interp_doc:zoneInfos[0].doc_interp,
+    // Еда
+    meals_per_day:getSingle('q-meals'),
+    food_patterns:getMulti('q-food-patterns'),
+    food_attitude:getSingle('q-food-attitude'),
+    food_diary:document.getElementById('f-food-diary').value.trim(),
+    // Стимуляторы
+    coffee_amount:getSingle('q-coffee-amount'),
+    coffee_empty:getSingle('q-coffee-empty'),
+    coffee_why:getSingle('q-coffee-why'),
+    alcohol_freq:getSingle('q-alcohol-freq'),
+    alcohol_why:getSingle('q-alcohol-why')||'',
+    phone_habit:getSingle('q-phone-habit'),
+    phone_off:getSingle('q-phone-off'),
+    boredom_response:getSingle('q-boredom'),
+    other_habits:getMulti('q-other-habits'),
+    stimulants_score:scores[1],
+    stimulants_level:zoneInfos[1].level,
+    stimulants_interp_client:zoneInfos[1].client_interp,
+    stimulants_interp_doc:zoneInfos[1].doc_interp,
+    dopamine_score:scores[2],
+    dopamine_level:zoneInfos[2].level,
+    dopamine_interp_client:zoneInfos[2].client_interp,
+    dopamine_interp_doc:zoneInfos[2].doc_interp,
+    // Тело и восстановление
+    movement:getSingle('q-movement'),
+    recovery:getSingle('q-recovery'),
+    sunlight:getSingle('q-sunlight'),
+    nature:getSingle('q-nature'),
+    rest_guilt:getSingle('q-rest-guilt'),
+    body_state:getMulti('q-body-state'),
+    recovery_score:scores[3],
+    recovery_level:zoneInfos[3].level,
+    recovery_interp_client:zoneInfos[3].client_interp,
+    recovery_interp_doc:zoneInfos[3].doc_interp,
+    // Стресс и смысл
+    stress_level:getScale('q-stress-level'),
+    stress_coping:document.getElementById('f-stress-coping').value.trim(),
+    self_attitude:getSingle('q-self-attitude'),
+    purpose:getSingle('q-purpose'),
+    day_feel:getSingle('q-day-feel'),
+    connection:getSingle('q-connection'),
+    readiness:getScale('q-readiness'),
+    meaning_score:scores[4],
+    meaning_level:zoneInfos[4].level,
+    meaning_interp_client:zoneInfos[4].client_interp,
+    meaning_interp_doc:zoneInfos[4].doc_interp,
+    // Итог
+    energy_score_total:avg,
+    extra_info:document.getElementById('f-extra').value.trim(),
+    consent_data:'yes',consent_storage:'yes',
+    consent_date:new Date().toLocaleString('ru-RU'),
+  };
+
+  document.getElementById('overlay').classList.add('active');
+  fetch(SHEETS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)})
+    .then(()=>showThanks(arch,scores,zoneInfos,avg,true))
+    .catch(()=>showThanks(arch,scores,zoneInfos,avg,true));
+}
+
+function showThanks(arch,scores,zoneInfos,avg,saved){
+  document.getElementById('overlay').classList.remove('active');
+  document.getElementById('progress-wrap').style.display='none';
+  document.querySelectorAll('.section').forEach(s=>s.style.display='none');
+  document.getElementById('screen-thanks').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  // Сохранение
+  const n=document.getElementById('save-notice');
+  n.className=saved?'save-notice save-ok':'save-notice save-err';
+  n.innerHTML=saved?'<strong>✅ Данные сохранены</strong> — увидимся на консультации.':'<strong>⚠️ Данные не сохранились автоматически</strong> — пожалуйста, сделай скриншот и отправь мне.';
+  n.style.display='block';
+
+  // Архетип
+  const meta=ARCHETYPE_META[arch.primary];
+  const c=meta.colors;
+  const card=document.getElementById('archetype-card');
+  const hdr=document.getElementById('arch-header');
+  hdr.style.background=c.bg;hdr.style.color=c.color;
+  document.getElementById('arch-emoji').textContent=meta.emoji;
+  document.getElementById('arch-name').textContent=meta.name;
+  document.getElementById('arch-quote').textContent=meta.quote;
+  document.getElementById('arch-desc').textContent=meta.desc;
+  document.getElementById('arch-how-text').textContent=meta.how;
+  if(arch.primary_score<=2){
+    const mix=document.createElement('div');
+    mix.style.cssText='font-size:12px;color:var(--text-light);padding:10px 18px 14px;font-style:italic;';
+    mix.textContent='Твои ответы распределились между несколькими типами — смешанный стиль. Разберём это на консультации.';
+    card.appendChild(mix);
+  }
+  card.style.display='block';
+
+  // Радар
+  document.getElementById('energy-radar-card').style.display='block';
+  drawRadar(scores);
+
+  // Зоны для клиента
+  const zoneDiv=document.getElementById('zone-blocks');
+  zoneDiv.innerHTML='';
+  zoneInfos.forEach((info,i)=>{
+    const d=document.createElement('div');
+    d.className=`zone-block ${info.level}`;
+    d.innerHTML=`<div class="zone-header"><span class="zone-name">${info.emoji} ${info.name}</span><span class="zone-score">${scores[i]}</span></div><p class="zone-interp">${info.client_interp}</p>`;
+    zoneDiv.appendChild(d);
+  });
+
+  // Общий итог
+  const oc=document.getElementById('overall-card');
+  const totalLevel=avg>=70?'good':avg>=45?'warning':'critical';
+  const totalTitles={good:'В ресурсе — есть зоны роста',warning:'На грани — энергия тратится быстрее чем восполняется',critical:'Истощение — тело давно в режиме выживания'};
+  const totalTexts={
+    good:'В целом твой энергетический баланс устойчив. Есть конкретные зоны, где небольшие изменения дадут заметный результат.',
+    warning:'Несколько зон одновременно сливают энергию. Организм справляется, но ресурс не безграничен. Сейчас — время действовать.',
+    critical:'Сразу несколько критических зон. Это не про силу воли — это физиология. Разберём на консультации, с чего начать.'
+  };
+  oc.innerHTML=`<div class="overall-label">Энергетический профиль · ${avg} / 100</div><div class="overall-title">${totalTitles[totalLevel]}</div><p class="overall-text">${totalTexts[totalLevel]}</p>`;
+  oc.style.display='block';
+}
+
+document.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
