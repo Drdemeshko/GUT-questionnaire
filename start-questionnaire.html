@@ -765,7 +765,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
     <div class="thanks-card">
       <h4>Что дальше?</h4>
       <div style="font-size:13px;color:var(--text-light);line-height:1.7;">
-        В ближайшее время возвращайся в чат-бот и продолжай заполнение анкет .<br><br>
+        Возвращайся в чат-бот @Dr.Diana_Demeshkobot и выбери следующую анкету для заполнения.<br><br>Чем полнее данные — тем точнее будет наша работа 🌿<br><br>
         <strong style="color:var(--deep)">— Диана</strong>
       </div>
     </div>
@@ -1183,7 +1183,7 @@ function submitForm(){
   const avg=Math.round(scores.reduce((a,b)=>a+b,0)/scores.length);
 
   const payload={
-    questionnaire_type:'start_v2',
+    questionnaire_type:'start',
     client_id:genClientId(),
     timestamp:new Date().toLocaleString('ru-RU'),
     // Контакты
