@@ -121,6 +121,28 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
 .spinner{width:42px;height:42px;border:3px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .overlay-text{color:#fff;font-size:13px;}
+/* NEURO PATTERNS */
+.neuro-section{margin-top:16px;}
+.neuro-section-title{font-family:'Playfair Display',serif;font-size:15px;color:var(--deep);margin-bottom:4px;font-weight:600;}
+.neuro-section-sub{font-size:12px;color:var(--text-light);margin-bottom:12px;line-height:1.5;}
+.pattern-card{background:#fff;border-radius:14px;border:1px solid var(--cream-dark);padding:16px 18px;margin-bottom:10px;position:relative;overflow:hidden;}
+.pattern-rank-badge{position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;}
+.rank-1{background:var(--deep);}
+.rank-2{background:var(--green);}
+.rank-3{background:var(--yellow);}
+.pattern-name{font-family:'Playfair Display',serif;font-size:14px;color:var(--deep);font-weight:600;margin-bottom:2px;padding-right:40px;}
+.pattern-pct{font-size:22px;font-weight:700;color:var(--deep);margin-bottom:6px;}
+.pattern-bar-wrap{height:6px;background:var(--cream-dark);border-radius:99px;overflow:hidden;margin-bottom:10px;}
+.pattern-bar-fill{height:100%;border-radius:99px;transition:width 1.3s ease;}
+.pattern-interp{font-size:12.5px;color:var(--text);line-height:1.65;}
+.pattern-interp-title{font-size:12px;font-weight:600;color:var(--deep);margin:10px 0 4px;}
+.pattern-tag{display:inline-block;background:var(--accent-light);border:1px solid rgba(91,140,90,0.2);border-radius:99px;font-size:10px;padding:2px 8px;margin:2px 2px 0 0;color:var(--deep);}
+.pattern-recs{margin-top:8px;}
+.pattern-recs li{font-size:12px;color:var(--text);line-height:1.55;padding:4px 0 4px 16px;position:relative;border-bottom:1px solid var(--cream-dark);}
+.pattern-recs li:last-child{border-bottom:none;}
+.pattern-recs li::before{content:'→';position:absolute;left:0;color:var(--green);font-weight:600;}
+.pattern-collapsed .pattern-interp,.pattern-collapsed .pattern-recs,.pattern-collapsed .pattern-interp-title,.pattern-collapsed .pattern-tag{display:none;}
+.pattern-toggle{font-size:11px;color:var(--green);cursor:pointer;margin-top:6px;display:inline-block;font-weight:600;}
 @media(max-width:380px){.field-row{grid-template-columns:1fr;}.opt-lbl{display:none;}}
 </style>
 </head>
@@ -139,7 +161,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
   <div class="brand">Dr. Diana Demeshko</div>
   <h1>Оценка стресс-нагрузки</h1>
   <p>Многие живут в хроническом стрессе годами — и перестают его замечать. Этот опросник помогает увидеть реальную клиническую картину.</p>
-  <div class="time-badge">⏱ Около 15–20 минут</div>
+  <div class="time-badge">⏱ Около 20–25 минут</div>
 </div>
 
 <div class="progress-wrap" id="progress-wrap">
@@ -404,7 +426,46 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
   </div>
   <div class="card" id="block-s12"></div>
   <div class="warn" id="w12">Пожалуйста, ответь на все вопросы</div>
-  <div class="nav-wrap"><button class="btn-back" onclick="pv(12)">← Назад</button><button class="btn-next" onclick="sub()">Получить результат 🌿</button></div>
+  <div class="nav-wrap"><button class="btn-back" onclick="pv(12)">← Назад</button><button class="btn-next" onclick="nx(12)">Далее →</button></div>
+</div>
+
+<!-- ШАГ 13: НЕЙРОБИОЛОГИЧЕСКИЕ ПАТТЕРНЫ -->
+<div class="screen" id="s13">
+  <div style="height:8px"></div>
+  <div class="section-badge">🧬 Нейробиология · Финальный блок</div>
+  <div class="screen-title">Паттерны нервной системы</div>
+  <div class="screen-desc">Этот блок помогает определить ведущие нейробиологические паттерны. Оцени каждое утверждение за <strong>последний месяц</strong>. Шкала 0–4.</div>
+  <div class="scale-legend-card">
+    <div class="sl-item"><span class="sl-num">0</span><div class="sl-lbl">Никогда</div></div>
+    <div class="sl-item"><span class="sl-num">1</span><div class="sl-lbl">Редко</div></div>
+    <div class="sl-item"><span class="sl-num">2</span><div class="sl-lbl">Иногда</div></div>
+    <div class="sl-item"><span class="sl-num">3</span><div class="sl-lbl">Часто</div></div>
+    <div class="sl-item"><span class="sl-num">4</span><div class="sl-lbl">Почти всегда</div></div>
+  </div>
+  <div class="card" id="block-s13">
+    <div class="q-block" data-q="nb1"><div class="q-text">Мне трудно расслабиться — тело и голова остаются в напряжении даже в покое</div><div class="q-opts"></div></div>
+    <div class="q-block" data-q="nb2"><div class="q-text">Мысли «не выключаются» — голова продолжает работать, когда я хочу отдохнуть</div><div class="q-opts"></div></div>
+    <div class="q-block" data-q="nb3"><div class="q-text">Я чувствителен(а) к шуму — громкие звуки раздражают или утомляют сильнее, чем других</div><div class="q-opts"></div></div>
+    <div class="q-block" data-q="nb4"><div class="q-text">Яркий свет вызывает дискомфорт или быстро утомляет глаза</div><div class="q-opts"></div></div>
+    <div class="q-block" data-q="nb5"><div class="q-text">После общения с людьми или большого потока информации мне нужно время на восстановление</div><div class="q-opts"></div></div>
+    <div class="q-block" data-q="nb6"><div class="q-text">Я замечаю у себя сжатие зубов или скрежет (особенно ночью)</div><div class="q-hint">Бруксизм — маркер ГАМК-дефицита и NMDA-гиперактивации</div><div class="q-opts"></div></div>
+    <div class="q-block" data-q="nb7"><div class="q-text">Мне сложно начать задачу, даже если я понимаю, что она важна — нет внутреннего импульса</div><div class="q-opts"></div></div>
+    <div class="q-block" data-q="nb8"><div class="q-text">Я часто откладываю дела, затем ругаю себя за это, но снова откладываю</div><div class="q-hint">Прокрастинация как паттерн — связана с дофаминовым и BDNF-дефицитом</div><div class="q-opts"></div></div>
+    <div class="q-block" data-q="nb9"><div class="q-text">Мне не хватает интереса к вещам, которые раньше нравились — «всё как-то серо»</div><div class="q-opts"></div></div>
+    <div class="q-block" data-q="nb10"><div class="q-text">Я замечаю тягу к соцсетям, покупкам или другим источникам быстрого удовольствия</div><div class="q-opts"></div></div>
+    <div class="q-block" data-q="nb11"><div class="q-text">Мне сложно долго удерживать внимание на одной задаче — мысли «утекают»</div><div class="q-opts"></div></div>
+    <div class="q-block" data-q="nb12"><div class="q-text">Я замечаю ухудшение памяти — забываю слова, имена, то, что хотел(а) сделать</div><div class="q-opts"></div></div>
+    <div class="q-block" data-q="nb13"><div class="q-text">Бывает, что перечитываю один и тот же текст несколько раз, прежде чем понять его</div><div class="q-opts"></div></div>
+    <div class="q-block" data-q="nb14"><div class="q-text">После еды (особенно углеводной) появляется ощущение тумана в голове или сонливость</div><div class="q-hint">Постпрандиальный brain fog — признак нейровоспаления и метаболической дисрегуляции</div><div class="q-opts"></div></div>
+    <div class="q-block" data-q="nb15"><div class="q-text">Голова «как в вате» — мысли медленные, трудно соображать</div><div class="q-opts"></div></div>
+    <div class="q-block" data-q="nb16"><div class="q-text">У меня есть хронические проблемы с ЖКТ (вздутие, нестабильный стул, тяжесть после еды)</div><div class="q-opts"></div></div>
+    <div class="q-block" data-q="nb17"><div class="q-text">Я понимаю, что нужно изменить привычку или поведение, но снова и снова возвращаюсь к старому</div><div class="q-opts"></div></div>
+    <div class="q-block" data-q="nb18"><div class="q-text">Мне трудно закрепить новые полезные привычки — они не «приживаются»</div><div class="q-opts"></div></div>
+    <div class="q-block" data-q="nb19"><div class="q-text">Алкоголь заметно расслабляет меня — я специально использую его, чтобы «отключиться»</div><div class="q-hints">Тяга к алкоголю как способ поднять ГАМК — один из маркеров ГАМК-дефицита</div><div class="q-opts"></div></div>
+    <div class="q-block" data-q="nb20"><div class="q-text">Я чувствую напряжение в плечах, шее или челюсти почти постоянно</div><div class="q-opts"></div></div>
+  </div>
+  <div class="warn" id="w13">Пожалуйста, ответь на все вопросы</div>
+  <div class="nav-wrap"><button class="btn-back" onclick="pv(13)">← Назад</button><button class="btn-next" onclick="sub()">Получить результат 🌿</button></div>
 </div>
 
 <!-- РЕЗУЛЬТАТЫ -->
@@ -429,6 +490,11 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
       <div class="interp-card" id="main-interp"><h4></h4><ul></ul></div>
       <div class="interp-card" id="priority-interp" style="margin-top:10px"><h4>С чего начать?</h4><ul></ul></div>
       <div class="flag-card" id="flag-block" style="display:none"><h4>🚩 Симптомы, требующие внимания</h4><div id="flag-items"></div></div>
+      <div class="neuro-section" id="neuro-section" style="display:none">
+        <div class="neuro-section-title">🧬 Нейробиологические паттерны</div>
+        <div class="neuro-section-sub">Ваши ответы соответствуют следующим функциональным паттернам нервной системы. Это не диагноз — это клиническая гипотеза для дальнейшего изучения на консультации.</div>
+        <div id="pattern-cards"></div>
+      </div>
     </div>
   </div>
   <!-- СПАСИБО -->
@@ -447,9 +513,163 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);mi
 
 <script>
 const SHEETS_URL='https://script.google.com/macros/s/AKfycbzusjqVQWAFi2VTI6_Ex2_SjufTDqe-l0RL3Eeas4iwXwYNhLil0nWCBikmYYQSaD84/exec';
-const TOTAL=12;
+const TOTAL=13;
 const A={};   // part1 answers
 const DA={};  // dass answers
+const NA={};  // neuro answers
+
+// ── НЕЙРОБИОЛОГИЧЕСКИЕ ПАТТЕРНЫ ──
+// Перекрёстные веса: {qId: {patternKey: weight, ...}, ...}
+// Каждый вопрос может добавлять очки в несколько паттернов
+const NEURO_WEIGHTS={
+  nb1:  {gaba:2, glutamate:1},               // трудно расслабиться
+  nb2:  {gaba:2, glutamate:1},               // мысли не выключаются
+  nb3:  {glutamate:2, gaba:1},               // чувствительность к шуму
+  nb4:  {glutamate:2, neuroinflam:1},        // чувствительность к свету
+  nb5:  {glutamate:2, gaba:1},               // перегрузка от общения/инфо
+  nb6:  {gaba:1, glutamate:2},               // бруксизм
+  nb7:  {dopamine:2, bdnf:1},               // нет импульса начать
+  nb8:  {dopamine:2, bdnf:1},               // прокрастинация
+  nb9:  {dopamine:2, gaba:1},               // серость, отсутствие интереса
+  nb10: {dopamine:2, neuroinflam:1},        // тяга к быстрому удовольствию
+  nb11: {acetylcholine:2, neuroinflam:1},   // внимание утекает
+  nb12: {acetylcholine:2, neuroinflam:1},   // ухудшение памяти
+  nb13: {acetylcholine:2, bdnf:1},          // перечитываю текст
+  nb14: {neuroinflam:2, acetylcholine:1},   // brain fog после еды
+  nb15: {neuroinflam:2, acetylcholine:1},   // голова как в вате
+  nb16: {neuroinflam:2, gaba:1},            // хронические проблемы ЖКТ
+  nb17: {bdnf:2, dopamine:1},               // возвращаюсь к старому паттерну
+  nb18: {bdnf:2, dopamine:1},               // новые привычки не приживаются
+  nb19: {gaba:2, dopamine:1},               // алкоголь для расслабления
+  nb20: {glutamate:2, gaba:1},              // напряжение в шее/плечах/челюсти
+};
+
+// Максимально возможный балл для каждого паттерна
+const NEURO_MAX={
+  gaba:       (2+2+1+1+1+1+1+1+2+1)*4,  // сумма весов × 4
+  glutamate:  (1+1+2+2+2+2+2)*4,
+  dopamine:   (2+2+2+2+1+1+1+1)*4,
+  acetylcholine:(2+2+2+1+1)*4,
+  neuroinflam:(1+1+1+2+2+2)*4,
+  bdnf:       (1+1+1+2+2)*4,
+};
+
+const NEURO_PATTERNS={
+  gaba:{
+    name:'ГАМК-дефицитный паттерн',
+    icon:'🔇',
+    color:'#5B8C5A',
+    tagline:'«Включён, но не могу выключиться»',
+    explanation:'Ваши ответы соответствуют паттерну сниженной тормозной активности нервной системы. ГАМК — главный «тормоз» мозга, помогающий переходить из состояния возбуждения в состояние покоя. При его дефиците нервная система остаётся в фоновом «режиме готовности».',
+    mechanisms:['Дефицит кофакторов GAD (B6, магний, цинк, таурин)','Хронический стресс снижает активность ГАМК-рецепторов','Микробиом кишечника (лактобациллы) участвует в синтезе ГАМК'],
+    sleep:'Трудно засыпать, даже при усталости. Тело расслаблено, но голова работает.',
+    gut:'Дисбаланс кишечных бактерий может снижать синтез ГАМК, производимой лактобациллами и бифидобактериями.',
+    stress:'Хронический стресс → снижение числа ГАМК-рецепторов → порочный круг.',
+    recs:{
+      lifestyle:['Диафрагмальное дыхание 5–10 мин перед сном','Прогулки в спокойном темпе — не интенсивный спорт','Ограничить кофеин после 14:00'],
+      sleep:['Вечерний ритуал без экранов за 1–1.5 ч до сна','Температура в спальне 17–19°C'],
+      stress:['Практика «замедления»: йога, медитация, ведение дневника','Сократить информационный поток вечером'],
+      nutrients:['Магний (таурат или биглицинат) 200–400 мг вечером','Витамин B6 — кофактор фермента GAD','Таурин — прямой агонист ГАМК','L-теанин 100–200 мг'],
+      gut:['Пробиотики с лактобациллами и бифидобактериями','Ферментированные продукты в рационе'],
+      tests:['Органические кислоты мочи (GABAergic pathway)','Нутриентный статус: магний, B6, цинк','Кортизол слюны (суточный профиль)'],
+    },
+  },
+  glutamate:{
+    name:'Глутамат/NMDA-гиперактивация',
+    icon:'⚡',
+    color:'#B86B3A',
+    tagline:'«Сенсорная перегрузка — норма жизни»',
+    explanation:'Ваши ответы соответствуют паттерну избыточной активности возбуждающей нейромедиаторной системы. Глутамат — главный «газ» мозга. В норме он сбалансирован ГАМК. При дисбалансе нервная система становится гиперреактивной на стимулы.',
+    mechanisms:['Дефицит магния → NMDA-рецептор теряет физиологическое торможение','Хронический стресс → выброс глутамата миндалевидным телом','Воспаление кишечника → нарушение оси кишечник-мозг'],
+    sleep:'Сон поверхностный, чуткий. Просыпаетесь от малейшего шума или света.',
+    gut:'Глутамат содержится в некоторых продуктах (глутамат натрия). Дисбиоз может усиливать системное воспаление и нейровозбудимость.',
+    stress:'Миндалевидное тело реагирует на стресс выбросом глутамата — это защитный механизм, который при хронизации становится проблемой.',
+    recs:{
+      lifestyle:['Снизить информационную нагрузку: одно дело за раз','«Тихие» паузы в течение дня — без телефона и экранов','Избегать глутамат натрия в продуктах'],
+      sleep:['Берушей или маска для сна при гиперчувствительности','Избегать яркого света и экранов после 20:00'],
+      stress:['Холодный душ утром (стимулирует вагус, снижает возбудимость)','Медленное дыхание: вдох 4 сек, выдох 6–8 сек'],
+      nutrients:['Магний (цитрат или глицинат) — блокирует NMDA-рецептор','L-теанин — ингибирует обратный захват глутамата','Витамин B6 + цинк','Таурин — ↓ NMDA активность'],
+      gut:['Элиминация глутамат натрия из рациона','Пробиотики для снижения системного воспаления'],
+      tests:['Нутриентный анализ: магний эритроцитов','Органические кислоты','Анализ на чувствительность к пищевым антигенам (если есть ЖКТ-симптомы)'],
+    },
+  },
+  dopamine:{
+    name:'Дофаминовый паттерн дисрегуляции',
+    icon:'🎯',
+    color:'#8B6914',
+    tagline:'«Хочу хотеть, но не могу»',
+    explanation:'Ваши ответы соответствуют паттерну нарушения дофаминовой системы мотивации и вознаграждения. Дофамин — нейромедиатор предвкушения и драйва. При его дефиците задачи теряют «вкус», а мозг ищет быстрые источники стимуляции.',
+    mechanisms:['Хронический стресс → дофамин конвертируется в адреналин → дефицит','Дефицит тирозина, 5-МТГФ, железа — кофакторов синтеза','Нарушение рецепторов при повторяющемся «быстром» стимулировании (соцсети, сладкое)'],
+    sleep:'Нарушен циркадный ритм дофамина. Утренняя инерция характерна при дофаминовом дефиците.',
+    gut:'50% дофамина производится в кишечнике. Дисбиоз нарушает этот синтез.',
+    stress:'Острый стресс → ↑ дофамин → конвертируется в адреналин → падение дофамина. Цикл, создающий хроническую «нехватку».',
+    recs:{
+      lifestyle:['Завершение маленьких задач создаёт дофаминовые микровыбросы','Физическая активность — один из лучших стимуляторов дофамина','Ограничить соцсети — «дофаминовые ловушки»'],
+      sleep:['Утренний свет в первые 30–60 минут после пробуждения','Регулярное время подъёма важнее времени засыпания'],
+      stress:['Ставить маленькие ежедневные цели («икигай»)','Праздновать завершение задач, даже маленьких'],
+      nutrients:['Тирозин — субстрат дофамина (из белковой пищи)','5-МТГФ (метилфолат) — кофактор синтеза','Витамин B6 + железо','Родиола — балансирует дофамин и серотонин'],
+      gut:['Пробиотики: Lactobacillus plantarum, L. rhamnosus','Белковый завтрак — источник тирозина'],
+      tests:['Органические кислоты мочи (HVA — маркер дофамина)','Нутриентный статус: B6, фолат, железо, цинк','Анализ ДНК: COMT, MAO-A полиморфизмы (опционально)'],
+    },
+  },
+  acetylcholine:{
+    name:'Ацетилхолиновый паттерн',
+    icon:'💭',
+    color:'#4A7A9B',
+    tagline:'«Знаю, но не запомню»',
+    explanation:'Ваши ответы соответствуют паттерну сниженной холинергической активности. Ацетилхолин отвечает за память, концентрацию и обучение. Хронический стресс — один из главных его «потребителей»: кортизол напрямую снижает синтез ацетилхолина.',
+    mechanisms:['Кортизол при хроническом стрессе → прямое снижение ацетилхолина','Дефицит холина в рационе (яйца, говяжья печень)','Нарушение митохондриальной функции → дефицит ацетил-КоА'],
+    sleep:'Нарушение фазы быстрого сна (REM) — ацетилхолин критичен для её поддержания.',
+    gut:'Блуждающий нерв работает через холинергическую передачу. Его стимуляция поддерживает синтез ацетилхолина.',
+    stress:'Хронический стресс — прямой антагонист ацетилхолина. Снижение когниции при стрессе частично объясняется этим механизмом.',
+    recs:{
+      lifestyle:['Физическая активность на природе улучшает ацетилхолиновую передачу','Социальное взаимодействие стимулирует блуждающий нерв','Чтение вслух и обучение новому — нагрузка на холинергическую систему'],
+      sleep:['Нормализация REM-сна: отказ от алкоголя вечером','Фосфатидилсерин вечером — поддержка мембран нейронов'],
+      stress:['Снизить кортизол — см. рекомендации по стрессу','Диафрагмальное дыхание стимулирует вагусную активность'],
+      nutrients:['Холин (яйца, говяжья печень, соя) или добавка Alpha-GPC','Витамин B5 — кофактор ацетил-КоА → ацетилхолин','Фосфатидилсерин 100–200 мг','ДГК омега-3 — поддержка мембран нейронов'],
+      gut:['Пребиотики — стимуляция блуждающего нерва через кишечник','Ферментированные продукты'],
+      tests:['Органические кислоты (митохондриальная функция)','Нутриентный статус: B5, холин, ДГК','Кортизол суточный профиль'],
+    },
+  },
+  neuroinflam:{
+    name:'Нейровоспалительный паттерн',
+    icon:'🔥',
+    color:'#9B4040',
+    tagline:'«Мозг работает через вату»',
+    explanation:'Ваши ответы соответствуют паттерну нейровоспаления. Воспаление в мозге не всегда сопровождается болью — чаще оно проявляется когнитивной усталостью, brain fog и сниженной скоростью обработки информации.',
+    mechanisms:['Дисбиоз кишечника → ЛПС в кровоток → системное воспаление → нейровоспаление','Кинурениновый путь: стресс «крадёт» триптофан → ↓ серотонина + ↑ нейротоксичной хинолиновой кислоты','Оксидативный стресс → повреждение митохондрий нейронов'],
+    sleep:'Нейровоспаление нарушает синтез мелатонина и нейропластичность, необходимую для восстановления во сне.',
+    gut:'Ось кишечник-мозг: дисбиоз → «дырявый кишечник» → ЛПС → нейровоспаление. 80% сигналов блуждающего нерва идут из кишечника в мозг.',
+    stress:'Хронический стресс активирует кинурениновый путь — триптофан уходит на производство нейротоксичной хинолиновой кислоты вместо серотонина.',
+    recs:{
+      lifestyle:['Противовоспалительный рацион: много цветных овощей, омега-3, минимум сахара','Исключить глютен и молочные (при наличии чувствительности)','Прогулки на природе снижают системное воспаление'],
+      sleep:['Мелатонин — мощный антиоксидант, снижающий нейровоспаление','Нормализовать циркадный ритм — синий свет вечером подавляет мелатонин'],
+      stress:['Адаптогены: ашваганда, родиола — снижают воспалительные маркеры','Антистрессовые практики снижают уровень ИЛ-6 и ФНО-α'],
+      nutrients:['Куркумин + пиперин — нейропротектор, ↓ ЛПС-индуцированное воспаление','Омега-3 (ЭПК + ДГК) — ↓ воспаление, защита мембран нейронов','Кверцетин — антигистамин и антиоксидант','5-МТГФ + антиоксиданты возвращают триптофан на серотониновый путь','NAC (N-ацетилцистеин) — поддержка глутатиона'],
+      gut:['Пробиотики для восстановления барьера кишечника','Пребиотики — короткоцепочечные жирные кислоты питают нейроны','Исключить продукты-триггеры воспаления'],
+      tests:['СРБ высокочувствительный, ИЛ-6, ФНО-α','Органические кислоты (кинурениновый путь)','Анализ микробиома кишечника','Пищевые иммуноглобулины (IgG4 панель)'],
+    },
+  },
+  bdnf:{
+    name:'Снижение нейропластичности / BDNF',
+    icon:'🌱',
+    color:'#5B7A3A',
+    tagline:'«Понимаю что делать, но не делаю»',
+    explanation:'Ваши ответы соответствуют паттерну сниженной нейропластичности. BDNF (нейротрофический фактор мозга) — «удобрение» для нейронов, обеспечивающее способность мозга формировать новые связи и закреплять новое поведение. Без него изменения не закрепляются.',
+    mechanisms:['Хронический стресс → снижение BDNF','Короткоцепочечные жирные кислоты кишечника (бутират) стимулируют BDNF','Физическая активность — самый мощный естественный стимулятор BDNF'],
+    sleep:'Во время сна происходит «промывка» нейротоксинов через глимфатическую систему. Дефицит сна критически снижает BDNF.',
+    gut:'Полезные бактерии производят бутират, который стимулирует BDNF и нейрогенез.',
+    stress:'Хронически высокий кортизол → снижение BDNF → нарушение нейропластичности → трудно формировать новые нейронные пути.',
+    recs:{
+      lifestyle:['Аэробные нагрузки 30 мин 3–4 раза в неделю — главный стимулятор BDNF','Обучение новому: язык, инструмент, танцы — создаёт новые нейронные связи','Социальное взаимодействие стимулирует нейропластичность'],
+      sleep:['Качественный сон — обязательное условие нейропластичности','7–9 часов, стабильный режим'],
+      stress:['Снизить хронический стресс — он напрямую блокирует BDNF','Медитация осознанности повышает BDNF'],
+      nutrients:['Ежовик гребенчатый (Lion\'s Mane) — NGF, BDNF стимуляция','Куркумин — ↑ BDNF + противовоспалительный эффект','ДГК омега-3 — поддержка синтеза BDNF','Магний — поддержка нейропластичности через NMDA-рецепторы','Витамин D — нейротрофический кофактор'],
+      gut:['Пребиотики для производства бутирата → стимуляция BDNF','Fermented foods (кефир, кимчи) — влияние на нейропластичность'],
+      tests:['BDNF в сыворотке (при наличии доступа к анализу)','Витамин D (критичен для нейропластичности)','Органические кислоты (митохондриальная функция)','Кортизол суточный профиль'],
+    },
+  },
+};
 
 const SECTIONS={
   energy:{label:'Энергия',qs:['e1','e2','e3','e4','e5']},
@@ -513,7 +733,95 @@ const DASS_STR=[
 const DASS_WORDS=['Нет','Иногда','Часто','Всегда'];
 const P1_WORDS=['Нет','Редко','Иногда','Часто','Всегда'];
 
-// ── BUILD BUTTONS ──
+function calcNeuroPatterns(){
+  // Считаем баллы для каждого паттерна с перекрёстными весами
+  const raw={gaba:0,glutamate:0,dopamine:0,acetylcholine:0,neuroinflam:0,bdnf:0};
+  Object.entries(NEURO_WEIGHTS).forEach(([qId,weights])=>{
+    const val=NA[qId]||0;
+    Object.entries(weights).forEach(([pattern,weight])=>{
+      raw[pattern]+= val*weight;
+    });
+  });
+
+  // Считаем реальный максимум динамически
+  const dynMax={gaba:0,glutamate:0,dopamine:0,acetylcholine:0,neuroinflam:0,bdnf:0};
+  Object.values(NEURO_WEIGHTS).forEach(weights=>{
+    Object.entries(weights).forEach(([pattern,weight])=>{
+      dynMax[pattern]+=4*weight;
+    });
+  });
+
+  const pcts=Object.keys(raw).map(k=>({
+    key:k,
+    raw:raw[k],
+    max:dynMax[k],
+    pct:dynMax[k]>0?Math.round((raw[k]/dynMax[k])*100):0,
+  }));
+  pcts.sort((a,b)=>b.pct-a.pct);
+  return pcts;
+}
+
+function renderNeuroPatterns(patterns){
+  const top3=patterns.slice(0,3);
+  const hasSignificant=top3.some(p=>p.pct>=25);
+  if(!hasSignificant) return; // не показываем если всё низкое
+
+  document.getElementById('neuro-section').style.display='block';
+  const container=document.getElementById('pattern-cards');
+
+  top3.forEach((p,idx)=>{
+    if(p.pct<15) return; // не показываем незначимые
+    const info=NEURO_PATTERNS[p.key];
+    if(!info) return;
+    const rankClass=['rank-1','rank-2','rank-3'][idx];
+    const rankLabel=['1','2','3'][idx];
+    const isFirst=idx===0;
+    const collapsedClass=isFirst?'':' pattern-collapsed';
+
+    const recs=info.recs;
+    const recItems=[
+      ...recs.lifestyle.map(r=>`<li>${r}</li>`),
+      ...(recs.nutrients||[]).slice(0,3).map(r=>`<li>${r}</li>`),
+    ].join('');
+
+    const card=document.createElement('div');
+    card.className=`pattern-card${collapsedClass}`;
+    card.innerHTML=`
+      <div class="pattern-rank-badge ${rankClass}">${rankLabel}</div>
+      <div class="pattern-name">${info.icon} ${info.name}</div>
+      <div class="pattern-pct">${p.pct}%</div>
+      <div class="pattern-bar-wrap"><div class="pattern-bar-fill" style="background:${info.color};width:0%" data-target="${p.pct}"></div></div>
+      <div class="pattern-interp"><em style="color:${info.color};font-style:normal;font-size:12px">${info.tagline}</em>
+        <p style="margin-top:6px">${info.explanation}</p>
+        <div class="pattern-interp-title">Возможные механизмы</div>
+        ${info.mechanisms.map(m=>`<span class="pattern-tag">${m}</span>`).join('')}
+        <div class="pattern-interp-title">Связь со сном</div>
+        <p>${info.sleep}</p>
+        <div class="pattern-interp-title">Связь с ЖКТ</div>
+        <p>${info.gut}</p>
+        <div class="pattern-interp-title">С чего начать</div>
+        <ul class="pattern-recs">${recItems}</ul>
+        <div class="pattern-interp-title">Что может помочь в диагностике</div>
+        <p>${recs.tests.join(' · ')}</p>
+      </div>
+      <span class="pattern-toggle" onclick="togglePattern(this)">${isFirst?'Свернуть ↑':'Подробнее ↓'}</span>
+    `;
+    container.appendChild(card);
+  });
+
+  // Анимация баров
+  setTimeout(()=>{
+    container.querySelectorAll('.pattern-bar-fill').forEach(b=>{
+      b.style.width=b.dataset.target+'%';
+    });
+  },500);
+}
+
+function togglePattern(btn){
+  const card=btn.closest('.pattern-card');
+  const collapsed=card.classList.toggle('pattern-collapsed');
+  btn.textContent=collapsed?'Подробнее ↓':'Свернуть ↑';
+}
 function buildOpts(container, maxV, answerObj, qId, isDass) {
   const words = isDass ? DASS_WORDS : P1_WORDS;
   for(let v=0;v<=maxV;v++){
@@ -599,7 +907,7 @@ function vld(step){
     if(screen){
       screen.querySelectorAll('.q-block').forEach(qb=>{
         const qId=qb.dataset.q;
-        const ansObj=(step>=10)?DA:A;
+        const ansObj=(step>=10&&step<=12)?DA:(step===13)?NA:A;
         if(ansObj[qId]===undefined){
           ok=false;
           qb.style.outline='2px solid rgba(168,64,64,0.35)';
@@ -645,8 +953,11 @@ function calcAndShow(){
 
   const levelLabel=pct<0.20?'Минимальный':pct<0.40?'Умеренный':pct<0.60?'Значительный':pct<0.78?'Высокий':'Критический';
 
+  const neuroPatterns=calcNeuroPatterns();
+
   renderResults(totalScore,maxScore,pct,catScores,flags,dass,levelLabel);
-  sendData(totalScore,maxScore,Math.round(pct*100),levelLabel,catScores,flags,dass);
+  renderNeuroPatterns(neuroPatterns);
+  sendData(totalScore,maxScore,Math.round(pct*100),levelLabel,catScores,flags,dass,neuroPatterns);
 }
 
 function renderResults(score,max,pct,catScores,flags,dass,levelLabel){
@@ -695,7 +1006,10 @@ function renderResults(score,max,pct,catScores,flags,dass,levelLabel){
   }
 }
 
-function sendData(totalScore,maxScore,percent,level,catScores,flags,dass){
+function sendData(totalScore,maxScore,percent,level,catScores,flags,dass,neuroPatterns){
+  const neuroTop3=neuroPatterns?neuroPatterns.slice(0,3).map(p=>({
+    key:p.key,name:NEURO_PATTERNS[p.key]?.name||p.key,pct:p.pct
+  })):[];
   const payload={
     questionnaire_type:'stress',
     client_name:document.getElementById('f-name').value.trim(),
@@ -705,8 +1019,13 @@ function sendData(totalScore,maxScore,percent,level,catScores,flags,dass){
     catScores,
     red_flags:flags.length>0?flags.join('; '):'нет',
     dass,
+    neuro_pattern_1:neuroTop3[0]?`${neuroTop3[0].name} (${neuroTop3[0].pct}%)`:'',
+    neuro_pattern_2:neuroTop3[1]?`${neuroTop3[1].name} (${neuroTop3[1].pct}%)`:'',
+    neuro_pattern_3:neuroTop3[2]?`${neuroTop3[2].name} (${neuroTop3[2].pct}%)`:'',
+    neuro_scores_json:JSON.stringify(neuroTop3),
     answers_json:JSON.stringify(A),
     dass_answers_json:JSON.stringify(DA),
+    neuro_answers_json:JSON.stringify(NA),
   };
   fetch(SHEETS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)})
     .then(()=>{
@@ -726,7 +1045,7 @@ function sendData(totalScore,maxScore,percent,level,catScores,flags,dass){
 }
 
 function sub(){
-  if(!vld(12))return;
+  if(!vld(13))return;
   document.getElementById('overlay').classList.add('active');
   calcAndShow();
 }
@@ -748,6 +1067,8 @@ function init(){
   buildBlock('block-s10',DASS_DEP,DA,true);
   buildBlock('block-s11',DASS_ANX,DA,true);
   buildBlock('block-s12',DASS_STR,DA,true);
+  // Нейро — кнопки в существующие блоки (NA передаётся как answerObj)
+  buildBlock('block-s13',null,NA,false);
   updateProgress(1);
 }
 document.addEventListener('DOMContentLoaded',init);
