@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Два домашних теста · Dr. Diana Demeshko</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --sage:    #5C7A6B;
+    --sage-lt: #EBF2EE;
+    --cream:   #FAF8F4;
+    --ink:     #1E2620;
+    --muted:   #6B7570;
+    --warn:    #C0622C;
+    --warn-lt: #FDF0EA;
+    --ok:      #3E7054;
+    --ok-lt:   #EAF4EE;
+    --divider: #DDE6E1;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 32px 64px;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 48px;
+    gap: 24px;
+  }
+  .header-text {}
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 8px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+  .header-note {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 10px;
+    max-width: 400px;
+  }
+  .logo-area {
+    flex-shrink: 0;
+    text-align: right;
+  }
+  .logo-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    color: var(--sage);
+    white-space: nowrap;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--divider);
+    margin: 40px 0;
+  }
+
+  /* Test card */
+  .test-card {
+    background: #fff;
+    border: 1px solid var(--divider);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+
+  .test-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 24px 28px 20px;
+    border-bottom: 1px solid var(--divider);
+  }
+  .test-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--sage-lt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .test-title-block {}
+  .test-num {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 3px;
+  }
+  .test-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .test-subtitle {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .test-body {
+    padding: 24px 28px 28px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 12px;
+  }
+
+  /* Steps */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .step-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--sage);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-text {
+    font-size: 14.5px;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  .step-text strong {
+    font-weight: 600;
+  }
+
+  /* Result grid */
+  .result-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .result-row {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 16px;
+    border-radius: 10px;
+    border-left: 3px solid transparent;
+  }
+  .result-row.ok {
+    background: var(--ok-lt);
+    border-left-color: var(--ok);
+  }
+  .result-row.warn {
+    background: var(--warn-lt);
+    border-left-color: var(--warn);
+  }
+  .result-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .result-content {}
+  .result-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 3px;
+  }
+  .result-desc {
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  .result-row.ok .result-title { color: var(--ok); }
+  .result-row.warn .result-title { color: var(--warn); }
+
+  /* Visual diagram */
+  .diagram {
+    margin: 20px 0 28px;
+    padding: 20px;
+    background: var(--sage-lt);
+    border-radius: 12px;
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .glass-visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .glass-label {
+    font-size: 12px;
+    color: var(--sage);
+    font-weight: 500;
+    text-align: center;
+  }
+  .glass-svg {
+    width: 70px;
+  }
+  .diagram-legend {
+    flex: 1;
+    min-width: 180px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .legend-dot.ok-dot { background: var(--ok); }
+  .legend-dot.warn-dot { background: var(--warn); }
+
+  /* Timing badge */
+  .timing-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--sage-lt);
+    border: 1px solid var(--divider);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 12.5px;
+    color: var(--sage);
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  /* Important callout */
+  .callout {
+    background: #FFF9F0;
+    border: 1px solid #F0D9BA;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 13.5px;
+    color: #7A5A2E;
+    line-height: 1.6;
+    margin-top: 20px;
+  }
+  .callout strong { color: #6B4A20; }
+
+  /* Soda test specifics */
+  .acid-scale {
+    display: flex;
+    gap: 8px;
+    margin: 16px 0 24px;
+    flex-wrap: wrap;
+  }
+  .acid-item {
+    flex: 1;
+    min-width: 100px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  .acid-item .time {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: block;
+  }
+  .acid-item .meaning {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  .acid-item.high { background: #FDECEA; color: #B94040; }
+  .acid-item.norm { background: var(--ok-lt); color: var(--ok); }
+  .acid-item.low { background: #FDF0EA; color: var(--warn); }
+  .acid-item.very-low { background: #FEF5E7; color: #9A6520; }
+
+  /* Footer */
+  .footer {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--divider);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    color: var(--sage);
+  }
+  .footer-note {
+    font-size: 12px;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  @media print {
+    body { background: #fff; }
+    .page { padding: 24px; }
+    .test-card { break-inside: avoid; }
+  }
+
+  @media (max-width: 480px) {
+    .page { padding: 24px 16px 48px; }
+    .header { flex-direction: column; }
+    .logo-area { text-align: left; }
+    .diagram { flex-direction: column; }
+    .acid-scale { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-text">
+      <div class="eyebrow">Диагностика дома</div>
+      <h1>Два простых теста<br>до нашей встречи</h1>
+      <p class="header-note">Выполни оба теста утром, до еды и до чистки зубов. Запиши или сфотографируй результат — обсудим вместе.</p>
+    </div>
+    <div class="logo-area">
+      <div class="logo-name">Dr. Diana Demeshko</div>
+    </div>
+  </div>
+
+  <!-- TEST 1: Candida -->
+  <div class="test-card">
+    <div class="test-header">
+      <div class="test-icon">💧</div>
+      <div class="test-title-block">
+        <div class="test-num">Тест 1</div>
+        <div class="test-title">Тест со слюной</div>
+        <div class="test-subtitle">Косвенная проверка на разрастание Candida</div>
+      </div>
+    </div>
+
+    <div class="test-body">
+      <div class="timing-note">⏰ Сразу после пробуждения · до еды · до чистки зубов</div>
+
+      <div class="section-label">Как делать</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-text">Поставь стакан с чистой холодной водой с вечера — или с утра, пока ещё не вставал(а) с кровати.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Сразу после пробуждения</strong> — прежде чем пить, есть или чистить зубы — наберди немного слюны во рту и <strong>сплюнь на поверхность воды</strong>.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-text">Подожди <strong>15–30 минут</strong>. Наблюдай что происходит со слюной в стакане.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-text">Запиши или сфотографируй результат.</div>
+        </div>
+      </div>
+
+      <!-- Diagram -->
+      <div class="diagram">
+        <div class="glass-visual">
+          <svg class="glass-svg" viewBox="0 0 70 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- glass outline -->
+            <path d="M10 8 L60 8 L54 82 L16 82 Z" fill="#D9EEF4" stroke="#5C7A6B" stroke-width="2" stroke-linejoin="round"/>
+            <!-- water fill -->
+            <path d="M12 20 L58 20 L53 80 L17 80 Z" fill="#C5E2EE" opacity="0.5"/>
+            <!-- saliva top (ok state: floating) -->
+            <ellipse cx="35" cy="16" rx="18" ry="5" fill="#5C7A6B" opacity="0.25"/>
+          </svg>
+          <div class="glass-label">Норма — слюна<br>плавает сверху</div>
+        </div>
+
+        <div class="diagram-legend">
+          <div class="legend-item">
+            <div class="legend-dot ok-dot"></div>
+            <span>Слюна остаётся на поверхности — хороший знак</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot warn-dot"></div>
+            <span>Нити вниз — возможный рост Candida</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot warn-dot"></div>
+            <span>Взвешенные частицы в воде</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot warn-dot"></div>
+            <span>Слюна тонет на дно</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label">Как читать результат</div>
+      <div class="result-grid">
+        <div class="result-row ok">
+          <div class="result-icon">✅</div>
+          <div class="result-content">
+            <div class="result-title">Слюна плавает — чистая, не тянется</div>
+            <div class="result-desc">Признаков избыточного роста Candida нет. Среда в норме.</div>
+          </div>
+        </div>
+        <div class="result-row warn">
+          <div class="result-icon">⚠️</div>
+          <div class="result-content">
+            <div class="result-title">Нити, тянущиеся вниз («ножки»)</div>
+            <div class="result-desc">Один из признаков возможного кандидоза. Важно сочетать с симптомами и анализами.</div>
+          </div>
+        </div>
+        <div class="result-row warn">
+          <div class="result-icon">⚠️</div>
+          <div class="result-content">
+            <div class="result-title">Взвешенные частицы в воде</div>
+            <div class="result-desc">Мутные точки, плавающие в толще воды — тоже сигнал для внимания.</div>
+          </div>
+        </div>
+        <div class="result-row warn">
+          <div class="result-icon">⚠️</div>
+          <div class="result-content">
+            <div class="result-title">Слюна тонет на дно</div>
+            <div class="result-desc">Самый выраженный сигнал — слюна полностью опускается.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Важно:</strong> этот тест — ориентировочный, не диагностический. Он чувствительный, но не специфичный: многие факторы (густая слюна, пересохший рот, обезвоживание) могут дать ложный результат. Результат мы всегда оцениваем в контексте твоих симптомов и анализов.
+      </div>
+    </div>
+  </div>
+
+  <!-- TEST 2: Soda / Acid -->
+  <div class="test-card">
+    <div class="test-header">
+      <div class="test-icon">🧪</div>
+      <div class="test-title-block">
+        <div class="test-num">Тест 2</div>
+        <div class="test-title">Тест с содой</div>
+        <div class="test-subtitle">Оценка кислотности желудка</div>
+      </div>
+    </div>
+
+    <div class="test-body">
+      <div class="timing-note">⏰ Утром · натощак · сразу после пробуждения</div>
+
+      <div class="section-label">Как делать</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-text">Сразу после пробуждения, <strong>до еды и питья</strong>, растори <strong>¼ чайной ложки пищевой соды</strong> в <strong>150–200 мл холодной воды</strong>.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Выпей залпом</strong> — именно так, не маленькими глотками.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-text">Засеки время и <strong>жди отрыжки</strong>. Обрати внимание — через сколько минут она появится (или не появится совсем).</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-text">Запиши точное время до первой отрыжки.</div>
+        </div>
+      </div>
+
+      <div class="section-label">Шкала результатов — когда появилась отрыжка</div>
+      <div class="acid-scale">
+        <div class="acid-item high">
+          <span class="time">до 2 мин</span>
+          <div class="meaning">Кислотность<br><strong>повышена</strong></div>
+        </div>
+        <div class="acid-item norm">
+          <span class="time">2–3 мин</span>
+          <div class="meaning">Кислотность<br><strong>в норме</strong></div>
+        </div>
+        <div class="acid-item low">
+          <span class="time">3–5 мин</span>
+          <div class="meaning">Кислотность<br><strong>снижена</strong></div>
+        </div>
+        <div class="acid-item very-low">
+          <span class="time">5+ мин<br>или нет</span>
+          <div class="meaning">Кислотность<br><strong>значительно снижена</strong></div>
+        </div>
+      </div>
+
+      <div class="section-label">Как это работает</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num" style="background: var(--muted)">?</div>
+          <div class="step-text">Сода (NaHCO₃) при контакте с соляной кислотой желудка выделяет <strong>CO₂</strong> — это и есть отрыжка. Чем кислее среда, тем быстрее реакция. Если кислоты мало — реакция медленная или слабая.</div>
+        </div>
+      </div>
+
+      <div class="section-label">Что значит каждый результат</div>
+      <div class="result-grid">
+        <div class="result-row warn">
+          <div class="result-icon">🔴</div>
+          <div class="result-content">
+            <div class="result-title">Отрыжка до 2 минут — кислотность высокая</div>
+            <div class="result-desc">Может быть связано с рефлюксом, гастритом с повышенной секрецией, стрессом. Важно уточнить с симптомами.</div>
+          </div>
+        </div>
+        <div class="result-row ok">
+          <div class="result-icon">🟢</div>
+          <div class="result-content">
+            <div class="result-title">Отрыжка через 2–3 минуты — норма</div>
+            <div class="result-desc">Желудочная кислота в рабочем диапазоне. Пищеварение запускается правильно.</div>
+          </div>
+        </div>
+        <div class="result-row warn">
+          <div class="result-icon">🟡</div>
+          <div class="result-content">
+            <div class="result-title">Отрыжка через 3–5 минут — кислотность снижена</div>
+            <div class="result-desc">Гипохлоргидрия — частая причина вздутия, тяжести после еды, плохого усвоения белка и минералов.</div>
+          </div>
+        </div>
+        <div class="result-row warn">
+          <div class="result-icon">🔴</div>
+          <div class="result-content">
+            <div class="result-title">Отрыжки нет или она после 5 минут</div>
+            <div class="result-desc">Выраженная гипохлоргидрия или ахлоргидрия. Требует лабораторного подтверждения и клинического разбора.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Важно:</strong> тест ориентировочный, не заменяет гастроскопию или pH-метрию. На результат влияют: скорость питья, количество слюны, положение тела, приём антацидов или ИПП. Не отменяй препараты для теста без согласования со мной. Результат + твои симптомы = полная картина.
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-brand">Dr. Diana Demeshko<br><span style="font-family: Inter, sans-serif; font-size: 12px; color: var(--muted); font-style: normal;">Интегративная превентивная медицина</span></div>
+    <div class="footer-note">Оба теста — утром, натощак<br>Результаты обсудим на встрече</div>
+  </div>
+
+</div>
+</body>
+</html>
